@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: gh-pages | BEFOOL blog]]></title>
+  <link href="http://befool-inc.github.io/blog/categories/gh-pages/atom.xml" rel="self"/>
+  <link href="http://befool-inc.github.io/"/>
+  <updated>2013-05-01T01:21:00+09:00</updated>
+  <id>http://befool-inc.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[test octopress author box]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/01/test-octopress-author-box/"/>
+    <updated>2013-05-01T01:18:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/01/test-octopress-author-box</id>
+    <content type="html"><![CDATA[<h1>Octopressに寄稿者の情報を表示する</h1>
+
+<p>テストだお</p>
+]]></content>
+  </entry>
+  
+</feed>

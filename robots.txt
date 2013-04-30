@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://befool-inc.github.io/sitemap.xml 
