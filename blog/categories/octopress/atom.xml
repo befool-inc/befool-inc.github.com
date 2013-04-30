@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-05-01T02:41:52+09:00</updated>
+  <updated>2013-05-01T04:54:59+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,6 +12,143 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressへの投稿環境の作り方]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/01/how-to-make-post-environment/"/>
+    <updated>2013-05-01T03:02:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/01/how-to-make-post-environment</id>
+    <content type="html"><![CDATA[<h2>前置き</h2>
+
+<p>このエントリーは、Octopressのセットアップに関する記事ではありません。<br/>
+Octopressを共同編集するにあたっての、個人環境構築に関する記事になります。</p>
+
+<h2>準備作業</h2>
+
+<h3>ruby 1.9.3以上のインストール</h3>
+
+<p><code>bash
+$ ruby --version
+ruby 1.9.3p374 (2013-01-15 revision 38858) [x86_64-darwin12.2.1]
+</code></p>
+
+<p>もしバージョンが低かったり「no such command」とか言われちゃう場合は、この際なのでrbenvを導入しちゃいましょう。</p>
+
+<p>```bash</p>
+
+<h1>まずはrbenvのインストール</h1>
+
+<p>$ brew install rbenv ruby-build
+$ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+$ echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+$ source ~/.bashrc</p>
+
+<h1>1.9.3p374をインストール</h1>
+
+<p>$ rbenv install 1.9.3p374
+```</p>
+
+<h3>windowsの人は</h3>
+
+<p>cygwinでもインストールしてみて！</p>
+
+<h2>Octopress環境を構築しよう</h2>
+
+<h3>「befool-inc/befool-inc.github.com.git」のclone</h3>
+
+<p><code>bash
+$ cd path/to/workspace
+$ git clone git@github.com:befool-inc/befool-inc.github.com.git
+$ cd befool-inc.github.com
+$ git checkout -b source remotes/origin/source
+</code></p>
+
+<h3>依存ライブラリの取得</h3>
+
+<p><code>bash
+$ gem install bundler
+$ bundle install
+</code></p>
+
+<h3>rakeタスクの確認</h3>
+
+<p>Octopressのrakeタスクが一覧されるか試してみましょう。</p>
+
+<p><code>bash
+$ rake -T
+rake clean                     # Clean out caches: .pygments-cache, .gist-cache, .sass-cache
+rake copydot[source,dest]      # copy dot files for deployment
+rake deploy                    # Default deploy task
+rake gen_deploy                # Generate website and deploy
+rake generate                  # Generate jekyll site
+rake install[theme]            # Initial setup for Octopress: copies the default theme into the path of Jekyll's generator.
+rake integrate                 # Move all stashed posts back into the posts directory, ready for site generation.
+rake isolate[filename]         # Move all other posts than the one currently being worked on to a temporary stash location (stash) so regenerating the site happens much more quickly.
+rake list                      # list tasks
+rake new_page[filename]        # Create a new page in source/(filename)/index.markdown
+rake new_post[title]           # Begin a new post in source/_posts
+rake preview                   # preview the site in a web browser
+rake push                      # deploy public directory to github pages
+rake rsync                     # Deploy website via rsync
+rake set_root_dir[dir]         # Update configurations to support publishing to root or sub directory
+rake setup_github_pages[repo]  # Set up _deploy folder and deploy branch for Github Pages deployment
+rake update_source[theme]      # Move source to source.old, install source theme updates, replace source/_includes/navigation.html with source.old's navigation
+rake update_style[theme]       # Move sass to sass.old, install sass theme updates, replace sass/custom with sass.old/custom
+rake watch                     # Watch the site and regenerate when it changes
+</code></p>
+
+<p>こんな感じで表示されればOKだ。</p>
+
+<h2>記事を書いてみる</h2>
+
+<h3>箱形の作成</h3>
+
+<p>まずは記事を書くための箱形の作成を行います。</p>
+
+<p><code>bash
+$ rake new_post['foo bar zoo']
+mkdir -p source/_posts
+Creating new post: source/_posts/2013-05-01-foo-bar-zoo.markdown
+</code></p>
+
+<h3>markdownの編集</h3>
+
+<p>markdown形式で記事を書きます</p>
+
+<p><code>bash
+$ vi source/_posts/2013-05-01-foo-bar-zoo.markdown
+</code></p>
+
+<h3>プレビュー</h3>
+
+<p>Octopressではローカルで記事のプレビューが可能です。</p>
+
+<p>```bash</p>
+
+<h1>公開用ファイル群を生成</h1>
+
+<p>$ rake generate</p>
+
+<h1>プレビュー</h1>
+
+<p>$ rake preview
+```</p>
+
+<p>WEBブラウザを開いて、「<a href="http://localhost:4000/">http://localhost:4000/</a>」へアクセスしてみてください。<br/>
+表示されましたか？</p>
+
+<h2>デプロイ</h2>
+
+<p>当たり前の話ではありますが、ローカルで記事を書いただけではWEB上に公開されません。<br/>
+Octopressはgithubへのコミットまで面倒を見てくれます。</p>
+
+<p><code>bash
+$ rake deploy
+</code></p>
+
+<p>これで、記事がWEBに公開されました！おめでとう！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[test octopress author box]]></title>
