@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[BEFOOL blog]]></title>
+  <link href="http://befool-inc.github.io/atom.xml" rel="self"/>
+  <link href="http://befool-inc.github.io/"/>
+  <updated>2013-05-01T01:51:08+09:00</updated>
+  <id>http://befool-inc.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[test octopress author box]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/01/test-octopress-author-box/"/>
+    <updated>2013-05-01T01:18:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/01/test-octopress-author-box</id>
+    <content type="html"><![CDATA[<h1>Octopressに寄稿者の情報を表示する</h1>
+
+<p>テストだお</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic">
+		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="KIUCHI Satoshi-no-suke" />
+	</div>
+	
+	<div class="author-about">
+		<h3>KIUCHI Satoshi-no-suke</h3>
+		<p>ｼｬｯﾁｮｰ</p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+]]></content>
+  </entry>
+  
+</feed>
