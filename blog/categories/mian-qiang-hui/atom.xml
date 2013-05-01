@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 勉強会 | BEFOOL blog]]></title>
+  <link href="http://befool-inc.github.io/blog/categories/mian-qiang-hui/atom.xml" rel="self"/>
+  <link href="http://befool-inc.github.io/"/>
+  <updated>2013-05-02T03:06:40+09:00</updated>
+  <id>http://befool-inc.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第二回 「画像を使ってみる」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/01/unity-study-02-use-image/"/>
+    <updated>2013-05-01T23:55:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/01/unity-study-02-use-image</id>
+    <content type="html"><![CDATA[<h2>なにはともあれプロジェクトの作成</h2>
+
+<p>File > New Project<br/>
+を選択して、プロジェクトの作成。<br/>
+常に、まずはここからです。<br/>
+<strong>Import the following the packages</strong> に関しては今のところ空のままでいいでしょう。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/NewProject.png" alt="New Project" /></p>
+
+<h2>漢は黙ってドラッグ＆ドロップ</h2>
+
+<p>まだ第二回ということで、右も左も分からない赤子同然。
+画像の挿入に関しても「ドラッグ＆ドロップでいけるでしょ？」と完全に相手ををなめきっている模様。</p>
+
+<p>「<strong>おれのミンカフォルダが火を噴くぜ！</strong>」</p>
+
+<p>と言わんばかりに光の速度でFinderを開き、お気に入りの画像をドラッグ＆ドロップ！</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/DragAndDropToStage.png" alt="Drag &amp; Drop" /></p>
+
+<p>(´・ω・｀)<br/>
+「Scene」へ直接はダメだったけど、なんか「Assets」には入った。</p>
+
+<p>分かった。AssetsからはSceneに投げ込めるんだな！天才か。自分は。自分で自分が怖くなるぜ…。誰か俺を止めてくれ。<br/>
+など、ブツブツ意味不明な供述をしながらAssetsからドラッグして、Sceneへドロップ！</p>
+
+<p>だめでした(´・ω・｀)</p>
+
+<p>もしかしたらUnityにはドラッグ＆ドロップという概念がないのかもしれないですね！（そんなばかな）</p>
+
+<h2>GUI Textureなにするものぞ</h2>
+
+<p>Google先生に聞いてみると、「GUI Texture」なるものがあるらしい。<br/>
+見るからに2D画像を扱いそうな名前をしている！これに違いない。</p>
+
+<p>GameObject > Create Other > GUI Texture</p>
+
+<p>を選択してオブジェクトを追加。<br/>
+すると、「UnityWatermark-small」なるものがHierarchyに追加された。クリックすると、ステージ上でカメラとは別のオブジェクトが選択されたように見える。
+これは、もしかして…？と思い「Game」タブをクリックしてみると…。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/AddImageUnity.png" alt="Unity画像" /></p>
+
+<p>表示されてる！だけど漂う「キミジャナイ」感。<br/>
+そう、私はミンカの画像を表示させたいのである。<br/>
+Inspector上で、画像の参照を、先ほどAssetsに追加されたミンカ画像を選択、っと。<br/>
+同じくInspector上で、サイズ、配置などをチョコチョコッと修正、っと。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/AddImageMinka.png" alt="ミンカ画像" /></p>
+
+<p>できた！というわけで今日はここまで。<br/>
+次回は、サウンドの挿入をやってみたいと思います。</p>
+
+<h2>SEGAがDIVAの筐体をくれちゃったりしないかな</h2>
+
+<p>SEGAさん！どうか弊社にDIVAの筐体を支給してください！|ω・`）ﾁﾗｯ</p>
+
+<h2>ミンカが結婚を前提にお付き合いしてくれないかな</h2>
+
+<p>ミンカさん、僕と結婚してください！|ω・`）ﾁﾗｯ</p>
+]]></content>
+  </entry>
+  
+</feed>

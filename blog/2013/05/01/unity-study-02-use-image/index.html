@@ -5,11 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>test octopress author box - BEFOOL blog</title>
+  <title>Unity勉強 第二回 「画像を使ってみる」 - BEFOOL blog</title>
   <meta name="author" content="Your Name">
 
   
-  <meta name="description" content="Octopressに寄稿者の情報を表示する テストだお 木内智史之介 ｼｬｯﾁｮｰ @grateful_dead 生まれる時代をまちがえた ">
+  <meta name="description" content="なにはともあれプロジェクトの作成 File > New Project
+を選択して、プロジェクトの作成。
+常に、まずはここからです。
+Import the following the packages に関しては今のところ空のままでいいでしょう。 漢は黙ってドラッグ＆ドロップ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/05/01/test-octopress-author-box">
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/05/01/unity-study-02-use-image">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="BEFOOL blog" type="application/atom+xml">
@@ -80,7 +83,7 @@
   
   <header>
     
-      <h1 class="entry-title">Test Octopress Author Box</h1>
+      <h1 class="entry-title">Unity勉強 第二回 「画像を使ってみる」</h1>
     
     
       <p class="meta">
@@ -96,7 +99,7 @@
   
 
 
-<time datetime="2013-05-01T01:18:00+09:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
+<time datetime="2013-05-01T23:55:00+09:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -105,9 +108,66 @@
   </header>
 
 
-<div class="entry-content"><h1>Octopressに寄稿者の情報を表示する</h1>
+<div class="entry-content"><h2>なにはともあれプロジェクトの作成</h2>
 
-<p>テストだお</p>
+<p>File > New Project<br/>
+を選択して、プロジェクトの作成。<br/>
+常に、まずはここからです。<br/>
+<strong>Import the following the packages</strong> に関しては今のところ空のままでいいでしょう。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/NewProject.png" alt="New Project" /></p>
+
+<h2>漢は黙ってドラッグ＆ドロップ</h2>
+
+<p>まだ第二回ということで、右も左も分からない赤子同然。
+画像の挿入に関しても「ドラッグ＆ドロップでいけるでしょ？」と完全に相手ををなめきっている模様。</p>
+
+<p>「<strong>おれのミンカフォルダが火を噴くぜ！</strong>」</p>
+
+<p>と言わんばかりに光の速度でFinderを開き、お気に入りの画像をドラッグ＆ドロップ！</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/DragAndDropToStage.png" alt="Drag &amp; Drop" /></p>
+
+<p>(´・ω・｀)<br/>
+「Scene」へ直接はダメだったけど、なんか「Assets」には入った。</p>
+
+<p>分かった。AssetsからはSceneに投げ込めるんだな！天才か。自分は。自分で自分が怖くなるぜ…。誰か俺を止めてくれ。<br/>
+など、ブツブツ意味不明な供述をしながらAssetsからドラッグして、Sceneへドロップ！</p>
+
+<p>だめでした(´・ω・｀)</p>
+
+<p>もしかしたらUnityにはドラッグ＆ドロップという概念がないのかもしれないですね！（そんなばかな）</p>
+
+<h2>GUI Textureなにするものぞ</h2>
+
+<p>Google先生に聞いてみると、「GUI Texture」なるものがあるらしい。<br/>
+見るからに2D画像を扱いそうな名前をしている！これに違いない。</p>
+
+<p>GameObject > Create Other > GUI Texture</p>
+
+<p>を選択してオブジェクトを追加。<br/>
+すると、「UnityWatermark-small」なるものがHierarchyに追加された。クリックすると、ステージ上でカメラとは別のオブジェクトが選択されたように見える。
+これは、もしかして…？と思い「Game」タブをクリックしてみると…。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/AddImageUnity.png" alt="Unity画像" /></p>
+
+<p>表示されてる！だけど漂う「キミジャナイ」感。<br/>
+そう、私はミンカの画像を表示させたいのである。<br/>
+Inspector上で、画像の参照を、先ほどAssetsに追加されたミンカ画像を選択、っと。<br/>
+同じくInspector上で、サイズ、配置などをチョコチョコッと修正、っと。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/AddImageMinka.png" alt="ミンカ画像" /></p>
+
+<p>できた！というわけで今日はここまで。<br/>
+次回は、サウンドの挿入をやってみたいと思います。</p>
+
+<h2>SEGAがDIVAの筐体をくれちゃったりしないかな</h2>
+
+<p>SEGAさん！どうか弊社にDIVAの筐体を支給してください！|ω・`）ﾁﾗｯ</p>
+
+<h2>ミンカが結婚を前提にお付き合いしてくれないかな</h2>
+
+<p>ミンカさん、僕と結婚してください！|ω・`）ﾁﾗｯ</p>
 <div class='octopress-authorbox'>
 	<div class="author-pic">
 		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
@@ -152,12 +212,12 @@
   
 
 
-<time datetime="2013-05-01T01:18:00+09:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
+<time datetime="2013-05-01T23:55:00+09:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/gh-pages/'>gh-pages</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a>
+    <a class='category' href='/blog/categories/unity/'>unity</a>, <a class='category' href='/blog/categories/mian-qiang-hui/'>勉強会</a>
   
 </span>
 
@@ -166,7 +226,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/05/01/test-octopress-author-box/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/05/01/test-octopress-author-box/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/05/01/unity-study-02-use-image/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/05/01/unity-study-02-use-image/" >Tweet</a>
   
 
   <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
@@ -184,8 +244,8 @@
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2013/05/01/how-to-make-post-environment/" title="Previous Post: Octopressへの投稿環境の作り方">&laquo; Octopressへの投稿環境の作り方</a>
       
-        <a class="basic-alignment right" href="/blog/2013/05/01/how-to-make-post-environment/" title="Next Post: Octopressへの投稿環境の作り方">Octopressへの投稿環境の作り方 &raquo;</a>
       
     </p>
   </footer>
@@ -243,8 +303,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/05/01/test-octopress-author-box/';
-        var disqus_url = 'http://befool-inc.github.io/blog/2013/05/01/test-octopress-author-box/';
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/05/01/unity-study-02-use-image/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/05/01/unity-study-02-use-image/';
         var disqus_script = 'embed.js';
       
     (function () {

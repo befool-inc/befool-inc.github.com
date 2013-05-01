@@ -9,11 +9,10 @@
   <meta name="author" content="Your Name">
 
   
-  <meta name="description" content="前置き このエントリーは、Octopressのセットアップに関する記事ではありません。
-Octopressを共同編集するにあたっての、個人環境構築に関する記事になります。 準備作業 ruby 1.9.3以上のインストール 1
-2
-$ ruby --version
-ruby 1.9.3p374 ( &hellip;">
+  <meta name="description" content="なにはともあれプロジェクトの作成 File > New Project
+を選択して、プロジェクトの作成。
+常に、まずはここからです。
+Import the following the packages に関しては今のところ空のままでいいでしょう。 漢は黙ってドラッグ＆ドロップ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +80,125 @@ ruby 1.9.3p374 ( &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/01/unity-study-02-use-image/">Unity勉強 第二回 「画像を使ってみる」</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-01T23:55:00+09:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/01/unity-study-02-use-image/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>なにはともあれプロジェクトの作成</h2>
+
+<p>File > New Project<br/>
+を選択して、プロジェクトの作成。<br/>
+常に、まずはここからです。<br/>
+<strong>Import the following the packages</strong> に関しては今のところ空のままでいいでしょう。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/NewProject.png" alt="New Project" /></p>
+
+<h2>漢は黙ってドラッグ＆ドロップ</h2>
+
+<p>まだ第二回ということで、右も左も分からない赤子同然。
+画像の挿入に関しても「ドラッグ＆ドロップでいけるでしょ？」と完全に相手ををなめきっている模様。</p>
+
+<p>「<strong>おれのミンカフォルダが火を噴くぜ！</strong>」</p>
+
+<p>と言わんばかりに光の速度でFinderを開き、お気に入りの画像をドラッグ＆ドロップ！</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/DragAndDropToStage.png" alt="Drag &amp; Drop" /></p>
+
+<p>(´・ω・｀)<br/>
+「Scene」へ直接はダメだったけど、なんか「Assets」には入った。</p>
+
+<p>分かった。AssetsからはSceneに投げ込めるんだな！天才か。自分は。自分で自分が怖くなるぜ…。誰か俺を止めてくれ。<br/>
+など、ブツブツ意味不明な供述をしながらAssetsからドラッグして、Sceneへドロップ！</p>
+
+<p>だめでした(´・ω・｀)</p>
+
+<p>もしかしたらUnityにはドラッグ＆ドロップという概念がないのかもしれないですね！（そんなばかな）</p>
+
+<h2>GUI Textureなにするものぞ</h2>
+
+<p>Google先生に聞いてみると、「GUI Texture」なるものがあるらしい。<br/>
+見るからに2D画像を扱いそうな名前をしている！これに違いない。</p>
+
+<p>GameObject > Create Other > GUI Texture</p>
+
+<p>を選択してオブジェクトを追加。<br/>
+すると、「UnityWatermark-small」なるものがHierarchyに追加された。クリックすると、ステージ上でカメラとは別のオブジェクトが選択されたように見える。
+これは、もしかして…？と思い「Game」タブをクリックしてみると…。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/AddImageUnity.png" alt="Unity画像" /></p>
+
+<p>表示されてる！だけど漂う「キミジャナイ」感。<br/>
+そう、私はミンカの画像を表示させたいのである。<br/>
+Inspector上で、画像の参照を、先ほどAssetsに追加されたミンカ画像を選択、っと。<br/>
+同じくInspector上で、サイズ、配置などをチョコチョコッと修正、っと。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/AddImageMinka.png" alt="ミンカ画像" /></p>
+
+<p>できた！というわけで今日はここまで。<br/>
+次回は、サウンドの挿入をやってみたいと思います。</p>
+
+<h2>SEGAがDIVAの筐体をくれちゃったりしないかな</h2>
+
+<p>SEGAさん！どうか弊社にDIVAの筐体を支給してください！|ω・`）ﾁﾗｯ</p>
+
+<h2>ミンカが結婚を前提にお付き合いしてくれないかな</h2>
+
+<p>ミンカさん、僕と結婚してください！|ω・`）ﾁﾗｯ</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic">
+		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
+	</div>
+	
+	<div class="author-about">
+		<h3>木内智史之介</h3>
+		<p>ｼｬｯﾁｮｰ</p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -383,6 +501,10 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/01/unity-study-02-use-image/">Unity勉強 第二回 「画像を使ってみる」</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/05/01/how-to-make-post-environment/">Octopressへの投稿環境の作り方</a>
