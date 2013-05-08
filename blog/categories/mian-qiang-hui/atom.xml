@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 勉強会 | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/mian-qiang-hui/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-05-02T03:06:40+09:00</updated>
+  <updated>2013-05-09T01:49:19+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -71,13 +71,64 @@ Inspector上で、画像の参照を、先ほどAssetsに追加されたミン�
 <p>できた！というわけで今日はここまで。<br/>
 次回は、サウンドの挿入をやってみたいと思います。</p>
 
-<h2>SEGAがDIVAの筐体をくれちゃったりしないかな</h2>
-
-<p>SEGAさん！どうか弊社にDIVAの筐体を支給してください！|ω・`）ﾁﾗｯ</p>
-
 <h2>ミンカが結婚を前提にお付き合いしてくれないかな</h2>
 
 <p>ミンカさん、僕と結婚してください！|ω・`）ﾁﾗｯ</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第1回 「Hello World」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/04/30/unity-study-01-hello-world/"/>
+    <updated>2013-04-30T13:21:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/04/30/unity-study-01-hello-world</id>
+    <content type="html"><![CDATA[<h2>Unityとは？</h2>
+
+<p>iPhoneアプリの開発とか、Androidアプリの開発だとかで、
+やれObjective-Cだとか、やれJAVAだとか、そういった言語の習得が必須なわけですね。<br/>
+エンジニアとしては、できればそれぞれそのネイティブな言語でアプリを開発したい気持ちが強いのですが、そうも言ってられない事情もありまして…。</p>
+
+<p>開発環境の構築、言語の習得、ノウハウの蓄積など、様々なコストがあり、
+「iPhoneでもAndroidでもアプリを出すんだい！」というプロジェクトの場合、
+それらのコストが「2倍になります」という状況は、非常にツライものがあります。<br/>
+特別めんどくさがり屋さんでなくとも、一つ作れば、それがiPhoneでも動くし、Androidでも動く、というのが理想なわけです。</p>
+
+<p>それを実現してくれるのが「Unity」なのです。</p>
+
+<h2>プロジェクトを作成する</h2>
+
+<p>さあさあとりあえずいじってみよう、というわけで、みんな大好き「Hello World」行ってみようと思います。</p>
+
+<p>File > New Project<br/>
+を選択して、プロジェクトの作成。<br/>
+<strong>Import the following the packages</strong> は今のところよく分からないので空で。</p>
+
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/NewProject.png" alt="New Project" /></p>
+
+<h2>「Hello World」を表示する</h2>
+
+<p>ググってみると、みなさん、<strong>debug.log('hello world.')</strong>のように、コンソール上に出力しているようですが、
+やはりユーザー目線で何かしらの表示させたいのが正直なところでしょう。</p>
+
+<p>何かないかなーとメニューを漁っていると、「<strong>3D Text</strong>」なるものを発見！これか？！</p>
+
+<p>GameObject > CreateOther > 3D Text</p>
+
+<p>選択してみると…、おっ。なんか画面上に配置された。しかも、既に「Hello World」ってなってる！</p>
+
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/CreateObject.png" alt="New Project" /></p>
+
+<p>憎い…この気の利かせ方が憎いでござる…！</p>
+
+<p>なんかこれで「できました」っていうのも癪なので、めくらめっぽにあっちいじったり、こっちいじったりしながら作成したのがこちらのHelloWorldです。</p>
+
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/HelloWorld.png" alt="New Project" /></p>
+
+<p>よし。「枠に収まらない漢」というアピールができました！</p>
+
+<h2>次回の予定</h2>
+
+<p>次回は画像の表示を行いたいと思います。</p>
 ]]></content>
   </entry>
   
