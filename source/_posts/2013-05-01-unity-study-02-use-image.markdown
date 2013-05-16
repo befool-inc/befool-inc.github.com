@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Unity勉強 第二回 「画像を使ってみる」"
+title: "Unity勉強 第2回 「画像を使ってみる」"
 date: 2013-05-01 23:55
 comments: true
 categories: unity 勉強会
