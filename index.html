@@ -9,10 +9,9 @@
   <meta name="author" content="Your Name">
 
   
-  <meta name="description" content="なにはともあれプロジェクトの作成 File > New Project
-を選択して、プロジェクトの作成。
-常に、まずはここからです。
-Import the following the packages に関しては今のところ空のままでいいでしょう。 漢は黙ってドラッグ＆ドロップ &hellip;">
+  <meta name="description" content="前回までのおさらい おさらう程積み重ねがあるわけではありませんが、一応。
+Hello World、画像を置いてみる、など本当にさわりだけを進めている感じで、今回はよし音楽でもおいちゃうぞーといった、そういう感じです。
+アジカンとかのmp3をさくっとおいて、iPhoneから流しちゃって、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,7 +85,135 @@ Import the following the packages に関しては今のところ空のままで�
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/01/unity-study-02-use-image/">Unity勉強 第二回 「画像を使ってみる」</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/05/16/unity-study-03-use-sound/">Unity勉強 第3回 「サウンドを流してみる」</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-16T20:43:00+09:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/16/unity-study-03-use-sound/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>前回までのおさらい</h2>
+
+<p>おさらう程積み重ねがあるわけではありませんが、一応。<br/>
+Hello World、画像を置いてみる、など本当にさわりだけを進めている感じで、今回はよし音楽でもおいちゃうぞーといった、そういう感じです。<br/>
+アジカンとかのmp3をさくっとおいて、iPhoneから流しちゃって、かわいい女の子からきゃーきゃー言われたいです。
+間違っても、初音ミクの「ストロボナイツ」とか、鏡音リンの「メランコリック」とか置いちゃだめですよ！女の子からどん引きされてしまいます！</p>
+
+<h2>まずは音楽の調達</h2>
+
+<p>さーて、大好きなこの曲を、youtubeあたりから落としてきます。</p>
+
+<iframe width="420" height="315" src="http://www.youtube.com/embed/qWWlFdiT8b4" frameborder="0" allowfullscreen></iframe>
+
+
+<p>くっ…違うんだ、僕よ、違うぞ…アジカンを選ぶんだ！<br/>
+アジカンを選んで、もて路線を進むんだ！<br/>
+サカナクションでも大丈夫だよ…。</p>
+
+<p>うう…だめだ…、僕はミクさんを裏切れない(´；ω；`)ﾌﾞﾜｯ</p>
+
+<h2>懲りずにドラッグ&amp;ドロップしてみる</h2>
+
+<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/drag_and_drop_sound.png" alt="ドラッグ&amp;ドロップ" /></p>
+
+<p>ステージに直接、というのは無理で、やはりassetsに投げ込む、という形になりました。</p>
+
+<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/inspector_sound.png" alt="インスペクター" />
+インスペクターをなんとなく確認してみた。
+今のところさっぱりですね！</p>
+
+<h2>これを再生させたい</h2>
+
+<p>というわけで、いつも通り「GameObject > Create Other」の中を確認してみる。<br/>
+が、ない。それっぽいメニューがない。<br/>
+「Audio Reverb Zone」というのがあるけど、僕の直感が「こいつは違う…」と言っている。</p>
+
+<p>さて、どうするかな。</p>
+
+<p>もうよく分からないので「GameObject > Create Empty」で空のオブジェクトを追加してやりました。</p>
+
+<p>inspectorタブの中に「add component」というのがあり、それをクリックすると、「audio > audio source」というメニューがあるじゃないか！</p>
+
+<p>「これだな…」</p>
+
+<p>と僕のゴーストがささやいた。</p>
+
+<p>秒速でそれを選択し、同じくinspector内に追加された「audio clip」の項目をクリック。先ほど追加した初音ミクサウンドを選択！</p>
+
+<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/add_sound_component.png" alt="サウンド追加" /></p>
+
+<p>おお！<br/>
+それっぽい画面になっているじゃないですかー。</p>
+
+<p>プレビュー再生ボタンを押して確認してみる。</p>
+
+<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/preview.png" alt="プレビュー" /></p>
+
+<p>再生されている…！！！（画像じゃわからないけど）</p>
+
+<h2>次回の課題</h2>
+
+<p>画像も置いた、サウンドも再生できた、あれ、これもうゲーム作れるんじゃない？と調子に乗っております。<br/>
+次回は、ちょこーっとだけプログラム的なことができたらと思っています。<br/>
+そうだ、じゃあ、こんなのはどうでしょう？</p>
+
+<p>「画像をクリックしたら、音楽が再生される」</p>
+
+<p>これだ！
+次回へつづく。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic">
+		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
+	</div>
+	
+	<div class="author-about">
+		<h3>木内智史之介</h3>
+		<p>ｼｬｯﾁｮｰ</p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/01/unity-study-02-use-image/">Unity勉強 第2回 「画像を使ってみる」</a></h1>
     
     
       <p class="meta">
@@ -605,7 +732,11 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/05/01/unity-study-02-use-image/">Unity勉強 第二回 「画像を使ってみる」</a>
+        <a href="/blog/2013/05/16/unity-study-03-use-sound/">Unity勉強 第3回 「サウンドを流してみる」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/01/unity-study-02-use-image/">Unity勉強 第2回 「画像を使ってみる」</a>
       </li>
     
       <li class="post">
