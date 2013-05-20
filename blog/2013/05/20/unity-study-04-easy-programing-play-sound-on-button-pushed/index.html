@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Unity勉強 第4回 「簡単なプログラムをやってみる：ボタンを押したら音楽を再生」 - BEFOOL blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="前回までのおさらい＆今日の目標 どうもみなさん。おはようございます。初音ミクとミンカが三度の飯より大好きな智史之介です。
+今日も今日とてUnityの勉強をおこないたいと思います。
+前回は「サウンドを鳴らす」というテーマでやりましたが、今回はそれに簡単なプログラミングをつけてみたいと思います。 フー &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="BEFOOL blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40545969-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEFOOL blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:befool-inc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Unity勉強 第4回 「簡単なプログラムをやってみる：ボタンを押したら音楽を再生」</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-20T20:58:00+09:00" pubdate data-updated="true">May 20<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>前回までのおさらい＆今日の目標</h2>
+
+<p>どうもみなさん。おはようございます。初音ミクとミンカが三度の飯より大好きな智史之介です。
+今日も今日とてUnityの勉強をおこないたいと思います。<br/>
+前回は「サウンドを鳴らす」というテーマでやりましたが、今回はそれに簡単なプログラミングをつけてみたいと思います。</p>
+
+<p>フー！プログラマの腕が鳴るというものです。</p>
+
+<h2>音楽の調達</h2>
+
+<p>今日こそ、モテ路線です。レミオロメンとか、ガリレオガリレイとかビシーッと選んでやろうじゃないの、ということで選んだのがこれです。
+ババーン。</p>
+
+<iframe width="420" height="315" src="http://www.youtube.com/embed/1dB8in_QRrw" frameborder="0" allowfullscreen></iframe>
+
+
+<p>いいんです。これでいいんです！(川平風)<br/>
+ありのままの姿でモテてこそ、真のモテ男子でしょう。</p>
+
+<p>DLしてきたMP3をさくっとassetsに追加します。</p>
+
+<h2>スクリプトの追加</h2>
+
+<p>そろそろ何か参考書でも買えよ、っていう感じですが、やはり手探りで進めてこそオツというものでしょう。
+ググって済ませるのがよく訓練された職業プログラマの正しい姿勢ではないでしょうか。</p>
+
+<p>なにかそれっぽいメニューはないかなーと探していたら、ありました。</p>
+
+<p>Assets > Create</p>
+
+<p>の中に、</p>
+
+<ul>
+<li>Javascript</li>
+<li>C# Script</li>
+<li>Boo Script</li>
+</ul>
+
+
+<p>などなど、それっぽいのがあるではありませんか。（Boo Scriptってなんだ？）<br/>
+どれでもいけるのかな？<br/>
+そしたら、とりあえずは慣れ親しんでいる「Javascript」を選びたいと思います。ファイル名は当たり障りのない感じで「main.js」とでもしておきました。</p>
+
+<h2>MonoDevelop</h2>
+
+<p>main.jsのinspectorに、「open」なんてボタンがあるものだからついつい押してしまったら、なんと組み込みのエディターみたいなものが立ち上がるじゃないですか！<br/>
+内心「うぜーーー」と思いつつも、Unity初心者の域を出ない僕としては贅沢は言ってられません。vim上に開発環境を置く作業はUnity中級になってからにします。</p>
+
+<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/monodevelop.png" alt="MonoDevelop" /></p>
+
+<p>さて。<br/>
+コーディングを始めましょうか。</p>
+
+<h2>なにをすればよいのやら</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="err">#</span><span class="nx">pragma</span> <span class="nx">strict</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">Start</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">Update</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>main.js内にはデフォルトでこのような記述がされています。<br/>
+「function Start」は、シーンの開始時、あるいはアタッチされたオブジェクトのロード時に実行されるのかな？<br/>
+「function Update」は、シーンの描画時（再描画含む）にでも実行されるのかな？<br/>
+などと適当な想像を膨らませつつ、「じゃあ、ボタンを押した時のスクリプトはどうすればいいんじゃい！」と突っ込みます。<br/>
+ActionScriptで言うところの、ムービークリップに記述するonPressにあたる処理ですね。
+イメージとしては、まずこのjsファイルを、特定のオブジェクトにアタッチ的な何かをする必要性がありそうです。</p>
+
+<h2>適当なオブジェクトを追加</h2>
+
+<p>というわけで、main.jsのアタッチ先にするために、何か適当にオブジェクトを画面上に配置してみることにします。<br/>
+僕は「GUI Text」をチョイスしました。テキストの中身は「ボタン」。プログラマらしい、実に的確に表現された文言です。</p>
+
+<p>Hierarhy上のGUI Textに、ものは試しだとドラッグ＆ドロップでmain.jsを投げ込んでみました。
+すると…、</p>
+
+<blockquote><p><strong>Can&#8217;t add script</strong><br/>
+Can&#8217;t add script behavior main.js. The scripts file name does not match the name of class defined in the script!</p></blockquote>
+
+<p>怒られました。<br/>
+勉強第4回目にしてやる内容じゃねえよ、出直してきな！と言われているような気がして、急に冷や汗が出てきました。</p>
+
+<p>大丈夫。大丈夫さ…。君はやれる。いつだって困難を乗り越えてきたじゃないか。</p>
+
+<p>と自分を励ましてみる。</p>
+
+<p>ああ、そうさ。我が名は智史之介。日本を代表するエンジニアになる漢(おとこ)さ…。</p>
+
+<h2>inspectorからのcomponentの追加</h2>
+
+<p>何度ドラッグ＆ドロップしても当然状況は改善しないので、別の方法を試してみることにしました。<br/>
+「GUI Text」をクリックして、inspectorウインドウから「add component」をクリック。<br/>
+なんとそこに「New script」の文字列が…！あるではないか、あるではないかとテンションが上がるのを抑えつつ、scriptを追加（言語はJavascriptを選択）。
+おお、なんか、追加されたっぽい！</p>
+
+<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/inspector.add.script.png" alt="スクリプトをアタッチ" /></p>
+
+<h2>scriptの編集</h2>
+
+<p>先ほどの操作で、スクリプトとGameObjectの関連づけに成功しているはず。
+なので、あとは「クリックされたとき」というイベントに処理を記述すればおｋ、ということになります。</p>
+
+<p>一生懸命ググった結果、下記のようなコードを追加してみました。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">OnMouseUpAsButton</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">Debug</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="s2">&quot;pressed!!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>そして、プレビューして、無我夢中でクリック！！すると…、</p>
+
+<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/preview.onpress.png" alt="onPressイベント" /></p>
+
+<p>できてるよママ！</p>
+
+<h2>さあ、あとはサウンドを再生すればいいだけ</h2>
+
+<p>もうすっかりドラッグ＆ドロップがくせになってしまっている僕は、assets内のサウンドファイルを、hierarhy上のGUI Textに投げ込んでみたら、なんかあっさり追加された。<br/>
+このままだと、開始時に即サウンドがなってしまうので、inspector上の「Play On Awake」のチェックを外しておきました。<br/>
+これを、プログラムで再生トリガーを引きたいのですぞ！</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">sound</span> <span class="o">:</span> <span class="nx">AudioClip</span><span class="p">;</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">OnMouseUpAsButton</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">Debug</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="s2">&quot;pressed!!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">audio</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ググりつつ、「こう書けばいいのだろうか？」という感じに適当に書いてみる。
+複数のサウンドがアタッチされるケースだってあるし、これだとどのサウンドを鳴らせばいいのか全然わからないなー、Unity先生もお困りになるだろう、
+なんて考えつつ、プレビューしてみる。そして「ボタン」をクリックしてみる。
+すると…、</p>
+
+<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/preview.sound.png" alt="onPressイベントでサウンド鳴った" /></p>
+
+<p>鳴った…！ボタンを押したらサウンドが再生され始めました。<br/>
+へへっ。ちょろいもんだぜ☆</p>
+
+<p>細かい疑問は色々とあるけれど、そのうち色々分かるでしょう、という甘い期待をしつつ今日はここまで〜！</p>
+
+<h2>次回に向けて</h2>
+
+<p>次回は、そうですね、、、なにげに今回のテーマが重たくてすっかりビクついてしまった僕は、「アニメーションGIFって扱えるの？」という少し軽めの（と思われる）テーマで行きたいと思います。
+よろしくお願いします！</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>木内智史之介</h3>
+        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">8823-scholar</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-20T20:58:00+09:00" pubdate data-updated="true">May 20<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/unity/'>unity</a>, <a class='category' href='/blog/categories/mian-qiang/'>勉強</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed/" >Tweet</a>
+  
+
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+  
+
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+  
+    <div class="fb-comments" data-href="http://befool-inc.github.io" data-num-posts="2" data-width="689"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/16/unity-study-03-use-sound/" title="Previous Post: Unity勉強 第3回 「サウンドを流してみる」">&laquo; Unity勉強 第3回 「サウンドを流してみる」</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed/">Unity勉強 第4回 「簡単なプログラムをやってみる：ボタンを押したら音楽を再生」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/16/unity-study-03-use-sound/">Unity勉強 第3回 「サウンドを流してみる」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/01/unity-study-02-use-image/">Unity勉強 第2回 「画像を使ってみる」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/01/how-to-make-post-environment/">Octopressへの投稿環境の作り方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/01/test-octopress-author-box/">test octopress author box</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'befoolblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
