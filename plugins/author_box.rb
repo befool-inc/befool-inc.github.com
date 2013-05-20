@@ -12,6 +12,8 @@ module Jekyll
     end
     
     def render_content(author)
+      author['description'] = author['description'].gsub(/\r\n|\r|\n/, "<br />")
+
       @template = Liquid::Template.parse(File.read(File.expand_path('../../source/_layouts/author.html', __FILE__)))
       html = @template.render( 'author' => author, 'gravatar' => get_gravatar(author['email']))
     end
