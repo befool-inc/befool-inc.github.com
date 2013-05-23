@@ -3,7 +3,7 @@ layout: post
 title: "Unity勉強 第1回 「Hello World」"
 date: 2013-04-30 13:21
 comments: true
-categories: unity, 勉強会
+categories: unity 勉強会
 author: 8823-scholar
 ---
 
