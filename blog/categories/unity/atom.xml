@@ -4,7 +4,7 @@
   <title><![CDATA[Category: unity | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/unity/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-05-21T04:13:15+09:00</updated>
+  <updated>2013-05-23T13:52:48+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,6 +12,164 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第5回 「アニメーションgifって使えるの？」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/22/unity-study-05-enable-animated-gif/"/>
+    <updated>2013-05-22T21:05:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/22/unity-study-05-enable-animated-gif</id>
+    <content type="html"><![CDATA[<h2>前回までのおさらい＆今回の目標</h2>
+
+<p>前回は、「ボタンを押したらサウンドを鳴らす」というテーマに挑み、情報の少なさに辟易しながらも、匍匐前進でなんとか目標を達成しました。
+本日は、「アニメーションgifって使えるの？」をテーマに進行したいと思います。</p>
+
+<h2>画像の選出</h2>
+
+<p>まずは組み込むためのアニメーションgif探しからです。<br/>
+オシャレ男子であれば、ここで颯爽と「ゴッホ」だとか「ゴーギャン」だとか拾ってくるところですが、僕のようなオタク男子ではやはりこういう結果にあいなります。</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/miku.gif" alt="ミクさん" /></p>
+
+<p>ブヒヒヒィィィィィ！<br/>
+ミクさんかわいいよ、ぺろぺろ。</p>
+
+<p>落としてきたgifファイルはassetsに投げ込んでおきます。</p>
+
+<h2>初音ミクは動かない</h2>
+
+<p>さて、assetsに追加したミクさんgifを、ステージに配置したいので、</p>
+
+<p>GameObject > Create Other > GUI Texture</p>
+
+<p>を選択。なんかデフォルトでミクさんgifが選択されていましたが、もし選択されない場合はinspectorのtextureメニューでミクさんgifを選択してあげてください。</p>
+
+<p>Unity先生であれば、もうこれでミクさんを動かしてくれてるんでしょ？もうかっこよすぎ☆なんて思ってプレビューしてみると…、</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/preiew.first.png" alt="初音ミクは動かない" /></p>
+
+<p>動かない、だと…。<br/>
+ミクさんは止まったままです。一向に動いてくれる気配がありません。</p>
+
+<p>「やれやれだぜ…」</p>
+
+<p>Unity先生も万能じゃないのね、と失望半分、かわいさ半分の気持ちを織り交ぜつつ、今回も大変な回になりそうだぜ、という予感がざわざわと立ち上ぼり始めました。</p>
+
+<h2>どうしてアニメーションgifは使えないのか？</h2>
+
+<p><a href="http://forum.unity3d.com/threads/27873-animated-gif-is-not-working">animated gif is not working</a></p>
+
+<p>この質問に回答しているEric5h5さんが言うには、</p>
+
+<blockquote><p>Unity doesn't have any support for animated gifs. It's a terrible format anyway; use a series of textures instead.<br/>
+(智史之介訳：Unityはアニメーションgifをサポートしていないよ！あれはひどい形式をしてやがるんだよ…。代わりにtextureを使ってくれよな！)</p></blockquote>
+
+<p>まじかー。そんなこと言わずにサポートしてくださいおねがいします(ｽﾞｻﾞｰ</p>
+
+<p>しかたがないので、textureでやってみようと思います。</p>
+
+<h2>アニメーションgifを分割してみる</h2>
+
+<p>アニメーションgifを分解するのに「ImageMagick」を用いました。</p>
+
+<p><code>bash
+$ convert +adjoin -coalesce miku.gif miku-notanimated.gif
+$ ls -1
+miku-notanimated-0.gif
+miku-notanimated-1.gif
+miku-notanimated-2.gif
+miku-notanimated-3.gif
+miku-notanimated-4.gif
+miku-notanimated-5.gif
+miku-notanimated-6.gif
+miku-notanimated-7.gif
+miku-notanimated-8.gif
+miku-notanimated-9.gif
+</code></p>
+
+<p>うん、おｋっぽいですね。</p>
+
+<h2>箱形の作成</h2>
+
+<p>これらの画像を表示するための箱形を用意しましょう。
+僕は「GUITexture」を選びました。</p>
+
+<p>GameObject > Create Other > GUI Texture</p>
+
+<p>で、シーンに配置します。
+デフォルトのtextureには、「miku-notanimated-0.gif」を選択し、pixel insetに関しても調整しておきます。</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.add.guitexture.png" alt="GUI Texture追加" /></p>
+
+<h2>ミクさん画像を切り替えるためのスクリプトを追加</h2>
+
+<p>Assets > Create > Javascript</p>
+
+<p>で、スクリプトを作成します。名前は「miku」とでもしておきます。
+そしてそれを先ほど作成した「GUI Texture」にドラッグ＆ドロップでアタッチ！</p>
+
+<p>inspector上で、「miku(script)」が追加されていればおｋです。</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.add.script.png" alt="script追加" /></p>
+
+<p>さあ、ここらが本番です。<br/>
+今追加したスクリプトでやりたいことは、「textureを一定時間毎に切り替えていく」という処理です。</p>
+
+<p>スクリプトはこんな感じになると思います。</p>
+
+<p><a href="http://answers.unity3d.com/questions/13156/animated-gif-as-a-texture-on-iphone.html">Animated Gif(Unity Answers)</a>
+を参考にしました。<br/>
+はい、コピペって言わない！</p>
+
+<p>```javascript</p>
+
+<h1>pragma strict</h1>
+
+<p>var frames : Texture2D[];
+var framesPerSecond = 10.0;</p>
+
+<p>function Start () {</p>
+
+<p>}</p>
+
+<p>function Update () {</p>
+
+<pre><code>var index : int = Time.time * framesPerSecond;
+index = index % frames.Length;
+guiTexture.texture = frames[index];
+</code></pre>
+
+<p>}
+```</p>
+
+<p>ただ、ここで即プレビューしてもうまく動きません。当たり前の話ですが「frames」として定義された配列に、何もデータが入っていないためです。
+この配列にデータをぶち込むにはどうしたらよいのでしょうか？<br/>
+答えは「inspector上で追加する」でした。</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.frames.size0.png" alt="size0" /></p>
+
+<p>この「size」プロパティに「10」をぶち込んでください。すると…</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.frames.size10.png" alt="size10" /></p>
+
+<p>おおおお！textureを指定できる覧が出てきたぞ！これはかなりの感動ものです。<br/>
+プログラマ的には、ソース上で定義したデータ箱にGUI上からサイズの指定を行う、というフローになかなか感覚がついていかないので、
+時間があるときにでもソース上からsizeを指定する方法を探してみます。ひとまず今日はこのまま進むぜ！</p>
+
+<p>あとは、簡単です。出てきたtextureの指定欄の一つ一つに、分解されたgifを当て込んでいきます。<br/>
+それでプレビューすると…</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/preview.animated.png" alt="アニメーションしてる" /></p>
+
+<p>動いてるーーーーー！（画像じゃ分からないけど）</p>
+
+<p>まあいいだろう。ミッションコンプリートだ！</p>
+
+<h2>次回に向けて</h2>
+
+<p>Unityがとんでもない発表をしてくれました。Unityのモバイル向け機能を完全無償化するというのです。
+早速試そう！ということで、次回は「iPhone用にビルド」、いってみたいと思います！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Unity勉強 第4回 「簡単なプログラムをやってみる：ボタンを押したら音楽を再生」]]></title>
@@ -312,6 +470,61 @@ Inspector上で、画像の参照を、先ほどAssetsに追加されたミン�
 <h2>ミンカが結婚を前提にお付き合いしてくれないかな</h2>
 
 <p>ミンカさん、僕と結婚してください！|ω・`）ﾁﾗｯ</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第1回 「Hello World」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/04/30/unity-study-01-hello-world/"/>
+    <updated>2013-04-30T13:21:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/04/30/unity-study-01-hello-world</id>
+    <content type="html"><![CDATA[<h2>Unityとは？</h2>
+
+<p>iPhoneアプリの開発とか、Androidアプリの開発だとかで、
+やれObjective-Cだとか、やれJAVAだとか、そういった言語の習得が必須なわけですね。<br/>
+エンジニアとしては、できればそれぞれそのネイティブな言語でアプリを開発したい気持ちが強いのですが、そうも言ってられない事情もありまして…。</p>
+
+<p>開発環境の構築、言語の習得、ノウハウの蓄積など、様々なコストがあり、
+「iPhoneでもAndroidでもアプリを出すんだい！」というプロジェクトの場合、
+それらのコストが「2倍になります」という状況は、非常にツライものがあります。<br/>
+特別めんどくさがり屋さんでなくとも、一つ作れば、それがiPhoneでも動くし、Androidでも動く、というのが理想なわけです。</p>
+
+<p>それを実現してくれるのが「Unity」なのです。</p>
+
+<h2>プロジェクトを作成する</h2>
+
+<p>さあさあとりあえずいじってみよう、というわけで、みんな大好き「Hello World」行ってみようと思います。</p>
+
+<p>File > New Project<br/>
+を選択して、プロジェクトの作成。<br/>
+<strong>Import the following the packages</strong> は今のところよく分からないので空で。</p>
+
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/NewProject.png" alt="New Project" /></p>
+
+<h2>「Hello World」を表示する</h2>
+
+<p>ググってみると、みなさん、<strong>debug.log('hello world.')</strong>のように、コンソール上に出力しているようですが、
+やはりユーザー目線で何かしらの表示させたいのが正直なところでしょう。</p>
+
+<p>何かないかなーとメニューを漁っていると、「<strong>3D Text</strong>」なるものを発見！これか？！</p>
+
+<p>GameObject > CreateOther > 3D Text</p>
+
+<p>選択してみると…、おっ。なんか画面上に配置された。しかも、既に「Hello World」ってなってる！</p>
+
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/CreateObject.png" alt="New Project" /></p>
+
+<p>憎い…この気の利かせ方が憎いでござる…！</p>
+
+<p>なんかこれで「できました」っていうのも癪なので、めくらめっぽにあっちいじったり、こっちいじったりしながら作成したのがこちらのHelloWorldです。</p>
+
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/HelloWorld.png" alt="New Project" /></p>
+
+<p>よし。「枠に収まらない漢」というアピールができました！</p>
+
+<h2>次回の予定</h2>
+
+<p>次回は画像の表示を行いたいと思います。</p>
 ]]></content>
   </entry>
   
