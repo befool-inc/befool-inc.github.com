@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 勉強 | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/mian-qiang/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-05-24T03:01:01+09:00</updated>
+  <updated>2013-05-30T03:03:28+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,6 +12,147 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第7回 「Android向けのビルドも試してみる」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/29/unity-study-07-build-for-android/"/>
+    <updated>2013-05-29T21:24:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/29/unity-study-07-build-for-android</id>
+    <content type="html"><![CDATA[<h2>前回のおさらい＆今日の目標</h2>
+
+<p>おはようございます。深田恭子ともっとも結婚したい漢(おとこ)、智史之介です。<br/>
+今日も今日とて、unity勉強をおこないたいと思います。</p>
+
+<p>さて、前回は<a href="/blog/2013/05/23/unity-study-06-build-for-ios/">無償化されたiOS向けのビルド</a>を試しました。<br/>
+今日はその流れで「Android向けのビルド」も試してみたいと思います。</p>
+
+<h2>前回のプロジェクトをコピー</h2>
+
+<p>今回もさくっと前回のプロジェクトをコピーしてしまいましょう。</p>
+
+<h2>Build Settingsはとにかくデフォ</h2>
+
+<p>前回にならって「File > Build Settings」で項目をざらっと眺めてみたのですが、どうもどれもこれもデフォでいけそうな雰囲気です(甘い期待)。<br/>
+ものは試しということで、とくにどの設定も気にかけないでいこうと思います</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/settings.png" alt="デフォ！" /></p>
+
+<h2>Android SDKのインストール＆設定</h2>
+
+<p>iOSは、パブリッシュに関してXcode＋SDKのインストール＆設定が必須でした。<br/>
+Androidには似たようなものはないの？ということですが、それが「Android SDK」になります。</p>
+
+<p><a href="http://developer.android.com/sdk/index.html">Android SDK</a></p>
+
+<p>ダウンロードしてインスコします。<br/>
+インストールにあたって、Unityのドキュメントを軽く眺めておくとよいかもしれないですね。</p>
+
+<p><a href="http://docs-jp.unity3d.com/Documentation/Manual/android-sdksetup.html">Unity Manual - Android SDK セットアップ</a></p>
+
+<p><code>bash
+$ /path/to/android-sdk/tools/android
+</code></p>
+
+<p>とコマンドを打つと、android sdkに関するツールが立ち上がるので、</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/android-sdk.png" alt="こんなかんじ" /></p>
+
+<p>こんな感じで入れておけばいいんじゃないでしょうか？（適当）</p>
+
+<h3>Unity Preferencesも忘れずに</h3>
+
+<p>Unity > Preferences（Cmd+,）で設定画面を開き、「External Tools」を選択すると、中にAndroid SDKのパスに関する項目があります。<br/>
+めんどくさいですが設定しましょう。</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/preferences.png" alt="こんなかんじ" /></p>
+
+<h2>さあ、ビルドぜよ！</h2>
+
+<p>Build Settings > build</p>
+
+<p>でビルドを開始してください。ビルドが無事完了すると、Finderが開く…あれ、開かない。<br/>
+iOSでは開いたのに！もしかして、ビルド失敗したかな？と思って、保存先を確認してみると…、ない！
+やっぱりビルドに失敗しているようだ。</p>
+
+<p>Consoleにエラーがでている。なになに。</p>
+
+<blockquote><p>Error building Player: Exception: android (invokation failed)
+ERROR: unknown error
+cmd:android list target -c
+stdout: Error: occurred during initialization of VM Could not reserve enough space for object heap
+stderr: Error: Could not create the Java Virtual Machine. Error: A fatal exception has occurred. Program will exit.</p></blockquote>
+
+<p>脊髄反射でググってみる。</p>
+
+<p><a href="http://answers.unity3d.com/questions/399121/error-building-player-exception-android-invokation.html">Error building Player: Exception: android (invokation failed) ERROR: unknown error</a></p>
+
+<blockquote><p>Also you can downgrade the tools version to r21 by installing:</p></blockquote>
+
+<p>ダウングレードしてみたら、と言っている。ふむ。そういえば、さっきアップグレードしちゃった…。<br/>
+というわけでダウングレードします。</p>
+
+<p><a href="http://dl.google.com/android/android-sdk_r21-macosx.zip">Android SDK rev21</a></p>
+
+<p>DL＆解凍したら、toolsを上書きしちゃってください。そして再度「platform-tools」もインストールし直してください。
+これでダウングレード完了です。</p>
+
+<h2>改めて、ビルドぜよ！</h2>
+
+<p>さあ、もうこれでいけるでしょう。</p>
+
+<p>Build Settings > build</p>
+
+<p>さあ、どうなるかな！</p>
+
+<p>(ビルド中…)<br/>
+(mac機がものすごい勢いでファンを回しているぜ…)</p>
+
+<p>終わった！Finderでビルド先のディレクトリが開いた。<br/>
+ファイル名は「android.apk」。<br/>
+ひねりのない命名で申し訳ない気持ちでいっぱいです。</p>
+
+<p>このapkファイルを下記のコマンドで端末に転送します。</p>
+
+<p>```bash
+$ /path/to/android-sdk/platform-tools/adb start-server</p>
+
+<h1>ここでandroid端末をUSBで接続</h1>
+
+<p>$ /path/to/android-sdk/platform-tools/adb devices
+List of devices attached
+015d8ecf9927f410    device
+$ /path/to/android-sdk/platform-tools/adb install -r 07.Build4Android/android.apk
+1280 KB/s (8335911 bytes in 6.355s)</p>
+
+<pre><code>pkg: /data/local/tmp/android.apk
+</code></pre>
+
+<p>Success
+```</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/android.installed.png" alt="インストール成功" /></p>
+
+<p>入ってる！
+起動も問題なさそうです。</p>
+
+<p>よし、いいでしょう！</p>
+
+<h2>今回の反省</h2>
+
+<ul>
+<li>迂闊に、android-sdkのアップデートはしない</li>
+</ul>
+
+
+<p>ちょっとはまりました…。</p>
+
+<h2>次回に向けて</h2>
+
+<p>iOSとAndroid向けのビルドも成功しました。一歩一歩確実に進んでいけているような気がして、非常に嬉しいです。<br/>
+次の課題は「シーンとシーンの切り替え」を試してみようと思います！<br/>
+それではまた。シーユー！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Unity勉強 第6回 「ついに！無償化された、build for iOS を試してみる」]]></title>
