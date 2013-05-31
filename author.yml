@@ -1,3 +1,8 @@
+default:
+    name: 匿名希望
+    email: blog@befool.co.jp
+    description: |
+        今日もBEFOOLは元気いっぱいです
 8823-scholar:
     name: 木内智史之介
     twitter: grateful_dead
