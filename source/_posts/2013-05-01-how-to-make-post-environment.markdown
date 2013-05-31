@@ -32,7 +32,7 @@ $ echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 $ source ~/.bashrc
 
 # 1.9.3p374をインストール
-$ rbenv install 1.9.3p374
+$ rbenv install 1.9.3-p374
 ```
 
 ### windowsの人は
@@ -48,7 +48,7 @@ cygwinでもインストールしてみて！
 $ cd path/to/workspace
 $ git clone git@github.com:befool-inc/befool-inc.github.com.git
 $ cd befool-inc.github.com
-$ git checkout -b source remotes/origin/source
+$ git checkout -b source origin/source
 ```
 
 ### 依存ライブラリの取得
