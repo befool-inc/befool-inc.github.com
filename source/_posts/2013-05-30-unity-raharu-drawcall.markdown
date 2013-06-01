@@ -4,7 +4,7 @@ title: "【Unity 入門】DrawCallが多かった原因"
 date: 2013-05-31 21:36
 comments: true
 categories: unity 勉強 入門
-author: 8823-scholar
+author: raharu
 ---
 
 初めまして、技術部raharuです。  
