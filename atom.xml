@@ -4,7 +4,7 @@
   <title><![CDATA[BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-06-04T11:36:12+09:00</updated>
+  <updated>2013-06-04T11:41:22+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -12,30 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[text post]]></title>
-    <link href="http://befool-inc.github.io/blog/2013/06/04/text-post/"/>
-    <updated>2013-06-04T11:34:00+09:00</updated>
-    <id>http://befool-inc.github.io/blog/2013/06/04/text-post</id>
-    <content type="html"><![CDATA[<p>投稿できないらしい。
-なんでじゃろ。</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/8d629035ddb501f142c390ea8990aad2" alt="匿名希望" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>匿名希望</h3>
-        <p>今日もBEFOOLは元気いっぱいです<br /></p>
-		<ul class="author-links">
-			
-			
-		</ul>
-	</div>
-</div>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Unity勉強 第7回 「Android向けのビルドも試してみる」]]></title>
