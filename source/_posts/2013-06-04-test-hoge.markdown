@@ -1,0 +1,11 @@
+---
+layout: post
+title: "test hoge"
+date: 2013-06-04 11:44
+comments: true
+categories: 
+author: default
+---
+
+へむへむ
+
