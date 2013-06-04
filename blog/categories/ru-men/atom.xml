@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 入門 | BEFOOL blog]]></title>
+  <link href="http://befool-inc.github.io/blog/categories/ru-men/atom.xml" rel="self"/>
+  <link href="http://befool-inc.github.io/"/>
+  <updated>2013-06-04T12:48:56+09:00</updated>
+  <id>http://befool-inc.github.io/</id>
+  <author>
+    <name><![CDATA[8823-scholar]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[【Unity 入門】DrawCallが多かった原因]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall/"/>
+    <updated>2013-05-31T21:36:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall</id>
+    <content type="html"><![CDATA[<p>初めまして、技術部raharuです。<br/>
+今回は前にUnityを勉強していた際に気づいた事を一つ。</p>
+
+<p>とりあえず動くものを作る事を目標に今までつくってみましたが<br/>
+他の方の記事をみていたらDrawCallなる物がFPSおよび負荷に多大な影響を与えているとのこと。<br/>
+自分のつくった物を見てみたらなんと最大値160！これはちょっと多すぎる。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/1.png" alt="New Project" /></p>
+
+<p>基準としてはスマホも対応させるなら40が程度に押さえるのが良いそうです。<br/>
+で、なにかこんなにDrawCallを増やしているのかしらべてみました。<br/>
+色々調べた結果遂に原因がわかりました。原因は<strong>ライト</strong>です。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/2.png" alt="New Project" /></p>
+
+<p>今回プレイヤーの周りだけを明るくする為に追尾カメラにPointLightを入れていたのですが、<br/>
+このライトが壁のプレハブを照らすのが良くない様です。<br/>
+ライトが照らす壁やオブジェクトが多いとDrawCallが多くなってしまうのでしょうか。<br/>
+これは予想ですが、照らされている場所と暗い場所は別にCallしてるのかもしれません（どなたかわかる方教えてください。）<br/>
+兎にも角にもこのライトが原因だったのでこのpointLightをやめて全体を照らすDirectional Lightにしてみました。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/3.png" alt="New Project" /></p>
+
+<p><strong>その結果最大値９！</strong></p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/4.png" alt="New Project" /></p>
+
+<p>そんなに違うんですか！そうですか！<br/>
+もしかしたらUnityユーザーの方達の間では当たり前の事なのかもしれませんが、<br/>
+劇的に値が違ったので備忘録として残しておきます。<br/>
+DrawCallライトには気をつけろ。<br/>
+肝に命じておく事にします。</p>
+
+<p>本家は<a href="http://d.hatena.ne.jp/raharu0425/20130131#1359645274">とあるプログラマの備忘録</a>こっち</p>
+]]></content>
+  </entry>
+  
+</feed>

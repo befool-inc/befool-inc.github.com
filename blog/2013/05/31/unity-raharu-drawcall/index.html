@@ -5,13 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Unity勉強 第3回 「サウンドを流してみる」 - BEFOOL blog</title>
+  <title>【Unity 入門】DrawCallが多かった原因 - BEFOOL blog</title>
   <meta name="author" content="8823-scholar">
 
   
-  <meta name="description" content="前回までのおさらい おさらう程積み重ねがあるわけではありませんが、一応。
-Hello World、画像を置いてみる、など本当にさわりだけを進めている感じで、今回はよし音楽でもおいちゃうぞーといった、そういう感じです。
-アジカンとかのmp3をさくっとおいて、iPhoneから流しちゃって、 &hellip;">
+  <meta name="description" content="初めまして、技術部raharuです。
+今回は前にUnityを勉強していた際に気づいた事を一つ。 とりあえず動くものを作る事を目標に今までつくってみましたが
+他の方の記事をみていたらDrawCallなる物がFPSおよび負荷に多大な影響を与えているとのこと。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +20,7 @@ Hello World、画像を置いてみる、など本当にさわりだけを進め
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/05/16/unity-study-03-use-sound">
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -83,7 +83,7 @@ Hello World、画像を置いてみる、など本当にさわりだけを進め
   
   <header>
     
-      <h1 class="entry-title">Unity勉強 第3回 「サウンドを流してみる」</h1>
+      <h1 class="entry-title">【Unity 入門】DrawCallが多かった原因</h1>
     
     
       <p class="meta">
@@ -99,7 +99,7 @@ Hello World、画像を置いてみる、など本当にさわりだけを進め
   
 
 
-<time datetime="2013-05-16T20:43:00+09:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
+<time datetime="2013-05-31T21:36:00+09:00" pubdate data-updated="true">May 31<span>st</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -108,92 +108,57 @@ Hello World、画像を置いてみる、など本当にさわりだけを進め
   </header>
 
 
-<div class="entry-content"><h2>前回までのおさらい</h2>
+<div class="entry-content"><p>初めまして、技術部raharuです。<br/>
+今回は前にUnityを勉強していた際に気づいた事を一つ。</p>
 
-<p>おさらう程積み重ねがあるわけではありませんが、一応。<br/>
-Hello World、画像を置いてみる、など本当にさわりだけを進めている感じで、今回はよし音楽でもおいちゃうぞーといった、そういう感じです。<br/>
-アジカンとかのmp3をさくっとおいて、iPhoneから流しちゃって、かわいい女の子からきゃーきゃー言われたいです。
-間違っても、初音ミクの「ストロボナイツ」とか、鏡音リンの「メランコリック」とか置いちゃだめですよ！女の子からどん引きされてしまいます！</p>
+<p>とりあえず動くものを作る事を目標に今までつくってみましたが<br/>
+他の方の記事をみていたらDrawCallなる物がFPSおよび負荷に多大な影響を与えているとのこと。<br/>
+自分のつくった物を見てみたらなんと最大値160！これはちょっと多すぎる。</p>
 
-<h2>まずは音楽の調達</h2>
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/1.png" alt="New Project" /></p>
 
-<p>さーて、大好きなこの曲を、youtubeあたりから落としてきます。</p>
+<p>基準としてはスマホも対応させるなら40が程度に押さえるのが良いそうです。<br/>
+で、なにかこんなにDrawCallを増やしているのかしらべてみました。<br/>
+色々調べた結果遂に原因がわかりました。原因は<strong>ライト</strong>です。</p>
 
-<iframe width="420" height="315" src="http://www.youtube.com/embed/qWWlFdiT8b4" frameborder="0" allowfullscreen></iframe>
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/2.png" alt="New Project" /></p>
 
+<p>今回プレイヤーの周りだけを明るくする為に追尾カメラにPointLightを入れていたのですが、<br/>
+このライトが壁のプレハブを照らすのが良くない様です。<br/>
+ライトが照らす壁やオブジェクトが多いとDrawCallが多くなってしまうのでしょうか。<br/>
+これは予想ですが、照らされている場所と暗い場所は別にCallしてるのかもしれません（どなたかわかる方教えてください。）<br/>
+兎にも角にもこのライトが原因だったのでこのpointLightをやめて全体を照らすDirectional Lightにしてみました。</p>
 
-<p>くっ…違うんだ、僕よ、違うぞ…アジカンを選ぶんだ！<br/>
-アジカンを選んで、もて路線を進むんだ！<br/>
-サカナクションでも大丈夫だよ…。</p>
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/3.png" alt="New Project" /></p>
 
-<p>うう…だめだ…、僕はミクさんを裏切れない(´；ω；`)ﾌﾞﾜｯ</p>
+<p><strong>その結果最大値９！</strong></p>
 
-<h2>懲りずにドラッグ&amp;ドロップしてみる</h2>
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/4.png" alt="New Project" /></p>
 
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/drag_and_drop_sound.png" alt="ドラッグ&amp;ドロップ" /></p>
+<p>そんなに違うんですか！そうですか！<br/>
+もしかしたらUnityユーザーの方達の間では当たり前の事なのかもしれませんが、<br/>
+劇的に値が違ったので備忘録として残しておきます。<br/>
+DrawCallライトには気をつけろ。<br/>
+肝に命じておく事にします。</p>
 
-<p>ステージに直接、というのは無理で、やはりassetsに投げ込む、という形になりました。</p>
-
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/inspector_sound.png" alt="インスペクター" />
-インスペクターをなんとなく確認してみた。
-今のところさっぱりですね！</p>
-
-<h2>これを再生させたい</h2>
-
-<p>というわけで、いつも通り「GameObject > Create Other」の中を確認してみる。<br/>
-が、ない。それっぽいメニューがない。<br/>
-「Audio Reverb Zone」というのがあるけど、僕の直感が「こいつは違う…」と言っている。</p>
-
-<p>さて、どうするかな。</p>
-
-<p>もうよく分からないので「GameObject > Create Empty」で空のオブジェクトを追加してやりました。</p>
-
-<p>inspectorタブの中に「add component」というのがあり、それをクリックすると、「audio > audio source」というメニューがあるじゃないか！</p>
-
-<p>「これだな…」</p>
-
-<p>と僕のゴーストがささやいた。</p>
-
-<p>秒速でそれを選択し、同じくinspector内に追加された「audio clip」の項目をクリック。先ほど追加した初音ミクサウンドを選択！</p>
-
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/add_sound_component.png" alt="サウンド追加" /></p>
-
-<p>おお！<br/>
-それっぽい画面になっているじゃないですかー。</p>
-
-<p>プレビュー再生ボタンを押して確認してみる。</p>
-
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/preview.png" alt="プレビュー" /></p>
-
-<p>再生されている…！！！（画像じゃわからないけど）</p>
-
-<h2>次回の課題</h2>
-
-<p>画像も置いた、サウンドも再生できた、あれ、これもうゲーム作れるんじゃない？と調子に乗っております。<br/>
-次回は、ちょこーっとだけプログラム的なことができたらと思っています。<br/>
-そうだ、じゃあ、こんなのはどうでしょう？</p>
-
-<p>「画像をクリックしたら、音楽が再生される」</p>
-
-<p>これだ！
-次回へつづく。</p>
+<p>本家は<a href="http://d.hatena.ne.jp/raharu0425/20130131#1359645274">とあるプログラマの備忘録</a>こっち</p>
 <div class='octopress-authorbox'>
 	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
+		<img src="http://www.gravatar.com/avatar/0b413cd0038a2b91cd7c0cb0f8f5d1e0" alt="raharu(仮名)" />
 	</div>
 	
 	<div class="author-about" style="float:left;">
-		<h3>木内智史之介</h3>
-        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
+		<h3>raharu(仮名)</h3>
+        <p>これがダイバージェンス1%の先の世界か。。。<br /></p>
 		<ul class="author-links">
 			
 			<li>
-			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
+			<a href="http://twitter.com/raharu0425">@raharu0425</a>
 			</li>
 			
 			
 			<li>
-            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
+            <a href="http://d.hatena.ne.jp/raharu0425/">とあるプログラマの備忘録</a>
 			</li>
 			
 		</ul>
@@ -207,7 +172,7 @@ Hello World、画像を置いてみる、など本当にさわりだけを進め
       
   
 
-<span class="byline author vcard">Posted by <span class="fn">8823-scholar</span></span>
+<span class="byline author vcard">Posted by <span class="fn">raharu</span></span>
 
       
 
@@ -221,12 +186,12 @@ Hello World、画像を置いてみる、など本当にさわりだけを進め
   
 
 
-<time datetime="2013-05-16T20:43:00+09:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
+<time datetime="2013-05-31T21:36:00+09:00" pubdate data-updated="true">May 31<span>st</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/unity/'>unity</a>, <a class='category' href='/blog/categories/mian-qiang-hui/'>勉強会</a>
+    <a class='category' href='/blog/categories/unity/'>unity</a>, <a class='category' href='/blog/categories/ru-men/'>入門</a>, <a class='category' href='/blog/categories/mian-qiang/'>勉強</a>
   
 </span>
 
@@ -235,7 +200,7 @@ Hello World、画像を置いてみる、など本当にさわりだけを進め
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/05/16/unity-study-03-use-sound/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/05/16/unity-study-03-use-sound/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall/" >Tweet</a>
   
 
   <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
@@ -253,10 +218,8 @@ Hello World、画像を置いてみる、など本当にさわりだけを進め
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/05/01/unity-study-02-use-image/" title="Previous Post: Unity勉強 第2回 「画像を使ってみる」">&laquo; Unity勉強 第2回 「画像を使ってみる」</a>
+        <a class="basic-alignment left" href="/blog/2013/05/29/unity-study-07-build-for-android/" title="Previous Post: Unity勉強 第7回 「Android向けのビルドも試してみる」">&laquo; Unity勉強 第7回 「Android向けのビルドも試してみる」</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed/" title="Next Post: Unity勉強 第4回 「簡単なプログラムをやってみる：ボタンを押したら音楽を再生」">Unity勉強 第4回 「簡単なプログラムをやってみる：ボタンを押したら音楽を再生」 &raquo;</a>
       
     </p>
   </footer>
@@ -322,8 +285,8 @@ Hello World、画像を置いてみる、など本当にさわりだけを進め
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/05/16/unity-study-03-use-sound/';
-        var disqus_url = 'http://befool-inc.github.io/blog/2013/05/16/unity-study-03-use-sound/';
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall/';
         var disqus_script = 'embed.js';
       
     (function () {

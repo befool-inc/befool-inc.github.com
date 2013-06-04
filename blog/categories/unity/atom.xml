@@ -4,7 +4,7 @@
   <title><![CDATA[Category: unity | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/unity/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-06-04T11:41:22+09:00</updated>
+  <updated>2013-06-04T12:48:56+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[【Unity 入門】DrawCallが多かった原因]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall/"/>
+    <updated>2013-05-31T21:36:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall</id>
+    <content type="html"><![CDATA[<p>初めまして、技術部raharuです。<br/>
+今回は前にUnityを勉強していた際に気づいた事を一つ。</p>
+
+<p>とりあえず動くものを作る事を目標に今までつくってみましたが<br/>
+他の方の記事をみていたらDrawCallなる物がFPSおよび負荷に多大な影響を与えているとのこと。<br/>
+自分のつくった物を見てみたらなんと最大値160！これはちょっと多すぎる。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/1.png" alt="New Project" /></p>
+
+<p>基準としてはスマホも対応させるなら40が程度に押さえるのが良いそうです。<br/>
+で、なにかこんなにDrawCallを増やしているのかしらべてみました。<br/>
+色々調べた結果遂に原因がわかりました。原因は<strong>ライト</strong>です。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/2.png" alt="New Project" /></p>
+
+<p>今回プレイヤーの周りだけを明るくする為に追尾カメラにPointLightを入れていたのですが、<br/>
+このライトが壁のプレハブを照らすのが良くない様です。<br/>
+ライトが照らす壁やオブジェクトが多いとDrawCallが多くなってしまうのでしょうか。<br/>
+これは予想ですが、照らされている場所と暗い場所は別にCallしてるのかもしれません（どなたかわかる方教えてください。）<br/>
+兎にも角にもこのライトが原因だったのでこのpointLightをやめて全体を照らすDirectional Lightにしてみました。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/3.png" alt="New Project" /></p>
+
+<p><strong>その結果最大値９！</strong></p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/4.png" alt="New Project" /></p>
+
+<p>そんなに違うんですか！そうですか！<br/>
+もしかしたらUnityユーザーの方達の間では当たり前の事なのかもしれませんが、<br/>
+劇的に値が違ったので備忘録として残しておきます。<br/>
+DrawCallライトには気をつけろ。<br/>
+肝に命じておく事にします。</p>
+
+<p>本家は<a href="http://d.hatena.ne.jp/raharu0425/20130131#1359645274">とあるプログラマの備忘録</a>こっち</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Unity勉強 第7回 「Android向けのビルドも試してみる」]]></title>
@@ -611,83 +653,6 @@ function OnMouseUpAsButton() {
 
 <p>次回は、そうですね、、、なにげに今回のテーマが重たくてすっかりビクついてしまった僕は、「アニメーションGIFって扱えるの？」という少し軽めの（と思われる）テーマで行きたいと思います。
 よろしくお願いします！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Unity勉強 第3回 「サウンドを流してみる」]]></title>
-    <link href="http://befool-inc.github.io/blog/2013/05/16/unity-study-03-use-sound/"/>
-    <updated>2013-05-16T20:43:00+09:00</updated>
-    <id>http://befool-inc.github.io/blog/2013/05/16/unity-study-03-use-sound</id>
-    <content type="html"><![CDATA[<h2>前回までのおさらい</h2>
-
-<p>おさらう程積み重ねがあるわけではありませんが、一応。<br/>
-Hello World、画像を置いてみる、など本当にさわりだけを進めている感じで、今回はよし音楽でもおいちゃうぞーといった、そういう感じです。<br/>
-アジカンとかのmp3をさくっとおいて、iPhoneから流しちゃって、かわいい女の子からきゃーきゃー言われたいです。
-間違っても、初音ミクの「ストロボナイツ」とか、鏡音リンの「メランコリック」とか置いちゃだめですよ！女の子からどん引きされてしまいます！</p>
-
-<h2>まずは音楽の調達</h2>
-
-<p>さーて、大好きなこの曲を、youtubeあたりから落としてきます。</p>
-
-<iframe width="420" height="315" src="http://www.youtube.com/embed/qWWlFdiT8b4" frameborder="0" allowfullscreen></iframe>
-
-
-<p>くっ…違うんだ、僕よ、違うぞ…アジカンを選ぶんだ！<br/>
-アジカンを選んで、もて路線を進むんだ！<br/>
-サカナクションでも大丈夫だよ…。</p>
-
-<p>うう…だめだ…、僕はミクさんを裏切れない(´；ω；`)ﾌﾞﾜｯ</p>
-
-<h2>懲りずにドラッグ&amp;ドロップしてみる</h2>
-
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/drag_and_drop_sound.png" alt="ドラッグ&amp;ドロップ" /></p>
-
-<p>ステージに直接、というのは無理で、やはりassetsに投げ込む、という形になりました。</p>
-
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/inspector_sound.png" alt="インスペクター" />
-インスペクターをなんとなく確認してみた。
-今のところさっぱりですね！</p>
-
-<h2>これを再生させたい</h2>
-
-<p>というわけで、いつも通り「GameObject > Create Other」の中を確認してみる。<br/>
-が、ない。それっぽいメニューがない。<br/>
-「Audio Reverb Zone」というのがあるけど、僕の直感が「こいつは違う…」と言っている。</p>
-
-<p>さて、どうするかな。</p>
-
-<p>もうよく分からないので「GameObject > Create Empty」で空のオブジェクトを追加してやりました。</p>
-
-<p>inspectorタブの中に「add component」というのがあり、それをクリックすると、「audio > audio source」というメニューがあるじゃないか！</p>
-
-<p>「これだな…」</p>
-
-<p>と僕のゴーストがささやいた。</p>
-
-<p>秒速でそれを選択し、同じくinspector内に追加された「audio clip」の項目をクリック。先ほど追加した初音ミクサウンドを選択！</p>
-
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/add_sound_component.png" alt="サウンド追加" /></p>
-
-<p>おお！<br/>
-それっぽい画面になっているじゃないですかー。</p>
-
-<p>プレビュー再生ボタンを押して確認してみる。</p>
-
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/preview.png" alt="プレビュー" /></p>
-
-<p>再生されている…！！！（画像じゃわからないけど）</p>
-
-<h2>次回の課題</h2>
-
-<p>画像も置いた、サウンドも再生できた、あれ、これもうゲーム作れるんじゃない？と調子に乗っております。<br/>
-次回は、ちょこーっとだけプログラム的なことができたらと思っています。<br/>
-そうだ、じゃあ、こんなのはどうでしょう？</p>
-
-<p>「画像をクリックしたら、音楽が再生される」</p>
-
-<p>これだ！
-次回へつづく。</p>
 ]]></content>
   </entry>
   
