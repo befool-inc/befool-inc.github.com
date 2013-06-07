@@ -3,6 +3,7 @@ default:
     email: blog@befool.co.jp
     description: |
         今日もBEFOOLは元気いっぱいです
+
 8823-scholar:
     name: 木内智史之介
     twitter: grateful_dead
@@ -29,3 +30,10 @@ jiska:
     blog_title: jiskaのメモ書き
     description: |
         無念
+
+jun-nakada:
+    name: 中田潤
+    email: jun.nakada@befool.co.jp
+    description: |
+        ほげほげ
+
