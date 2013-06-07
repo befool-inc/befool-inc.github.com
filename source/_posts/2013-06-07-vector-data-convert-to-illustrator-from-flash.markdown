@@ -11,6 +11,7 @@ author: jun-nakada
 
 ![画像1](/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/1.png)
 
+
 最近HTML5だとかAdobeEdgeAnimate(アドビエッジアニメイト)だとか言われてますが、
 今までFlashを使っていた者としては、めんどくせーよ…と思うわけです。
 
