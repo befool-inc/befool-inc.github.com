@@ -62,7 +62,7 @@ AIデータが無くライブラリにしか保存されていない画像を持
 AdobeFlex(アドビフレックス)で使うものだそうです。
 んー、なんだかよく分からんので見なかったことに。
 
-とりあえずこの謎のファイルFGXをIllustratorに読み込むと･･･。
+とりあえずこの謎のファイルFXGをIllustratorに読み込むと･･･。
 
 ![画像7](/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/7.png)
 
