@@ -129,6 +129,18 @@ WEBブラウザを開いて、「[http://localhost:4000/](http://localhost:4000/
 当たり前の話ではありますが、ローカルで記事を書いただけではWEB上に公開されません。  
 Octopressはgithubへのコミットまで面倒を見てくれます。  
 
+### 始めてデプロイする場合
+
+```bash
+# 本来であれば
+# rake setup_github_pages
+# で_deployディレクトリを作成するべきだが、最初の記事の作成などもおこなってしまうためにcloneで対応
+$ git clone git@github.com:befool-inc/befool-inc.github.com.git _deploy
+$ rake deploy
+```
+
+### すでにデプロイに成功している場合
+
 ```bash
 $ rake deploy
 ```
