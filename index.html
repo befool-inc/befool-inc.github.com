@@ -9,9 +9,8 @@
   <meta name="author" content="8823-scholar">
 
   
-  <meta name="description" content="初めまして、技術部raharuです。
-今回は前にUnityを勉強していた際に気づいた事を一つ。 とりあえず動くものを作る事を目標に今までつくってみましたが
-他の方の記事をみていたらDrawCallなる物がFPSおよび負荷に多大な影響を与えているとのこと。 &hellip;">
+  <meta name="description" content="こんばんは。デザイン部フラッシャー 中田です。 最近HTML5だとかAdobeEdgeAnimate(アドビエッジアニメイト)だとか言われてますが、
+今までFlashを使っていた者としては、めんどくせーよ…と思うわけです。 Flashは「ここもっとキラっとさせてー」なんての定番の注文を言われた時も &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +79,156 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/">【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-07T18:13:00+09:00" pubdate data-updated="true">Jun 7<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>こんばんは。デザイン部フラッシャー 中田です。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/1.png" alt="画像1" /></p>
+
+<p>最近HTML5だとかAdobeEdgeAnimate(アドビエッジアニメイト)だとか言われてますが、
+今までFlashを使っていた者としては、めんどくせーよ…と思うわけです。</p>
+
+<p>Flashは「ここもっとキラっとさせてー」なんての定番の注文を言われた時も
+Flash内で星などのベクター画像がヒョイと描けたんですが、Edgeではそうもいきません。</p>
+
+<p>Edge内では簡単な丸や四角のベクター画像しか描けません。
+なんて不便なんでしょう…。
+なのでIllustratorを使い、星を描いて
+なんだか分けわからん形式にして読み込んで…と一手間二手間掛かるわけですよ。</p>
+
+<p>まぁそれは仕方ないとして、問題なのは今までFlash内で描いていた素材だったり
+AIデータが無くライブラリにしか保存されていない画像を持ってくる場合です。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/2.png" alt="画像2" /></p>
+
+<p>試しに単純にベクター画像をEdgeに直接コピペしてみましたが、対応してないみたいです。
+世の中そんなに甘くないですね。</p>
+
+<p>じゃあIllustratorにコピペはどうだ？</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/3.png" alt="画像3" /></p>
+
+<p>ダメですね。背景色が付いてきてしまいます。</p>
+
+<p>似たようなものをIllustratorで描き直すのも一つの手段ではありますが、面倒ですよね。
+また、自分で描いたものであれば再現もできますが、他人が作った素材だとなかなか難しい…。</p>
+
+<p>なのでやり方を色々探してみた所、一つ方法を発見しました！
+ここではその方法について説明したいと思います。
+※所々画像が違うのは気にしないでください！</p>
+
+<p>まず、Flash(FLAファイル)からEdgeに移動したいベクター画像を選択します。</p>
+
+<p>ファイルから書き出し⇒イメージの書き出し を選択します。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/4.png" alt="画像4" /></p>
+
+<p>ファイルの種類から「Adobe FXG」を選択して任意の場所に保存します。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/5.png" alt="画像5" /></p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/6.png" alt="画像6" /></p>
+
+<p>このFXGという形式、全然知らなかったのでググってみると、
+AdobeFlex(アドビフレックス)で使うものだそうです。
+んー、なんだかよく分からんので見なかったことに。</p>
+
+<p>とりあえずこの謎のファイルFGXをIllustratorに読み込むと･･･。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/7.png" alt="画像7" /></p>
+
+<p>見れるじゃないか！スバラシイ！
+背景色もついてないですね。</p>
+
+<p>それで、これをIllustratorからSVG形式で保存します。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/13.png" alt="画像13" /></p>
+
+<p>このSVG形式も今日初めて知ったんですが、ググってみると
+『XMLベースの2Dベクター画像記述言語』だそうです。
+つまりどういうこと？</p>
+
+<p>社長「中身見たらわかる」</p>
+
+<p>ふむ。中身ですか…。
+とりあえずSVG形式はブラウザで開けるようなので、
+Chromeに放り込んでソースを見てみると…。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/9.png" alt="画像9" /></p>
+
+<p>なーるほど、全部テキストなんですね。
+誰がこんなの思いつくんですかね。天才だと思います。</p>
+
+<p>話を戻しまして
+AdobeEdgeにベクター画像を読み込むには上記のSVGとかいう形式にしないといけないわけです。
+ファイル形式をSVGにして保存。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/8.png" alt="画像8" /></p>
+
+<p>あとはお好きな方法でEdgeに読み込んで配置。</p>
+
+<p>はい、成功です！
+アルファ値があるものも大丈夫みたいです。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/10.png" alt="画像10" /></p>
+
+<p>Edge内で見るとぼやけてるってるように見えますが、
+実際にブラウザなどで拡大してみると問題ないようです。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/11.png" alt="画像11" /></p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/12.png" alt="画像11" /></p>
+
+<p>他にもっと簡単な方法をご存知の方、是非コメントください。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/f765a055aea1aa7d2bd49734455a3f3a" alt="中田潤" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>中田潤</h3>
+        <p>ほげほげ<br /></p>
+		<ul class="author-links">
+			
+			
+		</ul>
+	</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1458,6 +1607,23 @@ Octopressを共同編集するにあたっての、個人環境構築に関す�
 <p>当たり前の話ではありますが、ローカルで記事を書いただけではWEB上に公開されません。<br/>
 Octopressはgithubへのコミットまで面倒を見てくれます。</p>
 
+<h3>始めてデプロイする場合</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 本来であれば</span>
+</span><span class='line'><span class="c"># rake setup_github_pages</span>
+</span><span class='line'><span class="c"># で_deployディレクトリを作成するべきだが、最初の記事の作成などもおこなってしまうためにcloneで対応</span>
+</span><span class='line'><span class="nv">$ </span>git clone git@github.com:befool-inc/befool-inc.github.com.git _deploy
+</span><span class='line'><span class="nv">$ </span>rake deploy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>すでにデプロイに成功している場合</h3>
+
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake deploy
 </span></code></pre></td></tr></table></div></figure>
@@ -1555,113 +1721,9 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/30/unity-study-01-hello-world/">Unity勉強 第1回 「Hello World」</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-30T13:21:00+09:00" pubdate data-updated="true">Apr 30<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/30/unity-study-01-hello-world/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Unityとは？</h2>
-
-<p>iPhoneアプリの開発とか、Androidアプリの開発だとかで、
-やれObjective-Cだとか、やれJAVAだとか、そういった言語の習得が必須なわけですね。<br/>
-エンジニアとしては、できればそれぞれそのネイティブな言語でアプリを開発したい気持ちが強いのですが、そうも言ってられない事情もありまして…。</p>
-
-<p>開発環境の構築、言語の習得、ノウハウの蓄積など、様々なコストがあり、
-「iPhoneでもAndroidでもアプリを出すんだい！」というプロジェクトの場合、
-それらのコストが「2倍になります」という状況は、非常にツライものがあります。<br/>
-特別めんどくさがり屋さんでなくとも、一つ作れば、それがiPhoneでも動くし、Androidでも動く、というのが理想なわけです。</p>
-
-<p>それを実現してくれるのが「Unity」なのです。</p>
-
-<h2>プロジェクトを作成する</h2>
-
-<p>さあさあとりあえずいじってみよう、というわけで、みんな大好き「Hello World」行ってみようと思います。</p>
-
-<p>File > New Project<br/>
-を選択して、プロジェクトの作成。<br/>
-<strong>Import the following the packages</strong> は今のところよく分からないので空で。</p>
-
-<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/NewProject.png" alt="New Project" /></p>
-
-<h2>「Hello World」を表示する</h2>
-
-<p>ググってみると、みなさん、<strong>debug.log(&#8216;hello world.&#8217;)</strong>のように、コンソール上に出力しているようですが、
-やはりユーザー目線で何かしらの表示させたいのが正直なところでしょう。</p>
-
-<p>何かないかなーとメニューを漁っていると、「<strong>3D Text</strong>」なるものを発見！これか？！</p>
-
-<p>GameObject > CreateOther > 3D Text</p>
-
-<p>選択してみると…、おっ。なんか画面上に配置された。しかも、既に「Hello World」ってなってる！</p>
-
-<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/CreateObject.png" alt="New Project" /></p>
-
-<p>憎い…この気の利かせ方が憎いでござる…！</p>
-
-<p>なんかこれで「できました」っていうのも癪なので、めくらめっぽにあっちいじったり、こっちいじったりしながら作成したのがこちらのHelloWorldです。</p>
-
-<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/HelloWorld.png" alt="New Project" /></p>
-
-<p>よし。「枠に収まらない漢」というアピールができました！</p>
-
-<h2>次回の予定</h2>
-
-<p>次回は画像の表示を行いたいと思います。</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>木内智史之介</h3>
-        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
-		<ul class="author-links">
-			
-			<li>
-			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
-			</li>
-			
-			
-			<li>
-            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
-			</li>
-			
-		</ul>
-	</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -1672,6 +1734,10 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/">【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/05/31/unity-raharu-drawcall/">【Unity 入門】DrawCallが多かった原因</a>
@@ -1687,10 +1753,6 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
     
       <li class="post">
         <a href="/blog/2013/05/22/unity-study-05-enable-animated-gif/">Unity勉強 第5回 「アニメーションgifって使えるの？」</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed/">Unity勉強 第4回 「簡単なプログラムをやってみる：ボタンを押したら音楽を再生」</a>
       </li>
     
   </ul>

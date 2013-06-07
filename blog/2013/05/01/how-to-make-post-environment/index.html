@@ -273,6 +273,23 @@ Octopressを共同編集するにあたっての、個人環境構築に関す�
 <p>当たり前の話ではありますが、ローカルで記事を書いただけではWEB上に公開されません。<br/>
 Octopressはgithubへのコミットまで面倒を見てくれます。</p>
 
+<h3>始めてデプロイする場合</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 本来であれば</span>
+</span><span class='line'><span class="c"># rake setup_github_pages</span>
+</span><span class='line'><span class="c"># で_deployディレクトリを作成するべきだが、最初の記事の作成などもおこなってしまうためにcloneで対応</span>
+</span><span class='line'><span class="nv">$ </span>git clone git@github.com:befool-inc/befool-inc.github.com.git _deploy
+</span><span class='line'><span class="nv">$ </span>rake deploy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>すでにデプロイに成功している場合</h3>
+
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake deploy
 </span></code></pre></td></tr></table></div></figure>
@@ -379,6 +396,10 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/">【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/31/unity-raharu-drawcall/">【Unity 入門】DrawCallが多かった原因</a>
       </li>
     
@@ -392,10 +413,6 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
     
       <li class="post">
         <a href="/blog/2013/05/22/unity-study-05-enable-animated-gif/">Unity勉強 第5回 「アニメーションgifって使えるの？」</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed/">Unity勉強 第4回 「簡単なプログラムをやってみる：ボタンを押したら音楽を再生」</a>
       </li>
     
   </ul>

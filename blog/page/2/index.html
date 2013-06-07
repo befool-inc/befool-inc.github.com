@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: 勉強会 - BEFOOL blog</title>
+  <title>BEFOOL blog</title>
   <meta name="author" content="8823-scholar">
 
   
-  <meta name="description" content="Category: 勉強会">
+  <meta name="description" content="Unityとは？ iPhoneアプリの開発とか、Androidアプリの開発だとかで、
+やれObjective-Cだとか、やれJAVAだとか、そういった言語の習得が必須なわけですね。
+エンジニアとしては、できればそれぞれそのネイティブな言語でアプリを開発したい気持ちが強いのですが、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://befool-inc.github.ioblog/categories/mian-qiang-hui">
+  <link rel="canonical" href="http://befool-inc.github.io/blog/page/2">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -76,68 +78,123 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article role="article">
+      <div class="blog-index">
   
+  
+  
+    <article>
+      
   <header>
-    <h1 class="entry-title">Category: 勉強会</h1>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/30/unity-study-01-hello-world/">Unity勉強 第1回 「Hello World」</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-30T13:21:00+09:00" pubdate data-updated="true">Apr 30<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/30/unity-study-01-hello-world/#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+  <div class="entry-content"><h2>Unityとは？</h2>
 
-  
-  <h2>2013</h2>
+<p>iPhoneアプリの開発とか、Androidアプリの開発だとかで、
+やれObjective-Cだとか、やれJAVAだとか、そういった言語の習得が必須なわけですね。<br/>
+エンジニアとしては、できればそれぞれそのネイティブな言語でアプリを開発したい気持ちが強いのですが、そうも言ってられない事情もありまして…。</p>
 
-<article>
-  
-<h1><a href="/blog/2013/05/16/unity-study-03-use-sound/">Unity勉強 第3回 「サウンドを流してみる」</a></h1>
-<time datetime="2013-05-16T20:43:00+09:00" pubdate><span class='month'>May</span> <span class='day'>16</span> <span class='year'>2013</span></time>
+<p>開発環境の構築、言語の習得、ノウハウの蓄積など、様々なコストがあり、
+「iPhoneでもAndroidでもアプリを出すんだい！」というプロジェクトの場合、
+それらのコストが「2倍になります」という状況は、非常にツライものがあります。<br/>
+特別めんどくさがり屋さんでなくとも、一つ作れば、それがiPhoneでも動くし、Androidでも動く、というのが理想なわけです。</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/unity/'>unity</a>, <a class='category' href='/blog/categories/mian-qiang-hui/'>勉強会</a></span>
-</footer>
+<p>それを実現してくれるのが「Unity」なのです。</p>
 
+<h2>プロジェクトを作成する</h2>
 
-</article>
+<p>さあさあとりあえずいじってみよう、というわけで、みんな大好き「Hello World」行ってみようと思います。</p>
 
+<p>File > New Project<br/>
+を選択して、プロジェクトの作成。<br/>
+<strong>Import the following the packages</strong> は今のところよく分からないので空で。</p>
 
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/NewProject.png" alt="New Project" /></p>
 
-<article>
-  
-<h1><a href="/blog/2013/05/01/unity-study-02-use-image/">Unity勉強 第2回 「画像を使ってみる」</a></h1>
-<time datetime="2013-05-01T23:55:00+09:00" pubdate><span class='month'>May</span> <span class='day'>01</span> <span class='year'>2013</span></time>
+<h2>「Hello World」を表示する</h2>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/unity/'>unity</a>, <a class='category' href='/blog/categories/mian-qiang-hui/'>勉強会</a></span>
-</footer>
+<p>ググってみると、みなさん、<strong>debug.log(&#8216;hello world.&#8217;)</strong>のように、コンソール上に出力しているようですが、
+やはりユーザー目線で何かしらの表示させたいのが正直なところでしょう。</p>
 
+<p>何かないかなーとメニューを漁っていると、「<strong>3D Text</strong>」なるものを発見！これか？！</p>
 
-</article>
+<p>GameObject > CreateOther > 3D Text</p>
 
+<p>選択してみると…、おっ。なんか画面上に配置された。しかも、既に「Hello World」ってなってる！</p>
 
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/CreateObject.png" alt="New Project" /></p>
 
-<article>
-  
-<h1><a href="/blog/2013/04/30/unity-study-01-hello-world/">Unity勉強 第1回 「Hello World」</a></h1>
-<time datetime="2013-04-30T13:21:00+09:00" pubdate><span class='month'>Apr</span> <span class='day'>30</span> <span class='year'>2013</span></time>
+<p>憎い…この気の利かせ方が憎いでござる…！</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/unity/'>unity</a>, <a class='category' href='/blog/categories/mian-qiang-hui/'>勉強会</a></span>
-</footer>
+<p>なんかこれで「できました」っていうのも癪なので、めくらめっぽにあっちいじったり、こっちいじったりしながら作成したのがこちらのHelloWorldです。</p>
 
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/HelloWorld.png" alt="New Project" /></p>
 
-</article>
+<p>よし。「枠に収まらない漢」というアピールができました！</p>
 
+<h2>次回の予定</h2>
+
+<p>次回は画像の表示を行いたいと思います。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>木内智史之介</h3>
+        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
+			</li>
+			
+		</ul>
+	</div>
 </div>
-
-  
-</article>
-
 </div>
+  
+  
 
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
+    
+  </div>
+</div>
 <aside class="sidebar">
   
     <section>
@@ -173,7 +230,6 @@
 
   
 </aside>
-
 
     </div>
   </div>

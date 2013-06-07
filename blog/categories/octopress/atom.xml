@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-06-04T12:48:56+09:00</updated>
+  <updated>2013-06-07T18:40:25+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -141,6 +141,22 @@ $ vi source/_posts/2013-05-01-foo-bar-zoo.markdown
 
 <p>当たり前の話ではありますが、ローカルで記事を書いただけではWEB上に公開されません。<br/>
 Octopressはgithubへのコミットまで面倒を見てくれます。</p>
+
+<h3>始めてデプロイする場合</h3>
+
+<p>```bash</p>
+
+<h1>本来であれば</h1>
+
+<h1>rake setup_github_pages</h1>
+
+<h1>で_deployディレクトリを作成するべきだが、最初の記事の作成などもおこなってしまうためにcloneで対応</h1>
+
+<p>$ git clone git@github.com:befool-inc/befool-inc.github.com.git _deploy
+$ rake deploy
+```</p>
+
+<h3>すでにデプロイに成功している場合</h3>
 
 <p><code>bash
 $ rake deploy

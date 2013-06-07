@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: flash | BEFOOL blog]]></title>
+  <link href="http://befool-inc.github.io/blog/categories/flash/atom.xml" rel="self"/>
+  <link href="http://befool-inc.github.io/"/>
+  <updated>2013-06-07T18:40:25+09:00</updated>
+  <id>http://befool-inc.github.io/</id>
+  <author>
+    <name><![CDATA[8823-scholar]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/"/>
+    <updated>2013-06-07T18:13:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash</id>
+    <content type="html"><![CDATA[<p>こんばんは。デザイン部フラッシャー 中田です。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/1.png" alt="画像1" /></p>
+
+<p>最近HTML5だとかAdobeEdgeAnimate(アドビエッジアニメイト)だとか言われてますが、
+今までFlashを使っていた者としては、めんどくせーよ…と思うわけです。</p>
+
+<p>Flashは「ここもっとキラっとさせてー」なんての定番の注文を言われた時も
+Flash内で星などのベクター画像がヒョイと描けたんですが、Edgeではそうもいきません。</p>
+
+<p>Edge内では簡単な丸や四角のベクター画像しか描けません。
+なんて不便なんでしょう…。
+なのでIllustratorを使い、星を描いて
+なんだか分けわからん形式にして読み込んで…と一手間二手間掛かるわけですよ。</p>
+
+<p>まぁそれは仕方ないとして、問題なのは今までFlash内で描いていた素材だったり
+AIデータが無くライブラリにしか保存されていない画像を持ってくる場合です。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/2.png" alt="画像2" /></p>
+
+<p>試しに単純にベクター画像をEdgeに直接コピペしてみましたが、対応してないみたいです。
+世の中そんなに甘くないですね。</p>
+
+<p>じゃあIllustratorにコピペはどうだ？</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/3.png" alt="画像3" /></p>
+
+<p>ダメですね。背景色が付いてきてしまいます。</p>
+
+<p>似たようなものをIllustratorで描き直すのも一つの手段ではありますが、面倒ですよね。
+また、自分で描いたものであれば再現もできますが、他人が作った素材だとなかなか難しい…。</p>
+
+<p>なのでやり方を色々探してみた所、一つ方法を発見しました！
+ここではその方法について説明したいと思います。
+※所々画像が違うのは気にしないでください！</p>
+
+<p>まず、Flash(FLAファイル)からEdgeに移動したいベクター画像を選択します。</p>
+
+<p>ファイルから書き出し⇒イメージの書き出し を選択します。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/4.png" alt="画像4" /></p>
+
+<p>ファイルの種類から「Adobe FXG」を選択して任意の場所に保存します。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/5.png" alt="画像5" /></p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/6.png" alt="画像6" /></p>
+
+<p>このFXGという形式、全然知らなかったのでググってみると、
+AdobeFlex(アドビフレックス)で使うものだそうです。
+んー、なんだかよく分からんので見なかったことに。</p>
+
+<p>とりあえずこの謎のファイルFGXをIllustratorに読み込むと･･･。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/7.png" alt="画像7" /></p>
+
+<p>見れるじゃないか！スバラシイ！
+背景色もついてないですね。</p>
+
+<p>それで、これをIllustratorからSVG形式で保存します。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/13.png" alt="画像13" /></p>
+
+<p>このSVG形式も今日初めて知ったんですが、ググってみると
+『XMLベースの2Dベクター画像記述言語』だそうです。
+つまりどういうこと？</p>
+
+<p>社長「中身見たらわかる」</p>
+
+<p>ふむ。中身ですか…。
+とりあえずSVG形式はブラウザで開けるようなので、
+Chromeに放り込んでソースを見てみると…。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/9.png" alt="画像9" /></p>
+
+<p>なーるほど、全部テキストなんですね。
+誰がこんなの思いつくんですかね。天才だと思います。</p>
+
+<p>話を戻しまして
+AdobeEdgeにベクター画像を読み込むには上記のSVGとかいう形式にしないといけないわけです。
+ファイル形式をSVGにして保存。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/8.png" alt="画像8" /></p>
+
+<p>あとはお好きな方法でEdgeに読み込んで配置。</p>
+
+<p>はい、成功です！
+アルファ値があるものも大丈夫みたいです。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/10.png" alt="画像10" /></p>
+
+<p>Edge内で見るとぼやけてるってるように見えますが、
+実際にブラウザなどで拡大してみると問題ないようです。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/11.png" alt="画像11" /></p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/12.png" alt="画像11" /></p>
+
+<p>他にもっと簡単な方法をご存知の方、是非コメントください。</p>
+]]></content>
+  </entry>
+  
+</feed>

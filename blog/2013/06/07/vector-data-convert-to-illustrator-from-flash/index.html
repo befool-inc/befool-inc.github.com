@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ - BEFOOL blog</title>
+  <meta name="author" content="8823-scholar">
+
+  
+  <meta name="description" content="こんばんは。デザイン部フラッシャー 中田です。 最近HTML5だとかAdobeEdgeAnimate(アドビエッジアニメイト)だとか言われてますが、
+今までFlashを使っていた者としては、めんどくせーよ…と思うわけです。 Flashは「ここもっとキラっとさせてー」なんての定番の注文を言われた時も &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/atom.xml" rel="alternate" title="BEFOOL blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40545969-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEFOOL blog</a></h1>
+  
+    <h2>今日もいい天気</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:befool-inc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-07T18:13:00+09:00" pubdate data-updated="true">Jun 7<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>こんばんは。デザイン部フラッシャー 中田です。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/1.png" alt="画像1" /></p>
+
+<p>最近HTML5だとかAdobeEdgeAnimate(アドビエッジアニメイト)だとか言われてますが、
+今までFlashを使っていた者としては、めんどくせーよ…と思うわけです。</p>
+
+<p>Flashは「ここもっとキラっとさせてー」なんての定番の注文を言われた時も
+Flash内で星などのベクター画像がヒョイと描けたんですが、Edgeではそうもいきません。</p>
+
+<p>Edge内では簡単な丸や四角のベクター画像しか描けません。
+なんて不便なんでしょう…。
+なのでIllustratorを使い、星を描いて
+なんだか分けわからん形式にして読み込んで…と一手間二手間掛かるわけですよ。</p>
+
+<p>まぁそれは仕方ないとして、問題なのは今までFlash内で描いていた素材だったり
+AIデータが無くライブラリにしか保存されていない画像を持ってくる場合です。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/2.png" alt="画像2" /></p>
+
+<p>試しに単純にベクター画像をEdgeに直接コピペしてみましたが、対応してないみたいです。
+世の中そんなに甘くないですね。</p>
+
+<p>じゃあIllustratorにコピペはどうだ？</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/3.png" alt="画像3" /></p>
+
+<p>ダメですね。背景色が付いてきてしまいます。</p>
+
+<p>似たようなものをIllustratorで描き直すのも一つの手段ではありますが、面倒ですよね。
+また、自分で描いたものであれば再現もできますが、他人が作った素材だとなかなか難しい…。</p>
+
+<p>なのでやり方を色々探してみた所、一つ方法を発見しました！
+ここではその方法について説明したいと思います。
+※所々画像が違うのは気にしないでください！</p>
+
+<p>まず、Flash(FLAファイル)からEdgeに移動したいベクター画像を選択します。</p>
+
+<p>ファイルから書き出し⇒イメージの書き出し を選択します。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/4.png" alt="画像4" /></p>
+
+<p>ファイルの種類から「Adobe FXG」を選択して任意の場所に保存します。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/5.png" alt="画像5" /></p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/6.png" alt="画像6" /></p>
+
+<p>このFXGという形式、全然知らなかったのでググってみると、
+AdobeFlex(アドビフレックス)で使うものだそうです。
+んー、なんだかよく分からんので見なかったことに。</p>
+
+<p>とりあえずこの謎のファイルFGXをIllustratorに読み込むと･･･。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/7.png" alt="画像7" /></p>
+
+<p>見れるじゃないか！スバラシイ！
+背景色もついてないですね。</p>
+
+<p>それで、これをIllustratorからSVG形式で保存します。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/13.png" alt="画像13" /></p>
+
+<p>このSVG形式も今日初めて知ったんですが、ググってみると
+『XMLベースの2Dベクター画像記述言語』だそうです。
+つまりどういうこと？</p>
+
+<p>社長「中身見たらわかる」</p>
+
+<p>ふむ。中身ですか…。
+とりあえずSVG形式はブラウザで開けるようなので、
+Chromeに放り込んでソースを見てみると…。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/9.png" alt="画像9" /></p>
+
+<p>なーるほど、全部テキストなんですね。
+誰がこんなの思いつくんですかね。天才だと思います。</p>
+
+<p>話を戻しまして
+AdobeEdgeにベクター画像を読み込むには上記のSVGとかいう形式にしないといけないわけです。
+ファイル形式をSVGにして保存。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/8.png" alt="画像8" /></p>
+
+<p>あとはお好きな方法でEdgeに読み込んで配置。</p>
+
+<p>はい、成功です！
+アルファ値があるものも大丈夫みたいです。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/10.png" alt="画像10" /></p>
+
+<p>Edge内で見るとぼやけてるってるように見えますが、
+実際にブラウザなどで拡大してみると問題ないようです。</p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/11.png" alt="画像11" /></p>
+
+<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/12.png" alt="画像11" /></p>
+
+<p>他にもっと簡単な方法をご存知の方、是非コメントください。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/f765a055aea1aa7d2bd49734455a3f3a" alt="中田潤" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>中田潤</h3>
+        <p>ほげほげ<br /></p>
+		<ul class="author-links">
+			
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">jun-nakada</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-07T18:13:00+09:00" pubdate data-updated="true">Jun 7<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/edge/'>edge</a>, <a class='category' href='/blog/categories/flash/'>flash</a>, <a class='category' href='/blog/categories/illustrator/'>illustrator</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/" >Tweet</a>
+  
+
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+  
+
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+  
+    <div class="fb-comments" data-href="http://befool-inc.github.io" data-num-posts="2" data-width="689"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/31/unity-raharu-drawcall/" title="Previous Post: 【Unity 入門】DrawCallが多かった原因">&laquo; 【Unity 入門】DrawCallが多かった原因</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/">【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/31/unity-raharu-drawcall/">【Unity 入門】DrawCallが多かった原因</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/29/unity-study-07-build-for-android/">Unity勉強 第7回 「Android向けのビルドも試してみる」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/23/unity-study-06-build-for-ios/">Unity勉強 第6回 「ついに！無償化された、build for iOS を試してみる」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/22/unity-study-05-enable-animated-gif/">Unity勉強 第5回 「アニメーションgifって使えるの？」</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - 8823-scholar -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'befoolblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
