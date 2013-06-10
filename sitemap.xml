@@ -2,66 +2,72 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://befool-inc.github.io/blog/2013/04/30/unity-study-01-hello-world/</loc>
-        <lastmod>2013-05-22T21:10:49+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/blog/2013/05/01/test-octopress-author-box/</loc>
-        <lastmod>2013-05-01T01:20:48+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/blog/2013/05/01/how-to-make-post-environment/</loc>
-        <lastmod>2013-06-07T18:11:27+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/blog/2013/05/01/unity-study-02-use-image/</loc>
-        <lastmod>2013-05-16T20:44:39+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/blog/2013/05/16/unity-study-03-use-sound/</loc>
-        <lastmod>2013-05-16T22:44:33+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
     <url>
         <loc>
             http://befool-inc.github.io/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed/
         </loc>
-        <lastmod>2013-05-21T04:11:24+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/blog/2013/05/22/unity-study-05-enable-animated-gif/</loc>
-        <lastmod>2013-05-23T13:52:20+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/blog/2013/05/23/unity-study-06-build-for-ios/</loc>
-        <lastmod>2013-05-29T22:59:39+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/blog/2013/05/29/unity-study-07-build-for-android/</loc>
-        <lastmod>2013-05-30T03:01:00+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall/</loc>
-        <lastmod>2013-06-04T12:43:07+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
     <url>
         <loc>
             http://befool-inc.github.io/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/
         </loc>
-        <lastmod>2013-06-10T23:29:33+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/blog/2013/06/08/start-desktop-linux-on-virtualbox/</loc>
-        <lastmod>2013-06-10T23:29:33+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://befool-inc.github.io/blog/2013/06/11/build-php-environment-with-synaptic/
+        </loc>
+        <lastmod>2013-06-11T03:02:17+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/blog/archives/</loc>
-        <lastmod>2013-06-10T23:29:33+09:00</lastmod>
+        <lastmod>2013-06-11T03:02:17+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/</loc>
-        <lastmod>2013-06-10T23:29:33+09:00</lastmod>
+        <lastmod>2013-06-11T03:02:17+09:00</lastmod>
     </url>
     <url>
         <loc>http://befool-inc.github.io/robots.txt</loc>
-        <lastmod>2013-05-01T00:12:01+09:00</lastmod>
+        <lastmod>2013-06-10T10:59:26+09:00</lastmod>
     </url>
 </urlset>

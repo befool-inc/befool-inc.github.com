@@ -4,7 +4,7 @@
   <title><![CDATA[BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-06-10T23:31:47+09:00</updated>
+  <updated>2013-06-11T03:02:18+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -12,6 +12,156 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SynapticでPHP開発環境を構築しよう]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/06/11/build-php-environment-with-synaptic/"/>
+    <updated>2013-06-11T08:00:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/06/11/build-php-environment-with-synaptic</id>
+    <content type="html"><![CDATA[<p>森です。 <a href="http://befool-inc.github.io/blog/2013/06/08/start-desktop-linux-on-virtualbox/">前回の記事</a> で仮想環境を作成したわけですが
+作成しただけでは何も始まりません。さっそく開発環境を構築していきましょう。</p>
+
+<p>今回は伝統的な <em>Apache</em> , <em>PHP</em> , <em>MySQL</em> 構成を構築します。</p>
+
+<p>あいかわらずスクリーンショット多め内容薄めです。</p>
+
+<h2>パッケージ管理にSynaptic パッケージマネージャを使う</h2>
+
+<p>Debianにはソフトウェアをインストール、管理するためにあらかじめ用意された
+多くの <a href="http://www.debian.org/distrib/packages.ja.html">パッケージ</a> があります。
+これらのパッケージを用いることでApacheやMySQLなど一般的なソフトウェアのインストールやアップデート、削除をとても簡単に行えます。
+かんたんに開発環境を構築するために使わない手はありません。</p>
+
+<p>さらに <strong>Synaptic パッケージマネージャ</strong> （以降Synaptic）を使用することでパッケージをGUIで追加、更新、削除することができます。
+今回はSynapticを用いてソフトウェアのインストールを行います。</p>
+
+<p>Synapticの詳細は <a href="http://packages.debian.org/ja/squeeze/synaptic">packages.debian.orgを参照</a> してください。</p>
+
+<h2>Synapticの起動</h2>
+
+<p>まず <em>スタートメニュー</em> から <em>システムツール</em> → <em>システム管理</em> → <em>Synaptic パッケージマネージャ</em> を選択します。
+Synapticの起動には <strong>rootのパスワードを入力する</strong> 必要がありますので前回インストール時に設定したパスワードを入力してください。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-synaptic.choose.png" alt="選択" /></p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-synaptic.password.png" alt="パスワード入力" /></p>
+
+<p>初回起動時にはSynapticのかんたんな説明が表示されます。よく読んでおきましょう。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-synaptic.confirm.png" alt="Synapticの説明" /></p>
+
+<h2>パッケージをインストールする</h2>
+
+<p>Synapticのメイン画面です。</p>
+
+<p>左ペイン で <em>インストールするパッケージのカテゴリ</em> を選び、 右ペインで 表示される <em>パッケージ</em> をチェックして <em>適用</em> ボタンを押すとシステムに反映されます。
+目的のパッケージ名がわかっている場合は <strong>名前からパッケージを検索する</strong> こともできます。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.main.png" alt="Synapticメイン画面" /></p>
+
+<h3>Apache</h3>
+
+<p>まずはApacheのインストールです。
+<em>検索</em> 欄に <code>apache2</code> と入力します。関連するパッケージが表示されますので <strong>apache2</strong> をダブルクリックでインストール指定をします。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install-apache2.png" alt="Apacheインストール" /></p>
+
+<p>注意が表示されました。一部のパッケージには <strong>依存関係</strong> があり、パッケージAをインストールするためにはパッケージBのインストールが必要なケースや、
+パッケージAをインストール指定するとパッケージCが削除されるというケースもあります。
+今回は <em>apache2</em> をインストール指定すると <em>apache2-mpm-worker</em> , <em>apache2-utils</em> , <em>apache2.2-common</em> が合わせてインストール指定されます。</p>
+
+<p><em>マーク</em> ボタンをクリックしてパッケージ選択画面に戻ります。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install-apache2.notice.png" alt="依存パッケージの選択" /></p>
+
+<h3>PHP</h3>
+
+<p>次は <em>PHP</em> をインストール指定します。先ほどと同じ要領で <code>php</code> でパッケージを検索します。
+一覧から <strong>php5</strong> を選択します。また依存パッケージの注意が表示されるのでパッケージを確認して <em>マーク</em> ボタンをクリックします。</p>
+
+<h3>MySQL</h3>
+
+<p>最後に <em>MySQL</em> です。 <strong>mysql-server</strong> とPHPでMySQLへ接続するために <strong>mysql-php5</strong> を、 さらにブラウザ上でデータベースを操作するために <strong>phpmyadmin</strong> をインストール指定します。</p>
+
+<h3>インストール</h3>
+
+<p>これですべての準備ができました。 <strong>適用</strong> ボタンをクリックします。</p>
+
+<p>インストールするパッケージの確認が表示されます。内容を確認した上で <strong>適用</strong> ボタンをクリックします。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.confirm.png" alt="パッケージの確認" /></p>
+
+<p>パッケージのダウンロードが始まります。ゆっくり待ちましょう。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.download.png" alt="ダウンロード中" /></p>
+
+<p>インストール中に他ソフトウェアの設定画面が表示されることがあります。今回はMySQLサーバとphpMyAdminの設定画面が表示されます。</p>
+
+<p>MySQLサーバのrootのパスワードを指定しましょう。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.setup-mysql.png" alt="mysqlの設定" /></p>
+
+<p>phpMyAdminの設定では <em>apache2</em> を選択します。他にも選択を要求されることがあるかもしれませんが画面の指示にしたがって選択していけばダイジョブです。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.setup-phpmyadmin.png" alt="phpMyAdminの設定" /></p>
+
+<p>あとはインストールが終わるまでゆっくり待ちましょう。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.processing.png" alt="インストール中" /></p>
+
+<p>無事完了したようです。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.finish.png" alt="インストール完了" /></p>
+
+<h2>試してみよう</h2>
+
+<p><em>スタートメニュー</em> から <em>インターネット</em> → <em>Iceweasel ウェブ・ブラウザ</em> を選択します。</p>
+
+<p>※ <em>Iceweasel</em> は標準でインストールされているWebブラウザです。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-iceweasel.choose.png" alt="Iceweaselを選択" /></p>
+
+<p>アドレスバーに <code>http://localhost/phpmyadmin</code> と入力します。
+phpMyAdminのログイン画面が表示できました。</p>
+
+<p>ユーザ名に <strong>root</strong> , パスワードに <strong>先ほどの手順で設定したパスワード</strong> を入力してログインします。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/phpmyadmin.login.png" alt="phpMyAdminログイン画面" /></p>
+
+<p>メイン画面が無事に表示されればもう問題はなさそうです。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-06-11-build-php-environment-with-synaptic/phpmyadmin.main.png" alt="phpMyAdminメイン画面" /></p>
+
+<p>これで <em>Apache</em> , <em>PHP</em> , <em>MySQL</em> の環境が構築できました。これでアプリを作っていきましょう！</p>
+
+<h2>終わりに</h2>
+
+<p>Synapticを使うことでターミナルを使わずに開発環境を用意することができました。
+ゆくゆくはCUIを使う必要があるのですが、まずはSynapticを使って環境構築の敷居を下げ、いろいろなパッケージを試していきましょう。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6edaeca6d206ade350bc34b74ecc07e1" alt="森裕介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>森裕介</h3>
+        <p>無念<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/jiskanulo">@jiskanulo</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/jiskay/">jiskaのメモ書き</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Oracle VM VirtualBoxでデスクトップLinuxを始めよう]]></title>

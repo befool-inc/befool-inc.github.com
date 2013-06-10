@@ -9,8 +9,8 @@
   <meta name="author" content="8823-scholar">
 
   
-  <meta name="description" content="森です。他メンバーはUnityのことばっかり書いていますがマイペースで書きます。 昔 windowsでwebサービスの開発をしているひとにUbuntuをオススメしたい３つの理由 を書いたわけですが
-今となっては古い情報になりつつあるので改めて。 はじめに 大多数のwebサービスは Linux系OS &hellip;">
+  <meta name="description" content="森です。 前回の記事 で仮想環境を作成したわけですが
+作成しただけでは何も始まりません。さっそく開発環境を構築していきましょう。 今回は伝統的な Apache , PHP , MySQL 構成を構築します。 あいかわらずスクリーンショット多め内容薄めです。 パッケージ管理にSynaptic &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,185 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/11/build-php-environment-with-synaptic/">SynapticでPHP開発環境を構築しよう</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-11T08:00:00+09:00" pubdate data-updated="true">Jun 11<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/11/build-php-environment-with-synaptic/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>森です。 <a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">前回の記事</a> で仮想環境を作成したわけですが
+作成しただけでは何も始まりません。さっそく開発環境を構築していきましょう。</p>
+
+<p>今回は伝統的な <em>Apache</em> , <em>PHP</em> , <em>MySQL</em> 構成を構築します。</p>
+
+<p>あいかわらずスクリーンショット多め内容薄めです。</p>
+
+<h2>パッケージ管理にSynaptic パッケージマネージャを使う</h2>
+
+<p>Debianにはソフトウェアをインストール、管理するためにあらかじめ用意された
+多くの <a href="http://www.debian.org/distrib/packages.ja.html">パッケージ</a> があります。
+これらのパッケージを用いることでApacheやMySQLなど一般的なソフトウェアのインストールやアップデート、削除をとても簡単に行えます。
+かんたんに開発環境を構築するために使わない手はありません。</p>
+
+<p>さらに <strong>Synaptic パッケージマネージャ</strong> （以降Synaptic）を使用することでパッケージをGUIで追加、更新、削除することができます。
+今回はSynapticを用いてソフトウェアのインストールを行います。</p>
+
+<p>Synapticの詳細は <a href="http://packages.debian.org/ja/squeeze/synaptic">packages.debian.orgを参照</a> してください。</p>
+
+<h2>Synapticの起動</h2>
+
+<p>まず <em>スタートメニュー</em> から <em>システムツール</em> → <em>システム管理</em> → <em>Synaptic パッケージマネージャ</em> を選択します。
+Synapticの起動には <strong>rootのパスワードを入力する</strong> 必要がありますので前回インストール時に設定したパスワードを入力してください。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-synaptic.choose.png" alt="選択" /></p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-synaptic.password.png" alt="パスワード入力" /></p>
+
+<p>初回起動時にはSynapticのかんたんな説明が表示されます。よく読んでおきましょう。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-synaptic.confirm.png" alt="Synapticの説明" /></p>
+
+<h2>パッケージをインストールする</h2>
+
+<p>Synapticのメイン画面です。</p>
+
+<p>左ペイン で <em>インストールするパッケージのカテゴリ</em> を選び、 右ペインで 表示される <em>パッケージ</em> をチェックして <em>適用</em> ボタンを押すとシステムに反映されます。
+目的のパッケージ名がわかっている場合は <strong>名前からパッケージを検索する</strong> こともできます。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.main.png" alt="Synapticメイン画面" /></p>
+
+<h3>Apache</h3>
+
+<p>まずはApacheのインストールです。
+<em>検索</em> 欄に <code>apache2</code> と入力します。関連するパッケージが表示されますので <strong>apache2</strong> をダブルクリックでインストール指定をします。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install-apache2.png" alt="Apacheインストール" /></p>
+
+<p>注意が表示されました。一部のパッケージには <strong>依存関係</strong> があり、パッケージAをインストールするためにはパッケージBのインストールが必要なケースや、
+パッケージAをインストール指定するとパッケージCが削除されるというケースもあります。
+今回は <em>apache2</em> をインストール指定すると <em>apache2-mpm-worker</em> , <em>apache2-utils</em> , <em>apache2.2-common</em> が合わせてインストール指定されます。</p>
+
+<p><em>マーク</em> ボタンをクリックしてパッケージ選択画面に戻ります。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install-apache2.notice.png" alt="依存パッケージの選択" /></p>
+
+<h3>PHP</h3>
+
+<p>次は <em>PHP</em> をインストール指定します。先ほどと同じ要領で <code>php</code> でパッケージを検索します。
+一覧から <strong>php5</strong> を選択します。また依存パッケージの注意が表示されるのでパッケージを確認して <em>マーク</em> ボタンをクリックします。</p>
+
+<h3>MySQL</h3>
+
+<p>最後に <em>MySQL</em> です。 <strong>mysql-server</strong> とPHPでMySQLへ接続するために <strong>mysql-php5</strong> を、 さらにブラウザ上でデータベースを操作するために <strong>phpmyadmin</strong> をインストール指定します。</p>
+
+<h3>インストール</h3>
+
+<p>これですべての準備ができました。 <strong>適用</strong> ボタンをクリックします。</p>
+
+<p>インストールするパッケージの確認が表示されます。内容を確認した上で <strong>適用</strong> ボタンをクリックします。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.confirm.png" alt="パッケージの確認" /></p>
+
+<p>パッケージのダウンロードが始まります。ゆっくり待ちましょう。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.download.png" alt="ダウンロード中" /></p>
+
+<p>インストール中に他ソフトウェアの設定画面が表示されることがあります。今回はMySQLサーバとphpMyAdminの設定画面が表示されます。</p>
+
+<p>MySQLサーバのrootのパスワードを指定しましょう。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.setup-mysql.png" alt="mysqlの設定" /></p>
+
+<p>phpMyAdminの設定では <em>apache2</em> を選択します。他にも選択を要求されることがあるかもしれませんが画面の指示にしたがって選択していけばダイジョブです。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.setup-phpmyadmin.png" alt="phpMyAdminの設定" /></p>
+
+<p>あとはインストールが終わるまでゆっくり待ちましょう。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.processing.png" alt="インストール中" /></p>
+
+<p>無事完了したようです。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.finish.png" alt="インストール完了" /></p>
+
+<h2>試してみよう</h2>
+
+<p><em>スタートメニュー</em> から <em>インターネット</em> → <em>Iceweasel ウェブ・ブラウザ</em> を選択します。</p>
+
+<p>※ <em>Iceweasel</em> は標準でインストールされているWebブラウザです。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-iceweasel.choose.png" alt="Iceweaselを選択" /></p>
+
+<p>アドレスバーに <code>http://localhost/phpmyadmin</code> と入力します。
+phpMyAdminのログイン画面が表示できました。</p>
+
+<p>ユーザ名に <strong>root</strong> , パスワードに <strong>先ほどの手順で設定したパスワード</strong> を入力してログインします。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/phpmyadmin.login.png" alt="phpMyAdminログイン画面" /></p>
+
+<p>メイン画面が無事に表示されればもう問題はなさそうです。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/phpmyadmin.main.png" alt="phpMyAdminメイン画面" /></p>
+
+<p>これで <em>Apache</em> , <em>PHP</em> , <em>MySQL</em> の環境が構築できました。これでアプリを作っていきましょう！</p>
+
+<h2>終わりに</h2>
+
+<p>Synapticを使うことでターミナルを使わずに開発環境を用意することができました。
+ゆくゆくはCUIを使う必要があるのですが、まずはSynapticを使って環境構築の敷居を下げ、いろいろなパッケージを試していきましょう。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6edaeca6d206ade350bc34b74ecc07e1" alt="森裕介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>森裕介</h3>
+        <p>無念<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/jiskanulo">@jiskanulo</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/jiskay/">jiskaのメモ書き</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1675,251 +1854,6 @@ Inspector上で、画像の参照を、先ほどAssetsに追加されたミン�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/01/how-to-make-post-environment/">Octopressへの投稿環境の作り方</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-01T03:02:00+09:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/01/how-to-make-post-environment/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>前置き</h2>
-
-<p>このエントリーは、Octopressのセットアップに関する記事ではありません。<br/>
-Octopressを共同編集するにあたっての、個人環境構築に関する記事になります。</p>
-
-<h2>準備作業</h2>
-
-<h3>ruby 1.9.3以上のインストール</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>ruby --version
-</span><span class='line'>ruby 1.9.3p374 <span class="o">(</span>2013-01-15 revision 38858<span class="o">)</span> <span class="o">[</span>x86_64-darwin12.2.1<span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>もしバージョンが低かったり「no such command」とか言われちゃう場合は、この際なのでrbenvを導入しちゃいましょう。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># まずはrbenvのインストール</span>
-</span><span class='line'><span class="nv">$ </span>brew install rbenv ruby-build
-</span><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;&#39;</span> &gt;&gt; ~/.bashrc
-</span><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;eval &quot;$(rbenv init -)&quot;&#39;</span> &gt;&gt; ~/.bashrc
-</span><span class='line'><span class="nv">$ </span><span class="nb">source</span> ~/.bashrc
-</span><span class='line'>
-</span><span class='line'><span class="c"># 1.9.3p374をインストール</span>
-</span><span class='line'><span class="nv">$ </span>rbenv install 1.9.3-p374
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>windowsの人は</h3>
-
-<p>cygwinでもインストールしてみて！</p>
-
-<h2>Octopress環境を構築しよう</h2>
-
-<h3>「befool-inc/befool-inc.github.com.git」のclone</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd </span>path/to/workspace
-</span><span class='line'><span class="nv">$ </span>git clone git@github.com:befool-inc/befool-inc.github.com.git
-</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>befool-inc.github.com
-</span><span class='line'><span class="nv">$ </span>git checkout -b <span class="nb">source </span>origin/source
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>依存ライブラリの取得</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>gem install bundler
-</span><span class='line'><span class="nv">$ </span>bundle install
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>rakeタスクの確認</h3>
-
-<p>Octopressのrakeタスクが一覧されるか試してみましょう。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake -T
-</span><span class='line'>rake clean                     <span class="c"># Clean out caches: .pygments-cache, .gist-cache, .sass-cache</span>
-</span><span class='line'>rake copydot<span class="o">[</span><span class="nb">source</span>,dest<span class="o">]</span>      <span class="c"># copy dot files for deployment</span>
-</span><span class='line'>rake deploy                    <span class="c"># Default deploy task</span>
-</span><span class='line'>rake gen_deploy                <span class="c"># Generate website and deploy</span>
-</span><span class='line'>rake generate                  <span class="c"># Generate jekyll site</span>
-</span><span class='line'>rake install<span class="o">[</span>theme<span class="o">]</span>            <span class="c"># Initial setup for Octopress: copies the default theme into the path of Jekyll&#39;s generator.</span>
-</span><span class='line'>rake integrate                 <span class="c"># Move all stashed posts back into the posts directory, ready for site generation.</span>
-</span><span class='line'>rake isolate<span class="o">[</span>filename<span class="o">]</span>         <span class="c"># Move all other posts than the one currently being worked on to a temporary stash location (stash) so regenerating the site happens much more quickly.</span>
-</span><span class='line'>rake list                      <span class="c"># list tasks</span>
-</span><span class='line'>rake new_page<span class="o">[</span>filename<span class="o">]</span>        <span class="c"># Create a new page in source/(filename)/index.markdown</span>
-</span><span class='line'>rake new_post<span class="o">[</span>title<span class="o">]</span>           <span class="c"># Begin a new post in source/_posts</span>
-</span><span class='line'>rake preview                   <span class="c"># preview the site in a web browser</span>
-</span><span class='line'>rake push                      <span class="c"># deploy public directory to github pages</span>
-</span><span class='line'>rake rsync                     <span class="c"># Deploy website via rsync</span>
-</span><span class='line'>rake set_root_dir<span class="o">[</span>dir<span class="o">]</span>         <span class="c"># Update configurations to support publishing to root or sub directory</span>
-</span><span class='line'>rake setup_github_pages<span class="o">[</span>repo<span class="o">]</span>  <span class="c"># Set up _deploy folder and deploy branch for Github Pages deployment</span>
-</span><span class='line'>rake update_source<span class="o">[</span>theme<span class="o">]</span>      <span class="c"># Move source to source.old, install source theme updates, replace source/_includes/navigation.html with source.old&#39;s navigation</span>
-</span><span class='line'>rake update_style<span class="o">[</span>theme<span class="o">]</span>       <span class="c"># Move sass to sass.old, install sass theme updates, replace sass/custom with sass.old/custom</span>
-</span><span class='line'>rake watch                     <span class="c"># Watch the site and regenerate when it changes</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>こんな感じで表示されればOKだ。</p>
-
-<h2>記事を書いてみる</h2>
-
-<h3>箱形の作成</h3>
-
-<p>まずは記事を書くための箱形の作成を行います。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake new_post<span class="o">[</span><span class="s1">&#39;foo bar zoo&#39;</span><span class="o">]</span>
-</span><span class='line'>mkdir -p <span class="nb">source</span>/_posts
-</span><span class='line'>Creating new post: <span class="nb">source</span>/_posts/2013-05-01-foo-bar-zoo.markdown
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>markdownの編集</h3>
-
-<p>markdown形式で記事を書きます</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vi <span class="nb">source</span>/_posts/2013-05-01-foo-bar-zoo.markdown
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>プレビュー</h3>
-
-<p>Octopressではローカルで記事のプレビューが可能です。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 公開用ファイル群を生成</span>
-</span><span class='line'><span class="nv">$ </span>rake generate
-</span><span class='line'>
-</span><span class='line'><span class="c"># プレビュー</span>
-</span><span class='line'><span class="nv">$ </span>rake preview
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>WEBブラウザを開いて、「<a href="http://localhost:4000/">http://localhost:4000/</a>」へアクセスしてみてください。<br/>
-表示されましたか？</p>
-
-<h2>デプロイ</h2>
-
-<p>当たり前の話ではありますが、ローカルで記事を書いただけではWEB上に公開されません。<br/>
-Octopressはgithubへのコミットまで面倒を見てくれます。</p>
-
-<h3>始めてデプロイする場合</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 本来であれば</span>
-</span><span class='line'><span class="c"># rake setup_github_pages</span>
-</span><span class='line'><span class="c"># で_deployディレクトリを作成するべきだが、最初の記事の作成などもおこなってしまうためにcloneで対応</span>
-</span><span class='line'><span class="nv">$ </span>git clone git@github.com:befool-inc/befool-inc.github.com.git _deploy
-</span><span class='line'><span class="nv">$ </span>rake deploy
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>すでにデプロイに成功している場合</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake deploy
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>これで、記事がWEBに公開されました！おめでとう！</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>木内智史之介</h3>
-        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
-		<ul class="author-links">
-			
-			<li>
-			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
-			</li>
-			
-			
-			<li>
-            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
-			</li>
-			
-		</ul>
-	</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1935,6 +1869,10 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/06/11/build-php-environment-with-synaptic/">SynapticでPHP開発環境を構築しよう</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">Oracle VM VirtualBoxでデスクトップLinuxを始めよう</a>
       </li>
     
@@ -1948,10 +1886,6 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
     
       <li class="post">
         <a href="/blog/2013/05/29/unity-study-07-build-for-android/">Unity勉強 第7回 「Android向けのビルドも試してみる」</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/23/unity-study-06-build-for-ios/">Unity勉強 第6回 「ついに！無償化された、build for iOS を試してみる」</a>
       </li>
     
   </ul>

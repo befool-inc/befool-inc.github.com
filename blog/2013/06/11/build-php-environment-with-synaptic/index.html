@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>SynapticでPHP開発環境を構築しよう - BEFOOL blog</title>
+  <meta name="author" content="8823-scholar">
+
+  
+  <meta name="description" content="森です。 前回の記事 で仮想環境を作成したわけですが
+作成しただけでは何も始まりません。さっそく開発環境を構築していきましょう。 今回は伝統的な Apache , PHP , MySQL 構成を構築します。 あいかわらずスクリーンショット多め内容薄めです。 パッケージ管理にSynaptic &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/06/11/build-php-environment-with-synaptic">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/atom.xml" rel="alternate" title="BEFOOL blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40545969-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEFOOL blog</a></h1>
+  
+    <h2>今日もいい天気</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:befool-inc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">SynapticでPHP開発環境を構築しよう</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-11T08:00:00+09:00" pubdate data-updated="true">Jun 11<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>森です。 <a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">前回の記事</a> で仮想環境を作成したわけですが
+作成しただけでは何も始まりません。さっそく開発環境を構築していきましょう。</p>
+
+<p>今回は伝統的な <em>Apache</em> , <em>PHP</em> , <em>MySQL</em> 構成を構築します。</p>
+
+<p>あいかわらずスクリーンショット多め内容薄めです。</p>
+
+<h2>パッケージ管理にSynaptic パッケージマネージャを使う</h2>
+
+<p>Debianにはソフトウェアをインストール、管理するためにあらかじめ用意された
+多くの <a href="http://www.debian.org/distrib/packages.ja.html">パッケージ</a> があります。
+これらのパッケージを用いることでApacheやMySQLなど一般的なソフトウェアのインストールやアップデート、削除をとても簡単に行えます。
+かんたんに開発環境を構築するために使わない手はありません。</p>
+
+<p>さらに <strong>Synaptic パッケージマネージャ</strong> （以降Synaptic）を使用することでパッケージをGUIで追加、更新、削除することができます。
+今回はSynapticを用いてソフトウェアのインストールを行います。</p>
+
+<p>Synapticの詳細は <a href="http://packages.debian.org/ja/squeeze/synaptic">packages.debian.orgを参照</a> してください。</p>
+
+<h2>Synapticの起動</h2>
+
+<p>まず <em>スタートメニュー</em> から <em>システムツール</em> → <em>システム管理</em> → <em>Synaptic パッケージマネージャ</em> を選択します。
+Synapticの起動には <strong>rootのパスワードを入力する</strong> 必要がありますので前回インストール時に設定したパスワードを入力してください。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-synaptic.choose.png" alt="選択" /></p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-synaptic.password.png" alt="パスワード入力" /></p>
+
+<p>初回起動時にはSynapticのかんたんな説明が表示されます。よく読んでおきましょう。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-synaptic.confirm.png" alt="Synapticの説明" /></p>
+
+<h2>パッケージをインストールする</h2>
+
+<p>Synapticのメイン画面です。</p>
+
+<p>左ペイン で <em>インストールするパッケージのカテゴリ</em> を選び、 右ペインで 表示される <em>パッケージ</em> をチェックして <em>適用</em> ボタンを押すとシステムに反映されます。
+目的のパッケージ名がわかっている場合は <strong>名前からパッケージを検索する</strong> こともできます。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.main.png" alt="Synapticメイン画面" /></p>
+
+<h3>Apache</h3>
+
+<p>まずはApacheのインストールです。
+<em>検索</em> 欄に <code>apache2</code> と入力します。関連するパッケージが表示されますので <strong>apache2</strong> をダブルクリックでインストール指定をします。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install-apache2.png" alt="Apacheインストール" /></p>
+
+<p>注意が表示されました。一部のパッケージには <strong>依存関係</strong> があり、パッケージAをインストールするためにはパッケージBのインストールが必要なケースや、
+パッケージAをインストール指定するとパッケージCが削除されるというケースもあります。
+今回は <em>apache2</em> をインストール指定すると <em>apache2-mpm-worker</em> , <em>apache2-utils</em> , <em>apache2.2-common</em> が合わせてインストール指定されます。</p>
+
+<p><em>マーク</em> ボタンをクリックしてパッケージ選択画面に戻ります。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install-apache2.notice.png" alt="依存パッケージの選択" /></p>
+
+<h3>PHP</h3>
+
+<p>次は <em>PHP</em> をインストール指定します。先ほどと同じ要領で <code>php</code> でパッケージを検索します。
+一覧から <strong>php5</strong> を選択します。また依存パッケージの注意が表示されるのでパッケージを確認して <em>マーク</em> ボタンをクリックします。</p>
+
+<h3>MySQL</h3>
+
+<p>最後に <em>MySQL</em> です。 <strong>mysql-server</strong> とPHPでMySQLへ接続するために <strong>mysql-php5</strong> を、 さらにブラウザ上でデータベースを操作するために <strong>phpmyadmin</strong> をインストール指定します。</p>
+
+<h3>インストール</h3>
+
+<p>これですべての準備ができました。 <strong>適用</strong> ボタンをクリックします。</p>
+
+<p>インストールするパッケージの確認が表示されます。内容を確認した上で <strong>適用</strong> ボタンをクリックします。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.confirm.png" alt="パッケージの確認" /></p>
+
+<p>パッケージのダウンロードが始まります。ゆっくり待ちましょう。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.download.png" alt="ダウンロード中" /></p>
+
+<p>インストール中に他ソフトウェアの設定画面が表示されることがあります。今回はMySQLサーバとphpMyAdminの設定画面が表示されます。</p>
+
+<p>MySQLサーバのrootのパスワードを指定しましょう。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.setup-mysql.png" alt="mysqlの設定" /></p>
+
+<p>phpMyAdminの設定では <em>apache2</em> を選択します。他にも選択を要求されることがあるかもしれませんが画面の指示にしたがって選択していけばダイジョブです。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.setup-phpmyadmin.png" alt="phpMyAdminの設定" /></p>
+
+<p>あとはインストールが終わるまでゆっくり待ちましょう。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.processing.png" alt="インストール中" /></p>
+
+<p>無事完了したようです。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/synaptic.install.finish.png" alt="インストール完了" /></p>
+
+<h2>試してみよう</h2>
+
+<p><em>スタートメニュー</em> から <em>インターネット</em> → <em>Iceweasel ウェブ・ブラウザ</em> を選択します。</p>
+
+<p>※ <em>Iceweasel</em> は標準でインストールされているWebブラウザです。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/boot-iceweasel.choose.png" alt="Iceweaselを選択" /></p>
+
+<p>アドレスバーに <code>http://localhost/phpmyadmin</code> と入力します。
+phpMyAdminのログイン画面が表示できました。</p>
+
+<p>ユーザ名に <strong>root</strong> , パスワードに <strong>先ほどの手順で設定したパスワード</strong> を入力してログインします。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/phpmyadmin.login.png" alt="phpMyAdminログイン画面" /></p>
+
+<p>メイン画面が無事に表示されればもう問題はなさそうです。</p>
+
+<p><img src="/images/posts/2013-06-11-build-php-environment-with-synaptic/phpmyadmin.main.png" alt="phpMyAdminメイン画面" /></p>
+
+<p>これで <em>Apache</em> , <em>PHP</em> , <em>MySQL</em> の環境が構築できました。これでアプリを作っていきましょう！</p>
+
+<h2>終わりに</h2>
+
+<p>Synapticを使うことでターミナルを使わずに開発環境を用意することができました。
+ゆくゆくはCUIを使う必要があるのですが、まずはSynapticを使って環境構築の敷居を下げ、いろいろなパッケージを試していきましょう。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6edaeca6d206ade350bc34b74ecc07e1" alt="森裕介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>森裕介</h3>
+        <p>無念<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/jiskanulo">@jiskanulo</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/jiskay/">jiskaのメモ書き</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">jiska</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-11T08:00:00+09:00" pubdate data-updated="true">Jun 11<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/debian/'>debian</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/06/11/build-php-environment-with-synaptic/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/06/11/build-php-environment-with-synaptic/" >Tweet</a>
+  
+
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+  
+
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+  
+    <div class="fb-comments" data-href="http://befool-inc.github.io" data-num-posts="2" data-width="689"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/" title="Previous Post: Oracle VM VirtualBoxでデスクトップLinuxを始めよう">&laquo; Oracle VM VirtualBoxでデスクトップLinuxを始めよう</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/build-php-environment-with-synaptic/">SynapticでPHP開発環境を構築しよう</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">Oracle VM VirtualBoxでデスクトップLinuxを始めよう</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/">【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/31/unity-raharu-drawcall/">【Unity 入門】DrawCallが多かった原因</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/29/unity-study-07-build-for-android/">Unity勉強 第7回 「Android向けのビルドも試してみる」</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - 8823-scholar -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'befoolblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/06/11/build-php-environment-with-synaptic/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/06/11/build-php-environment-with-synaptic/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
