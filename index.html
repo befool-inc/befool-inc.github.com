@@ -9,8 +9,8 @@
   <meta name="author" content="8823-scholar">
 
   
-  <meta name="description" content="こんばんは。デザイン部フラッシャー 中田です。 最近HTML5だとかAdobeEdgeAnimate(アドビエッジアニメイト)だとか言われてますが、
-今までFlashを使っていた者としては、めんどくせーよ…と思うわけです。 Flashは「ここもっとキラっとさせてー」なんての定番の注文を言われた時も &hellip;">
+  <meta name="description" content="森です。他メンバーはUnityのことばっかり書いていますがマイペースで書きます。 昔 windowsでwebサービスの開発をしているひとにUbuntuをオススメしたい３つの理由 を書いたわけですが
+今となっては古い情報になりつつあるので改めて。 はじめに 大多数のwebサービスは Linux系OS &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,267 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">Oracle VM VirtualBoxでデスクトップLinuxを始めよう</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-08T10:00:00+09:00" pubdate data-updated="true">Jun 8<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>森です。他メンバーはUnityのことばっかり書いていますがマイペースで書きます。</p>
+
+<p>昔 <a href="http://d.hatena.ne.jp/jiskay/20101123/1290527829">windowsでwebサービスの開発をしているひとにUbuntuをオススメしたい３つの理由</a> を書いたわけですが
+今となっては古い情報になりつつあるので改めて。</p>
+
+<h2>はじめに</h2>
+
+<p>大多数のwebサービスは <em>Linux系OS</em> で動作しています。webサービスを開発、運用する上でLinuxを操作することを避けては通れません。
+前述の記事は <em>Windows</em> は使い慣れているけれどLinuxの仕組みはよくわからない…という人に向けて
+<em>それじゃあデスクトップLinuxを使ってLinuxに慣れてみようよ</em> という意図でかいたものです。</p>
+
+<p>親しみのあるWindows環境を捨てて新しい環境へ移行するというのは中々勇気が要ることです。
+そこで <em>既存の環境を壊さずに別環境を試す</em> ために <em>仮想化ソフトウェア</em> の出番です。
+1つのマシンで複数の <em>仮想マシン</em> を動作させることができます。
+ここ2~3年のマシンならば必要に応じて仮想マシンを新規作成、起動、いらなくなったら削除する…ということを気楽に行えます。</p>
+
+<p>今回は仮想化ソフトウェアに <strong>Oracle VM VirtualBox</strong> （以降VirtualBox）を使用して仮想環境を作成します。</p>
+
+<p>※ スクリーンショットなどは自分が現在 <em>Mac</em> (OS X) を使用しているのでMac版になってしまいますが、
+Windows版でも大きな違いはありませんので適時読み替えてください。ごめんなさい。</p>
+
+<h2>VirtualBox をインストールする</h2>
+
+<p><a href="http://www.oracle.com/technetwork/jp/server-storage/virtualbox/downloads/index.html">VirtualBoxのダウンロードページ</a> から
+自分が使っているプラットフォームに合わせたインストーラをダウンロード、VirtualBoxをインストールしましょう。</p>
+
+<p>インストールが終わったらVirtualBoxを起動しましょう。メイン画面はこんなかんじです。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/main.png" alt="main" /></p>
+
+<p>まだ <em>仮想マシン</em> が何も登録されていません。作成済みの仮想マシンをインポートすることもできますが、今回は新規で仮想マシンを作成しましょう。</p>
+
+<h2>仮想マシンを新規作成する</h2>
+
+<p>仮想マシンの作成概要をかいつまむと</p>
+
+<ol>
+<li>仮想マシンを作成する</li>
+<li>仮想マシンの設定を調整する</li>
+<li>仮想マシンにOSをインストールする</li>
+</ol>
+
+
+<p>…これだけです。画面の指示にしたがって作業を進めればOSのインストールまでおよそ1時間程度で仮想マシンが完成します。</p>
+
+<h3>仮想マシンの作成</h3>
+
+<p>左上の <em>新規</em> ボタンを押すと <em>新規作成ウィザード</em> が起動します。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/create-wizard.name.1.png" alt="新規作成ウィザード" /></p>
+
+<p>まず作成する仮想マシンの名前を入力します。 <strong>自分が管理しやすい、わかりやすい名前</strong> をつけてください。
+このときに名前を <em>Debian</em> などにすると仮想マシンの設定をあらかじめ自動で選択してくれます。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/create-wizard.name.2.png" alt="仮想マシンの名前を入力する" /></p>
+
+<p>仮想マシンのメモリ割り当て量を設定します。自分のマシンスペックと相談して割り当てて下さい。
+あまり深く考えずにデフォルト値を選択しても大丈夫です。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/create-wizard.memory.png" alt="メモリ割り当て量を設定する" /></p>
+
+<p>ハードディスクイメージを作成するか、すでに存在するイメージを割り当てるか選択します。
+今回は新規作成です。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/create-wizard.hd.png" alt="ハードディスクイメージを作成する" /></p>
+
+<p>新規作成する場合はハードディスクイメージの種類や容量の設定を設定する項目が表示されます。
+これらもデフォルト値のままで大丈夫です。細かい項目は何回か仮想マシンを作成するようになってから調べるのでも充分です。</p>
+
+<p>メイン画面に先ほど命名した仮想マシンが登録されれば完了です。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/added.png" alt="仮想マシン登録完了" /></p>
+
+<h3>OSのインストール</h3>
+
+<p>作成した仮想マシンにOSをインストールします。
+インストールをするOSとして無数にあるLinuxディストリビューションからどれを使うかは個人の好みによるものが大きいと思うのですが、
+今回は <a href="http://www.debian.org/">Debian</a> でいきます。理由は単純に自分がDebianが好きだからです。
+実業務で利用しているLinuxディストリビューションがRed Hat系ならば <a href="http://www.centos.org/">Cent OS</a> がいいでしょう。</p>
+
+<p>2013年6月現在、Debianの最新バージョンは <strong>7.0 &#8220;Wheezly&#8221;</strong> です。</p>
+
+<p>まず <a href="http://www.debian.org/distrib/netinst">ダウンロードページ</a> から
+自分が使っているマシンに合ったisoイメージを選択してダウンロードします。
+乱暴な区分ですが使っているマシンが32bit CPUならば <em>i386</em> を、 64bit CPU なら <em>amd64</em> を選択すればだいたい問題ないです。</p>
+
+<p>isoイメージのダウンロードが終わったら先ほどの仮想マシンを起動します。
+仮想マシンを選択して <em>起動</em> ボタンを押してください。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/added.png" alt="仮想マシンを起動する" /></p>
+
+<p>…まだ何もOSがインストールされていないので何も動きません。インストールを始める準備をします。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/create-vm.boot-failue.png" alt="起動失敗" /></p>
+
+<p>画面右下の <em>CDアイコンをクリック</em> して、 <em>先ほどダウンロードしたisoイメージを選択</em> します。
+正しくisoイメージが選択されたら <em>CDアイコンの表示が変わる</em> のでわかると思います。</p>
+
+<p>isoイメージを選択したら <em>メニュー</em> から <em>マシンの再起動</em> （あるいはリセット） を選択して再起動します。
+無事にインストーラが起動すれば大丈夫です。もし起動しなかった場合はisoイメージがちゃんと破損していないか確認してください。</p>
+
+<p>インストーラの種類を選ぶことができます。今回は <strong>Graphical install</strong> を選択します。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/create-vm.installer.png" alt="インストーラを選択" /></p>
+
+<p>インストーラで使用する言語を選択します。日本語を選びましょう。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/install-debian.choose-language.png" alt="言語の選択" /></p>
+
+<p>画面の指示にしたがって進みます。ネットワークとユーザーは以下の内容で設定しました。</p>
+
+<table>
+<thead>
+<tr>
+<th>項目 </th>
+<th> 値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ホスト名 </td>
+<td> debian </td>
+</tr>
+<tr>
+<td>ドメイン名 </td>
+<td> (空白) </td>
+</tr>
+<tr>
+<td>rootのパスワード </td>
+<td> d3b14n </td>
+</tr>
+<tr>
+<td>ユーザーのフルネーム </td>
+<td> jiska </td>
+</tr>
+<tr>
+<td>ユーザーのアカウント名 </td>
+<td> jiska </td>
+</tr>
+<tr>
+<td>ユーザーのパスワード </td>
+<td> jisk4 </td>
+</tr>
+</tbody>
+</table>
+
+
+<hr />
+
+<p>ディスクのパーティション設定もデフォルト値で指定しましょう。</p>
+
+<p><em>はい</em> を選択しないと次に進みません。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/install-debian.make-partition.png" alt="パーティションの選択" /></p>
+
+<p>次に <em>パッケージマネージャ</em> の設定です。これもデフォルト値の <code>ftp.jp.debian.org</code> を選択します。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/install-debian.package-manager.1.png" alt="パッケージマネージャ選択" /></p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/install-debian.package-manager.2.png" alt="パッケージマネージャ選択" /></p>
+
+<p>どのパッケージがよく利用されているかの統計をとる <em>popularity-contest</em> の設定です。
+個人の好みですがせっかくなので <em>はい</em> を選択しておきます。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/install-debian.join-popularity-contest.png" alt="popularity-contest" /></p>
+
+<p>最後に初期インストールするソフトウェアの選択です。</p>
+
+<p><strong>Debian デスクトップ環境</strong> 、 <strong>SSHサーバ</strong> 、 <strong>標準システムユーティリティ</strong> にチェックが入っていることを確認してください。
+他項目は必要に応じてチェックを入れますが後からインストールすることができますので空白のままでも大丈夫です。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/install-debian.choose-software.png" alt="ソフトウェアの選択" /></p>
+
+<p>後は見守るだけです。１時間くらいはかかりますので休憩でもとりましょう。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/install-debian.wait-install-process.png" alt="インストール中" /></p>
+
+<p>途中で入力を求められることもあるかもしれませんがデフォルト値を選択すれば大丈夫でしょう。
+完了すると自動でマシンが再起動します。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/install-debian.finish.png" alt="インストール完了" /></p>
+
+<h3>Debianの起動</h3>
+
+<p>Debianのログイン画面が表示されます。さきほどのユーザー名とパスワードを指定しましょう。</p>
+
+<p>VirtualBoxの初期設定ではこのまま起動するとログイン後にエラーが発生します。
+とりあえずエラーを回避するため左下の <em>デスクトップマネージャ</em> から <strong>GNOME Classic</strong> を選択します。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/boot-debian.login.png" alt="ログイン" /></p>
+
+<p>ログインができました。</p>
+
+<p><img src="/images/posts/2013-06-08-start-desktop-linux-on-virtualbox/boot-debian.success.png" alt="ログイン完了" /></p>
+
+<p>これでデスクトップLinux環境が完成です。今回はDebianが起動したところで終わりにします。これからいろいろカスタマイズしていきましょう。</p>
+
+<h2>最後に</h2>
+
+<p>仮想環境は簡単に作成することができます。もし失敗をしても仮想環境を削除して再度作成することも簡単です。</p>
+
+<p>いちどお試しあれ。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6edaeca6d206ade350bc34b74ecc07e1" alt="森裕介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>森裕介</h3>
+        <p>無念<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/jiskanulo">@jiskanulo</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/jiskay/">jiskaのメモ書き</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -162,7 +423,7 @@ AIデータが無くライブラリにしか保存されていない画像を持
 AdobeFlex(アドビフレックス)で使うものだそうです。
 んー、なんだかよく分からんので見なかったことに。</p>
 
-<p>とりあえずこの謎のファイルFGXをIllustratorに読み込むと･･･。</p>
+<p>とりあえずこの謎のファイルFXGをIllustratorに読み込むと･･･。</p>
 
 <p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/7.png" alt="画像7" /></p>
 
@@ -216,7 +477,7 @@ AdobeEdgeにベクター画像を読み込むには上記のSVGとかいう形�
 	
 	<div class="author-about" style="float:left;">
 		<h3>中田潤</h3>
-        <p>ほげほげ<br /></p>
+        <p>FLASHER兼BEFOOLの用務員。<br />バイク、自転車、家電の修理は朝飯前。<br /></p>
 		<ul class="author-links">
 			
 			
@@ -1659,68 +1920,6 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/01/test-octopress-author-box/">Test Octopress Author Box</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-01T01:18:00+09:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/01/test-octopress-author-box/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Octopressに寄稿者の情報を表示する</h1>
-
-<p>テストだお</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>木内智史之介</h3>
-        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
-		<ul class="author-links">
-			
-			<li>
-			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
-			</li>
-			
-			
-			<li>
-            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
-			</li>
-			
-		</ul>
-	</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1736,6 +1935,10 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">Oracle VM VirtualBoxでデスクトップLinuxを始めよう</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/">【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ</a>
       </li>
     
@@ -1749,10 +1952,6 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
     
       <li class="post">
         <a href="/blog/2013/05/23/unity-study-06-build-for-ios/">Unity勉強 第6回 「ついに！無償化された、build for iOS を試してみる」</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/22/unity-study-05-enable-animated-gif/">Unity勉強 第5回 「アニメーションgifって使えるの？」</a>
       </li>
     
   </ul>
