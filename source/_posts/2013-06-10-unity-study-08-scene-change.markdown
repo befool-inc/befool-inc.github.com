@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Unity勉強 第8回 「シーンの切り替え」"
-date: 2013-06-10 23:39
+date: 2013-06-15 23:21
 comments: true
 categories: unity study
 author: 8823-scholar
