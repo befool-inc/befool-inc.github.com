@@ -8,6 +8,7 @@ class String
     # 単純にURL Encodeで扱うように変更
     def to_url
         CGI.escape self
+        #return self
     end
 
 end
