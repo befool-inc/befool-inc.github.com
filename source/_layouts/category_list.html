@@ -1,0 +1,10 @@
+---
+layout: page
+footer: false
+---
+
+<ul id="category-list">
+{% for category in page.categories %}
+<li>{{ category | category_list_link  }}</li>
+{% endfor %}
+</ul>
