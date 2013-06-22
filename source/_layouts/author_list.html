@@ -1,0 +1,10 @@
+---
+layout: page
+footer: false
+---
+
+<ul id="author-list">
+{% for author in page.authors %}
+<li>{{ author | author_list_link  }}</li>
+{% endfor %}
+</ul>

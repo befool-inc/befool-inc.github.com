@@ -15,7 +15,7 @@ module Jekyll
       @dir  = site.config['category_dir'] || 'categories';
       @name = 'index.html'
 
-      _categories = [];
+      _categories = []
       categories.each do |name, posts|
           _categories.push :name => name,:count => posts.size
       end
