@@ -3,7 +3,7 @@ layout: post
 title: "【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ"
 date: 2013-06-07 18:13
 comments: true
-categories: flash edge illustrator
+categories: flash AdobeEdgeAnimate illustrator
 author: jun-nakada
 ---
 
