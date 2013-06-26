@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>【AdobeEdgeAnimate】AdobeEdgeAnimateのHTMLはどうやって書くのか - BEFOOL blog</title>
+  <meta name="author" content="8823-scholar">
+
+  
+  <meta name="description" content="今回はAdobeEdgeAnimateのHTMLを書いてみようです！ 外部スクリプトをAdobeEdgeAnimateに読み込みしたい場合 （例） 1
+2
+3
+&lt;script type=&quot;text/javascript&quot;&gt;
+//ココにコードを記述する &lt;/ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/atom.xml" rel="alternate" title="BEFOOL blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40545969-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEFOOL blog</a></h1>
+  
+    <h2>今日もいい天気</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:befool-inc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives/">Archives</a></li>
+  <li><a href="/blog/categories/">Categories</a></li>
+  <li><a href="/blog/authors/">Authors</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">【AdobeEdgeAnimate】AdobeEdgeAnimateのHTMLはどうやって書くのか</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-22T16:30:00+09:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>今回はAdobeEdgeAnimateのHTMLを書いてみようです！</p>
+
+<p>外部スクリプトをAdobeEdgeAnimateに読み込みしたい場合</p>
+
+<p>（例）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="c1">//ココにコードを記述する </span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上記をHTMLに記述しなければなりません。</p>
+
+<p>しかし、</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image1.png" alt="画像1" /></p>
+
+<p>JavaScriptコードを書く場所はAdobeEdgeAnimate内でありますが、
+HTMLを書く場所はありません。</p>
+
+<p>そこで今回はどうやってHTMLを書くのかを調査してみました。</p>
+
+<p>テキストエディットでデータから吐き出されたhtmlファイルを開いてみるとロックされていて
+次の瞬間、あれ？データ壊れた？ほわーい？</p>
+
+<p>・・・・・・・・・・・・・</p>
+
+<p>どうやらhtmlデータが壊れるとAdobeEdgeAnimate内のデータも壊れるみたいで
+作ったエレメントなどが消えてしまいます！
+また同じフォルダにhtmlデータがなくなるとAdobeEdgeAnimateデータがエラーで開けなくなるので
+必ず一緒にあることを確認しましょう。</p>
+
+<p>気を取り直してデータを作ってやり直し！</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image2.png" alt="画像2" /></p>
+
+<p>赤、青、緑をtrue/falseで表示させるよう作ってみました。
+これをhtmlに外部スクリプトとして打ち込んでみました。
+まずはテキストエディットにhtmlをドラッグ・・・</p>
+
+<p>あー・・・macってテキストエディットにhtmlファイルをドラッグしてもurlしか出てこないんですねー
+winよりふべn⬅
+さ、環境設定をし直して表示させました。</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image3.png" alt="画像3" /></p>
+
+<p>ここに赤、青、緑のtrue/falseを入れていきます。</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image4.png" alt="画像4" /></p>
+
+<p>こんな感じ！
+web上で確認出来るか確認して見てみると</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image5.png" alt="画像5" /></p>
+
+<p>ちゃんと青だけ表示されてますね！
+このようにテキストエディットでhtmlを直接書き込むことが出来ました。
+AdobeEdgeAnimate内で書き込めれば一番便利なのですけどねぇ…。</p>
+
+<p>テキストエディットがロックされて編集できなかった際にテキストエディット以外のツールを試してみました。</p>
+
+<p>Adobe Edge Code Preview 3<br/>
+<img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/icon.png" alt="画像アイコン" /></p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image6.png" alt="画像6" /></p>
+
+<p>おーっときましたよ、日本語対応なしw
+とりあえず使ってみましょう。
+htmlをドラッグして…
+ん？無反応？？何も表示されない…
+ファイルを開くから選ばないと開かないらしいです。
+不便ですn⬅</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image7.png" alt="画像7" /></p>
+
+<p>このAdobe Edge Code Preview 3ツール
+実はCSS、HTML、JavaScript対応しているようで一気に３つのソースを見ながら打ち込むことが出来る便利ツールのようです！！一個の窓で全部が見れるのはいいですね！！
+webでHTMLとCSSをいじる人にはとっても便利です。
+このツールでもAdobeEdgeAnimateのhtmlをいじることも出来ます。</p>
+
+<p>これでどれでもHTMLいじれるね！安心だね！
+と思いきやここでAdobeEdgeAnimateの落とし穴があります。</p>
+
+<p>先ほど書き込んだhtmlデータを保存したあと、
+AdobeEdgeAnimateのデータをいじる（検証では再生停止のsym.stop();をはずしてみた）と
+なんとHTMLに書き込んだ外部スクリプトが消えています！ひゃー！
+どうやらAdobeEdgeAnimatesw更新をする度にhtmlファイルは書き換えられるようです。
+その度に消えると地獄が待っています。
+どうにか消えないようにしてみたのですがダメでした…。</p>
+
+<p>今の時点ではAdobeEdgeAnimateでアニメーションの動きを作った後でJavaScriptいれ
+最終的にHTMLに外部スクリプトを入れ更新する
+という作業になりそうです。</p>
+
+<p>中々にAdobeEdgeAnimateは手強いようです。</p>
+
+<p>今回の反省点
+データが消えるとは思ってなかった。
+もっと簡単に消えないようHTML打てたら…。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6608e3ddb3ef5feb5890a678970bd449" alt="小亀珠美" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>小亀珠美</h3>
+        <p>(プロフィール未記入)<br /></p>
+		<ul class="author-links">
+			
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">kametama</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-22T16:30:00+09:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/AdobeEdgeAnimate/'>AdobeEdgeAnimate</a>, <a class='category' href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3/'>デザイン</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/" >Tweet</a>
+  
+
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+  
+
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+  
+    <div class="fb-comments" data-href="http://befool-inc.github.io" data-num-posts="2" data-width="689"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/15/unity-study-08-scene-change/" title="Previous Post: Unity勉強 第8回 「シーンの切り替え」">&laquo; Unity勉強 第8回 「シーンの切り替え」</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/">【AdobeEdgeAnimate】AdobeEdgeAnimateのHTMLはどうやって書くのか</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/15/unity-study-08-scene-change/">Unity勉強 第8回 「シーンの切り替え」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/build-php-environment-with-synaptic/">SynapticでPHP開発環境を構築しよう</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">Oracle VM VirtualBoxでデスクトップLinuxを始めよう</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/">【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (9)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/study'>study (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li></ul>
+    <a href="/blog/categories">All Categories</a>
+</section>
+<section>
+    <h1>Authors</h1>
+    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (10)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (2)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li></ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - 8823-scholar -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'befoolblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

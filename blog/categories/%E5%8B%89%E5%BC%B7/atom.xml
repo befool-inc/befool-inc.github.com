@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 勉強 | BEFOOL blog]]></title>
+  <link href="http://befool-inc.github.io/blog/categories/%E5%8B%89%E5%BC%B7/atom.xml" rel="self"/>
+  <link href="http://befool-inc.github.io/"/>
+  <updated>2013-06-27T00:03:30+09:00</updated>
+  <id>http://befool-inc.github.io/</id>
+  <author>
+    <name><![CDATA[8823-scholar]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[【Unity 入門】DrawCallが多かった原因]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall/"/>
+    <updated>2013-05-31T21:36:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall</id>
+    <content type="html"><![CDATA[<p>初めまして、技術部raharuです。<br/>
+今回は前にUnityを勉強していた際に気づいた事を一つ。</p>
+
+<p>とりあえず動くものを作る事を目標に今までつくってみましたが<br/>
+他の方の記事をみていたらDrawCallなる物がFPSおよび負荷に多大な影響を与えているとのこと。<br/>
+自分のつくった物を見てみたらなんと最大値160！これはちょっと多すぎる。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/1.png" alt="New Project" /></p>
+
+<p>基準としてはスマホも対応させるなら40が程度に押さえるのが良いそうです。<br/>
+で、なにかこんなにDrawCallを増やしているのかしらべてみました。<br/>
+色々調べた結果遂に原因がわかりました。原因は<strong>ライト</strong>です。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/2.png" alt="New Project" /></p>
+
+<p>今回プレイヤーの周りだけを明るくする為に追尾カメラにPointLightを入れていたのですが、<br/>
+このライトが壁のプレハブを照らすのが良くない様です。<br/>
+ライトが照らす壁やオブジェクトが多いとDrawCallが多くなってしまうのでしょうか。<br/>
+これは予想ですが、照らされている場所と暗い場所は別にCallしてるのかもしれません（どなたかわかる方教えてください。）<br/>
+兎にも角にもこのライトが原因だったのでこのpointLightをやめて全体を照らすDirectional Lightにしてみました。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/3.png" alt="New Project" /></p>
+
+<p><strong>その結果最大値９！</strong></p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/4.png" alt="New Project" /></p>
+
+<p>そんなに違うんですか！そうですか！<br/>
+もしかしたらUnityユーザーの方達の間では当たり前の事なのかもしれませんが、<br/>
+劇的に値が違ったので備忘録として残しておきます。<br/>
+DrawCallライトには気をつけろ。<br/>
+肝に命じておく事にします。</p>
+
+<p>本家は<a href="http://d.hatena.ne.jp/raharu0425/20130131#1359645274">とあるプログラマの備忘録</a>こっち</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第7回 「Android向けのビルドも試してみる」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/29/unity-study-07-build-for-android/"/>
+    <updated>2013-05-29T21:24:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/29/unity-study-07-build-for-android</id>
+    <content type="html"><![CDATA[<h2>前回のおさらい＆今日の目標</h2>
+
+<p>おはようございます。深田恭子ともっとも結婚したい漢(おとこ)、智史之介です。<br/>
+今日も今日とて、unity勉強をおこないたいと思います。</p>
+
+<p>さて、前回は<a href="/blog/2013/05/23/unity-study-06-build-for-ios/">無償化されたiOS向けのビルド</a>を試しました。<br/>
+今日はその流れで「Android向けのビルド」も試してみたいと思います。</p>
+
+<h2>前回のプロジェクトをコピー</h2>
+
+<p>今回もさくっと前回のプロジェクトをコピーしてしまいましょう。</p>
+
+<h2>Build Settingsはとにかくデフォ</h2>
+
+<p>前回にならって「File > Build Settings」で項目をざらっと眺めてみたのですが、どうもどれもこれもデフォでいけそうな雰囲気です(甘い期待)。<br/>
+ものは試しということで、とくにどの設定も気にかけないでいこうと思います</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/settings.png" alt="デフォ！" /></p>
+
+<h2>Android SDKのインストール＆設定</h2>
+
+<p>iOSは、パブリッシュに関してXcode＋SDKのインストール＆設定が必須でした。<br/>
+Androidには似たようなものはないの？ということですが、それが「Android SDK」になります。</p>
+
+<p><a href="http://developer.android.com/sdk/index.html">Android SDK</a></p>
+
+<p>ダウンロードしてインスコします。<br/>
+インストールにあたって、Unityのドキュメントを軽く眺めておくとよいかもしれないですね。</p>
+
+<p><a href="http://docs-jp.unity3d.com/Documentation/Manual/android-sdksetup.html">Unity Manual - Android SDK セットアップ</a></p>
+
+<p><code>bash
+$ /path/to/android-sdk/tools/android
+</code></p>
+
+<p>とコマンドを打つと、android sdkに関するツールが立ち上がるので、</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/android-sdk.png" alt="こんなかんじ" /></p>
+
+<p>こんな感じで入れておけばいいんじゃないでしょうか？（適当）</p>
+
+<h3>Unity Preferencesも忘れずに</h3>
+
+<p>Unity > Preferences（Cmd+,）で設定画面を開き、「External Tools」を選択すると、中にAndroid SDKのパスに関する項目があります。<br/>
+めんどくさいですが設定しましょう。</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/preferences.png" alt="こんなかんじ" /></p>
+
+<h2>さあ、ビルドぜよ！</h2>
+
+<p>Build Settings > build</p>
+
+<p>でビルドを開始してください。ビルドが無事完了すると、Finderが開く…あれ、開かない。<br/>
+iOSでは開いたのに！もしかして、ビルド失敗したかな？と思って、保存先を確認してみると…、ない！
+やっぱりビルドに失敗しているようだ。</p>
+
+<p>Consoleにエラーがでている。なになに。</p>
+
+<blockquote><p>Error building Player: Exception: android (invokation failed)
+ERROR: unknown error
+cmd:android list target -c
+stdout: Error: occurred during initialization of VM Could not reserve enough space for object heap
+stderr: Error: Could not create the Java Virtual Machine. Error: A fatal exception has occurred. Program will exit.</p></blockquote>
+
+<p>脊髄反射でググってみる。</p>
+
+<p><a href="http://answers.unity3d.com/questions/399121/error-building-player-exception-android-invokation.html">Error building Player: Exception: android (invokation failed) ERROR: unknown error</a></p>
+
+<blockquote><p>Also you can downgrade the tools version to r21 by installing:</p></blockquote>
+
+<p>ダウングレードしてみたら、と言っている。ふむ。そういえば、さっきアップグレードしちゃった…。<br/>
+というわけでダウングレードします。</p>
+
+<p><a href="http://dl.google.com/android/android-sdk_r21-macosx.zip">Android SDK rev21</a></p>
+
+<p>DL＆解凍したら、toolsを上書きしちゃってください。そして再度「platform-tools」もインストールし直してください。
+これでダウングレード完了です。</p>
+
+<h2>改めて、ビルドぜよ！</h2>
+
+<p>さあ、もうこれでいけるでしょう。</p>
+
+<p>Build Settings > build</p>
+
+<p>さあ、どうなるかな！</p>
+
+<p>(ビルド中…)<br/>
+(mac機がものすごい勢いでファンを回しているぜ…)</p>
+
+<p>終わった！Finderでビルド先のディレクトリが開いた。<br/>
+ファイル名は「android.apk」。<br/>
+ひねりのない命名で申し訳ない気持ちでいっぱいです。</p>
+
+<p>このapkファイルを下記のコマンドで端末に転送します。</p>
+
+<p>```bash
+$ /path/to/android-sdk/platform-tools/adb start-server</p>
+
+<h1>ここでandroid端末をUSBで接続</h1>
+
+<p>$ /path/to/android-sdk/platform-tools/adb devices
+List of devices attached
+015d8ecf9927f410    device
+$ /path/to/android-sdk/platform-tools/adb install -r 07.Build4Android/android.apk
+1280 KB/s (8335911 bytes in 6.355s)</p>
+
+<pre><code>pkg: /data/local/tmp/android.apk
+</code></pre>
+
+<p>Success
+```</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/android.installed.png" alt="インストール成功" /></p>
+
+<p>入ってる！
+起動も問題なさそうです。</p>
+
+<p>よし、いいでしょう！</p>
+
+<h2>今回の反省</h2>
+
+<ul>
+<li>迂闊に、android-sdkのアップデートはしない</li>
+</ul>
+
+
+<p>ちょっとはまりました…。</p>
+
+<h2>次回に向けて</h2>
+
+<p>iOSとAndroid向けのビルドも成功しました。一歩一歩確実に進んでいけているような気がして、非常に嬉しいです。<br/>
+次の課題は「シーンとシーンの切り替え」を試してみようと思います！<br/>
+それではまた。シーユー！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第6回 「ついに！無償化された、build for iOS を試してみる」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/23/unity-study-06-build-for-ios/"/>
+    <updated>2013-05-23T21:36:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/23/unity-study-06-build-for-ios</id>
+    <content type="html"><![CDATA[<h2>モバイル向け機能の完全無償化</h2>
+
+<p>おはようございます。AKB48の中では、横山由依ちゃんが大好きな智史之介です。</p>
+
+<p><a href="http://japan.unity3d.com/blog/press/2013/05/21/unity-ios-%E3%81%A8-android-%E3%82%92%E5%90%AB%E3%82%80%E5%80%8B%E4%BA%BA%E3%83%BB%E5%B0%8F%E8%A6%8F%E6%A8%A1%E9%96%8B%E7%99%BA%E8%80%85%E5%90%91%E3%81%91%E3%81%AE-%E3%83%A2%E3%83%90%E3%82%A4/">Unity, iOS と Android を含む個人・小規模開発者向けのモバイル向け機能を完全無償化</a></p>
+
+<p>やってくれました…！我々にできないような事を平然とやってのけるUnity…そこにしびれるぅあこがれるゥゥッ！</p>
+
+<p>確かに、「file > build settings」のメニュー内で、ios向けを選択できるようになっているようです（できない人はアップデートしてみてね）。
+これは試してみるしかないでしょう、というわけで、本日の課題は、この「モバイル向けの機能」というものを試してみようと思います。</p>
+
+<p>ズバリ！「iOS向けにビルド」しちゃいます。ウヒヒ。</p>
+
+<h2>前回のプロジェクトをコピー</h2>
+
+<p>なんか適当なプロジェクトを作成するのも面倒ですので、
+<a href="/blog/2013/05/22/unity-study-05-enable-animated-gif/">Unity勉強 第5回 「アニメーションgifって使えるの？」</a>
+で作成したプロジェクトをコピーして「06.Build4iOS」とでも名前変更し開きます。</p>
+
+<p>え、そんなんでいいのかって？<br/>
+いいんです！これでいいんです！（川平風）
+今日も張り切って行きましょう。</p>
+
+<h2>Build Settings</h2>
+
+<h3>cross platform settings</h3>
+
+<p>iOS向けにビルドするために、まずは「File > Build Settings」のメニューを選択し、ビルド設定画面を開いてください。<br/>
+開くと、ビルド可能なプラットフォームの一覧が並んでいると思いますので、ノーシンクで「iOS」を選択しましょう。</p>
+
+<p>すると「inspecotr」内に設定項目がでてきます。</p>
+
+<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/settings.cross-platform.jpg" alt="てきとーに入力" /></p>
+
+<p>このあたりはテキトーに入力していいものだろうか？と悩みつつテキトーに入力しちゃいます。</p>
+
+<h3>per platform settings</h3>
+
+<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/settings.per-platform.png" alt="よくわからないまま入力" /></p>
+
+<p>こちらもよくわからないのですが、いじった方が良さそうな項目はこちらかな？</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">設定キー                    </th>
+<th align="left"> 値                           </th>
+<th align="left"> メモ </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Bundle identifier           </td>
+<td align="left"> jp.co.befool.study.build4ios </td>
+<td align="left"> 事前にApp IDsをApp Dev Centerで作成の必要あり</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>いざ、ビルド！</h2>
+
+<p>各種設定項目を適当に入力したら、ついにビルドです。</p>
+
+<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/build.png" alt="ビルド" /></p>
+
+<p>「add current」でビルド対象のシーンを追加したうえで、「build」実行するだーーーーーッ！</p>
+
+<p>ビルドが完了したらfinderで出力先のフォルダが開くので、「Unity-iPhone.xcodeproj」を選択してXcodeを開きましょう。</p>
+
+<h2>Xcode…それは未知の世界</h2>
+
+<p>ここから先は、本当に正直よくわからないです…。とにかくいろんなサイトを参考にしながら手探りで進めました。</p>
+
+<p>ちょっとApple周りの各種手続きに関する説明まで本記事に含めると、とんでもない大作になってしまいそうなので今回は割愛させてください。
+気が向いたら、別記事で起こします。</p>
+
+<p>本記事では、簡単ですがやったことリストだけ並べさせていただきます。</p>
+
+<ul>
+<li>Apple Dev Centerへの登録</li>
+<li>開発に関する権利を購入</li>
+<li>証明書の作成</li>
+<li>identifierの作成</li>
+<li>開発機の登録</li>
+<li>Provisioning Profileの作成</li>
+<li>証明書、Provisioning Profileのmac機への設定</li>
+</ul>
+
+
+<p>などをおこないました。
+このあたりの手続きに関しては詳細に説明したWEBページが色々ありますので、是非それらを参考に進めてみてください。</p>
+
+<h3>code signing</h3>
+
+<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/xcode.settings.code-signing.png" alt="code signing" /></p>
+
+<p>なんだかよくわからないけど、設定しろ書いてあった。</p>
+
+<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/xcode.choice.device.jpg" alt="デバイス選択" /></p>
+
+<p>さあ、「Run」を押しましょうぞ！！</p>
+
+<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/build.to.iphone.png" alt="入った！" /></p>
+
+<p>入った！！！</p>
+
+<p>入ったが…！</p>
+
+<p>いたーーーーい！！！なんだかよく分からないけど僕の心がいたーーーーーいッ！<br/>
+iPhoneの待ち受け画面を全世界に公開してしまい、これでまたモテ道から遠のいてしまうんですね…。
+どうか皆さんどん引きしないでください…orz</p>
+
+<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/run.on.iphone.png" alt="うごいた！" /></p>
+
+<p>起動！！</p>
+
+<p>おおおおおおおおお！いい感じに動いています！！</p>
+
+<p>というわけで、今日はここまで〜！</p>
+
+<h2>次回に向けて</h2>
+
+<p>今日は無償化されたiOS向けのビルドを試してみました。<br/>
+Unity側の設定は驚くほど簡単で、困ることはないでしょう。</p>
+
+<p>ただただXcode周りの設定が難しかった…。
+Dev centerとか、証明書とか、Provisioning Profileとか…もう未知の言葉のオンパレードでしたね…orz</p>
+
+<p>ただ、おかげでなんとか各種役割のようなものは理解できたつもりでいます。</p>
+
+<p>次回は、この流れで、「Android向けのビルドを試してみる」行ってみたいと思います！
+どうぞよろしくお願いいたします。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第5回 「アニメーションgifって使えるの？」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/22/unity-study-05-enable-animated-gif/"/>
+    <updated>2013-05-22T21:05:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/22/unity-study-05-enable-animated-gif</id>
+    <content type="html"><![CDATA[<h2>前回までのおさらい＆今回の目標</h2>
+
+<p>前回は、「ボタンを押したらサウンドを鳴らす」というテーマに挑み、情報の少なさに辟易しながらも、匍匐前進でなんとか目標を達成しました。
+本日は、「アニメーションgifって使えるの？」をテーマに進行したいと思います。</p>
+
+<h2>画像の選出</h2>
+
+<p>まずは組み込むためのアニメーションgif探しからです。<br/>
+オシャレ男子であれば、ここで颯爽と「ゴッホ」だとか「ゴーギャン」だとか拾ってくるところですが、僕のようなオタク男子ではやはりこういう結果にあいなります。</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/miku.gif" alt="ミクさん" /></p>
+
+<p>ブヒヒヒィィィィィ！<br/>
+ミクさんかわいいよ、ぺろぺろ。</p>
+
+<p>落としてきたgifファイルはassetsに投げ込んでおきます。</p>
+
+<h2>初音ミクは動かない</h2>
+
+<p>さて、assetsに追加したミクさんgifを、ステージに配置したいので、</p>
+
+<p>GameObject > Create Other > GUI Texture</p>
+
+<p>を選択。なんかデフォルトでミクさんgifが選択されていましたが、もし選択されない場合はinspectorのtextureメニューでミクさんgifを選択してあげてください。</p>
+
+<p>Unity先生であれば、もうこれでミクさんを動かしてくれてるんでしょ？もうかっこよすぎ☆なんて思ってプレビューしてみると…、</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/preiew.first.png" alt="初音ミクは動かない" /></p>
+
+<p>動かない、だと…。<br/>
+ミクさんは止まったままです。一向に動いてくれる気配がありません。</p>
+
+<p>「やれやれだぜ…」</p>
+
+<p>Unity先生も万能じゃないのね、と失望半分、かわいさ半分の気持ちを織り交ぜつつ、今回も大変な回になりそうだぜ、という予感がざわざわと立ち上ぼり始めました。</p>
+
+<h2>どうしてアニメーションgifは使えないのか？</h2>
+
+<p><a href="http://forum.unity3d.com/threads/27873-animated-gif-is-not-working">animated gif is not working</a></p>
+
+<p>この質問に回答しているEric5h5さんが言うには、</p>
+
+<blockquote><p>Unity doesn't have any support for animated gifs. It's a terrible format anyway; use a series of textures instead.<br/>
+(智史之介訳：Unityはアニメーションgifをサポートしていないよ！あれはひどい形式をしてやがるんだよ…。代わりにtextureを使ってくれよな！)</p></blockquote>
+
+<p>まじかー。そんなこと言わずにサポートしてくださいおねがいします(ｽﾞｻﾞｰ</p>
+
+<p>しかたがないので、textureでやってみようと思います。</p>
+
+<h2>アニメーションgifを分割してみる</h2>
+
+<p>アニメーションgifを分解するのに「ImageMagick」を用いました。</p>
+
+<p><code>bash
+$ convert +adjoin -coalesce miku.gif miku-notanimated.gif
+$ ls -1
+miku-notanimated-0.gif
+miku-notanimated-1.gif
+miku-notanimated-2.gif
+miku-notanimated-3.gif
+miku-notanimated-4.gif
+miku-notanimated-5.gif
+miku-notanimated-6.gif
+miku-notanimated-7.gif
+miku-notanimated-8.gif
+miku-notanimated-9.gif
+</code></p>
+
+<p>うん、おｋっぽいですね。</p>
+
+<h2>箱形の作成</h2>
+
+<p>これらの画像を表示するための箱形を用意しましょう。
+僕は「GUITexture」を選びました。</p>
+
+<p>GameObject > Create Other > GUI Texture</p>
+
+<p>で、シーンに配置します。
+デフォルトのtextureには、「miku-notanimated-0.gif」を選択し、pixel insetに関しても調整しておきます。</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.add.guitexture.png" alt="GUI Texture追加" /></p>
+
+<h2>ミクさん画像を切り替えるためのスクリプトを追加</h2>
+
+<p>Assets > Create > Javascript</p>
+
+<p>で、スクリプトを作成します。名前は「miku」とでもしておきます。
+そしてそれを先ほど作成した「GUI Texture」にドラッグ＆ドロップでアタッチ！</p>
+
+<p>inspector上で、「miku(script)」が追加されていればおｋです。</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.add.script.png" alt="script追加" /></p>
+
+<p>さあ、ここらが本番です。<br/>
+今追加したスクリプトでやりたいことは、「textureを一定時間毎に切り替えていく」という処理です。</p>
+
+<p>スクリプトはこんな感じになると思います。</p>
+
+<p><a href="http://answers.unity3d.com/questions/13156/animated-gif-as-a-texture-on-iphone.html">Animated Gif(Unity Answers)</a>
+を参考にしました。<br/>
+はい、コピペって言わない！</p>
+
+<p>```javascript</p>
+
+<h1>pragma strict</h1>
+
+<p>var frames : Texture2D[];
+var framesPerSecond = 10.0;</p>
+
+<p>function Start () {</p>
+
+<p>}</p>
+
+<p>function Update () {</p>
+
+<pre><code>var index : int = Time.time * framesPerSecond;
+index = index % frames.Length;
+guiTexture.texture = frames[index];
+</code></pre>
+
+<p>}
+```</p>
+
+<p>ただ、ここで即プレビューしてもうまく動きません。当たり前の話ですが「frames」として定義された配列に、何もデータが入っていないためです。
+この配列にデータをぶち込むにはどうしたらよいのでしょうか？<br/>
+答えは「inspector上で追加する」でした。</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.frames.size0.png" alt="size0" /></p>
+
+<p>この「size」プロパティに「10」をぶち込んでください。すると…</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.frames.size10.png" alt="size10" /></p>
+
+<p>おおおお！textureを指定できる覧が出てきたぞ！これはかなりの感動ものです。<br/>
+プログラマ的には、ソース上で定義したデータ箱にGUI上からサイズの指定を行う、というフローになかなか感覚がついていかないので、
+時間があるときにでもソース上からsizeを指定する方法を探してみます。ひとまず今日はこのまま進むぜ！</p>
+
+<p>あとは、簡単です。出てきたtextureの指定欄の一つ一つに、分解されたgifを当て込んでいきます。<br/>
+それでプレビューすると…</p>
+
+<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/preview.animated.png" alt="アニメーションしてる" /></p>
+
+<p>動いてるーーーーー！（画像じゃ分からないけど）</p>
+
+<p>まあいいだろう。ミッションコンプリートだ！</p>
+
+<h2>次回に向けて</h2>
+
+<p>Unityがとんでもない発表をしてくれました。Unityのモバイル向け機能を完全無償化するというのです。
+早速試そう！ということで、次回は「iPhone用にビルド」、いってみたいと思います！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第4回 「簡単なプログラムをやってみる：ボタンを押したら音楽を再生」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed/"/>
+    <updated>2013-05-20T20:58:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed</id>
+    <content type="html"><![CDATA[<h2>前回までのおさらい＆今日の目標</h2>
+
+<p>どうもみなさん。おはようございます。初音ミクとミンカが三度の飯より大好きな智史之介です。
+今日も今日とてUnityの勉強をおこないたいと思います。<br/>
+前回は「サウンドを鳴らす」というテーマでやりましたが、今回はそれに簡単なプログラミングをつけてみたいと思います。</p>
+
+<p>フー！プログラマの腕が鳴るというものです。</p>
+
+<h2>音楽の調達</h2>
+
+<p>今日こそ、モテ路線です。レミオロメンとか、ガリレオガリレイとかビシーッと選んでやろうじゃないの、ということで選んだのがこれです。
+ババーン。</p>
+
+<iframe width="420" height="315" src="http://www.youtube.com/embed/1dB8in_QRrw" frameborder="0" allowfullscreen></iframe>
+
+
+<p>いいんです。これでいいんです！(川平風)<br/>
+ありのままの姿でモテてこそ、真のモテ男子でしょう。</p>
+
+<p>DLしてきたMP3をさくっとassetsに追加します。</p>
+
+<h2>スクリプトの追加</h2>
+
+<p>そろそろ何か参考書でも買えよ、っていう感じですが、やはり手探りで進めてこそオツというものでしょう。
+ググって済ませるのがよく訓練された職業プログラマの正しい姿勢ではないでしょうか。</p>
+
+<p>なにかそれっぽいメニューはないかなーと探していたら、ありました。</p>
+
+<p>Assets > Create</p>
+
+<p>の中に、</p>
+
+<ul>
+<li>Javascript</li>
+<li>C# Script</li>
+<li>Boo Script</li>
+</ul>
+
+
+<p>などなど、それっぽいのがあるではありませんか。（Boo Scriptってなんだ？）<br/>
+どれでもいけるのかな？<br/>
+そしたら、とりあえずは慣れ親しんでいる「Javascript」を選びたいと思います。ファイル名は当たり障りのない感じで「main.js」とでもしておきました。</p>
+
+<h2>MonoDevelop</h2>
+
+<p>main.jsのinspectorに、「open」なんてボタンがあるものだからついつい押してしまったら、なんと組み込みのエディターみたいなものが立ち上がるじゃないですか！<br/>
+内心「うぜーーー」と思いつつも、Unity初心者の域を出ない僕としては贅沢は言ってられません。vim上に開発環境を置く作業はUnity中級になってからにします。</p>
+
+<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/monodevelop.png" alt="MonoDevelop" /></p>
+
+<p>さて。<br/>
+コーディングを始めましょうか。</p>
+
+<h2>なにをすればよいのやら</h2>
+
+<p>```js</p>
+
+<h1>pragma strict</h1>
+
+<p>function Start () {</p>
+
+<p>}</p>
+
+<p>function Update () {</p>
+
+<p>}
+```</p>
+
+<p>main.js内にはデフォルトでこのような記述がされています。<br/>
+「function Start」は、シーンの開始時、あるいはアタッチされたオブジェクトのロード時に実行されるのかな？<br/>
+「function Update」は、シーンの描画時（再描画含む）にでも実行されるのかな？<br/>
+などと適当な想像を膨らませつつ、「じゃあ、ボタンを押した時のスクリプトはどうすればいいんじゃい！」と突っ込みます。<br/>
+ActionScriptで言うところの、ムービークリップに記述するonPressにあたる処理ですね。
+イメージとしては、まずこのjsファイルを、特定のオブジェクトにアタッチ的な何かをする必要性がありそうです。</p>
+
+<h2>適当なオブジェクトを追加</h2>
+
+<p>というわけで、main.jsのアタッチ先にするために、何か適当にオブジェクトを画面上に配置してみることにします。<br/>
+僕は「GUI Text」をチョイスしました。テキストの中身は「ボタン」。プログラマらしい、実に的確に表現された文言です。</p>
+
+<p>Hierarhy上のGUI Textに、ものは試しだとドラッグ＆ドロップでmain.jsを投げ込んでみました。
+すると…、</p>
+
+<blockquote><p><strong>Can't add script</strong><br/>
+Can't add script behavior main.js. The scripts file name does not match the name of class defined in the script!</p></blockquote>
+
+<p>怒られました。<br/>
+勉強第4回目にしてやる内容じゃねえよ、出直してきな！と言われているような気がして、急に冷や汗が出てきました。</p>
+
+<p>大丈夫。大丈夫さ…。君はやれる。いつだって困難を乗り越えてきたじゃないか。</p>
+
+<p>と自分を励ましてみる。</p>
+
+<p>ああ、そうさ。我が名は智史之介。日本を代表するエンジニアになる漢(おとこ)さ…。</p>
+
+<h2>inspectorからのcomponentの追加</h2>
+
+<p>何度ドラッグ＆ドロップしても当然状況は改善しないので、別の方法を試してみることにしました。<br/>
+「GUI Text」をクリックして、inspectorウインドウから「add component」をクリック。<br/>
+なんとそこに「New script」の文字列が…！あるではないか、あるではないかとテンションが上がるのを抑えつつ、scriptを追加（言語はJavascriptを選択）。
+おお、なんか、追加されたっぽい！</p>
+
+<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/inspector.add.script.png" alt="スクリプトをアタッチ" /></p>
+
+<h2>scriptの編集</h2>
+
+<p>先ほどの操作で、スクリプトとGameObjectの関連づけに成功しているはず。
+なので、あとは「クリックされたとき」というイベントに処理を記述すればおｋ、ということになります。</p>
+
+<p>一生懸命ググった結果、下記のようなコードを追加してみました。</p>
+
+<p><code>js
+function OnMouseUpAsButton() {
+  Debug.Log("pressed!!");
+}
+</code></p>
+
+<p>そして、プレビューして、無我夢中でクリック！！すると…、</p>
+
+<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/preview.onpress.png" alt="onPressイベント" /></p>
+
+<p>できてるよママ！</p>
+
+<h2>さあ、あとはサウンドを再生すればいいだけ</h2>
+
+<p>もうすっかりドラッグ＆ドロップがくせになってしまっている僕は、assets内のサウンドファイルを、hierarhy上のGUI Textに投げ込んでみたら、なんかあっさり追加された。<br/>
+このままだと、開始時に即サウンドがなってしまうので、inspector上の「Play On Awake」のチェックを外しておきました。<br/>
+これを、プログラムで再生トリガーを引きたいのですぞ！</p>
+
+<p><code>js
+var sound : AudioClip;
+function OnMouseUpAsButton() {
+  Debug.Log("pressed!!");
+  audio.play();
+}
+</code></p>
+
+<p>ググりつつ、「こう書けばいいのだろうか？」という感じに適当に書いてみる。
+複数のサウンドがアタッチされるケースだってあるし、これだとどのサウンドを鳴らせばいいのか全然わからないなー、Unity先生もお困りになるだろう、
+なんて考えつつ、プレビューしてみる。そして「ボタン」をクリックしてみる。
+すると…、</p>
+
+<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/preview.sound.png" alt="onPressイベントでサウンド鳴った" /></p>
+
+<p>鳴った…！ボタンを押したらサウンドが再生され始めました。<br/>
+へへっ。ちょろいもんだぜ☆</p>
+
+<p>細かい疑問は色々とあるけれど、そのうち色々分かるでしょう、という甘い期待をしつつ今日はここまで〜！</p>
+
+<h2>次回に向けて</h2>
+
+<p>次回は、そうですね、、、なにげに今回のテーマが重たくてすっかりビクついてしまった僕は、「アニメーションGIFって扱えるの？」という少し軽めの（と思われる）テーマで行きたいと思います。
+よろしくお願いします！</p>
+]]></content>
+  </entry>
+  
+</feed>

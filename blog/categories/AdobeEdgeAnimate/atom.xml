@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: edge | BEFOOL blog]]></title>
-  <link href="http://befool-inc.github.io/blog/categories/edge/atom.xml" rel="self"/>
+  <title><![CDATA[Category: AdobeEdgeAnimate | BEFOOL blog]]></title>
+  <link href="http://befool-inc.github.io/blog/categories/AdobeEdgeAnimate/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-06-11T03:02:18+09:00</updated>
+  <updated>2013-06-27T00:03:30+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -12,6 +12,116 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[【AdobeEdgeAnimate】AdobeEdgeAnimateのHTMLはどうやって書くのか]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/"/>
+    <updated>2013-06-22T16:30:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate</id>
+    <content type="html"><![CDATA[<p>今回はAdobeEdgeAnimateのHTMLを書いてみようです！</p>
+
+<p>外部スクリプトをAdobeEdgeAnimateに読み込みしたい場合</p>
+
+<p>（例）
+```javascript</p>
+
+<script type="text/javascript">
+//ココにコードを記述する 
+</script>
+
+
+<p>```</p>
+
+<p>上記をHTMLに記述しなければなりません。</p>
+
+<p>しかし、</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image1.png" alt="画像1" /></p>
+
+<p>JavaScriptコードを書く場所はAdobeEdgeAnimate内でありますが、
+HTMLを書く場所はありません。</p>
+
+<p>そこで今回はどうやってHTMLを書くのかを調査してみました。</p>
+
+<p>テキストエディットでデータから吐き出されたhtmlファイルを開いてみるとロックされていて
+次の瞬間、あれ？データ壊れた？ほわーい？</p>
+
+<p>・・・・・・・・・・・・・</p>
+
+<p>どうやらhtmlデータが壊れるとAdobeEdgeAnimate内のデータも壊れるみたいで
+作ったエレメントなどが消えてしまいます！
+また同じフォルダにhtmlデータがなくなるとAdobeEdgeAnimateデータがエラーで開けなくなるので
+必ず一緒にあることを確認しましょう。</p>
+
+<p>気を取り直してデータを作ってやり直し！</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image2.png" alt="画像2" /></p>
+
+<p>赤、青、緑をtrue/falseで表示させるよう作ってみました。
+これをhtmlに外部スクリプトとして打ち込んでみました。
+まずはテキストエディットにhtmlをドラッグ・・・</p>
+
+<p>あー・・・macってテキストエディットにhtmlファイルをドラッグしてもurlしか出てこないんですねー
+winよりふべn⬅
+さ、環境設定をし直して表示させました。</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image3.png" alt="画像3" /></p>
+
+<p>ここに赤、青、緑のtrue/falseを入れていきます。</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image4.png" alt="画像4" /></p>
+
+<p>こんな感じ！
+web上で確認出来るか確認して見てみると</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image5.png" alt="画像5" /></p>
+
+<p>ちゃんと青だけ表示されてますね！
+このようにテキストエディットでhtmlを直接書き込むことが出来ました。
+AdobeEdgeAnimate内で書き込めれば一番便利なのですけどねぇ…。</p>
+
+<p>テキストエディットがロックされて編集できなかった際にテキストエディット以外のツールを試してみました。</p>
+
+<p>Adobe Edge Code Preview 3<br/>
+<img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/icon.png" alt="画像アイコン" /></p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image6.png" alt="画像6" /></p>
+
+<p>おーっときましたよ、日本語対応なしw
+とりあえず使ってみましょう。
+htmlをドラッグして…
+ん？無反応？？何も表示されない…
+ファイルを開くから選ばないと開かないらしいです。
+不便ですn⬅</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image7.png" alt="画像7" /></p>
+
+<p>このAdobe Edge Code Preview 3ツール
+実はCSS、HTML、JavaScript対応しているようで一気に３つのソースを見ながら打ち込むことが出来る便利ツールのようです！！一個の窓で全部が見れるのはいいですね！！
+webでHTMLとCSSをいじる人にはとっても便利です。
+このツールでもAdobeEdgeAnimateのhtmlをいじることも出来ます。</p>
+
+<p>これでどれでもHTMLいじれるね！安心だね！
+と思いきやここでAdobeEdgeAnimateの落とし穴があります。</p>
+
+<p>先ほど書き込んだhtmlデータを保存したあと、
+AdobeEdgeAnimateのデータをいじる（検証では再生停止のsym.stop();をはずしてみた）と
+なんとHTMLに書き込んだ外部スクリプトが消えています！ひゃー！
+どうやらAdobeEdgeAnimatesw更新をする度にhtmlファイルは書き換えられるようです。
+その度に消えると地獄が待っています。
+どうにか消えないようにしてみたのですがダメでした…。</p>
+
+<p>今の時点ではAdobeEdgeAnimateでアニメーションの動きを作った後でJavaScriptいれ
+最終的にHTMLに外部スクリプトを入れ更新する
+という作業になりそうです。</p>
+
+<p>中々にAdobeEdgeAnimateは手強いようです。</p>
+
+<p>今回の反省点
+データが消えるとは思ってなかった。
+もっと簡単に消えないようHTML打てたら…。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ]]></title>

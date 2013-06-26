@@ -2,15 +2,18 @@
 <!DOCTYPE html>
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <title>BEFOOL blog</title>
   <meta name="author" content="8823-scholar">
 
   
-  <meta name="description" content="森です。 前回の記事 で仮想環境を作成したわけですが
-作成しただけでは何も始まりません。さっそく開発環境を構築していきましょう。 今回は伝統的な Apache , PHP , MySQL 構成を構築します。 あいかわらずスクリーンショット多め内容薄めです。 パッケージ管理にSynaptic &hellip;">
+  <meta name="description" content="今回はAdobeEdgeAnimateのHTMLを書いてみようです！ 外部スクリプトをAdobeEdgeAnimateに読み込みしたい場合 （例） 1
+2
+3
+&lt;script type=&quot;text/javascript&quot;&gt;
+//ココにコードを記述する &lt;/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +74,9 @@
   
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/blog/archives/">Archives</a></li>
+  <li><a href="/blog/categories/">Categories</a></li>
+  <li><a href="/blog/authors/">Authors</a></li>
 </ul>
 
 </nav>
@@ -79,6 +84,346 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/">【AdobeEdgeAnimate】AdobeEdgeAnimateのHTMLはどうやって書くのか</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-22T16:30:00+09:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今回はAdobeEdgeAnimateのHTMLを書いてみようです！</p>
+
+<p>外部スクリプトをAdobeEdgeAnimateに読み込みしたい場合</p>
+
+<p>（例）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="c1">//ココにコードを記述する </span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上記をHTMLに記述しなければなりません。</p>
+
+<p>しかし、</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image1.png" alt="画像1" /></p>
+
+<p>JavaScriptコードを書く場所はAdobeEdgeAnimate内でありますが、
+HTMLを書く場所はありません。</p>
+
+<p>そこで今回はどうやってHTMLを書くのかを調査してみました。</p>
+
+<p>テキストエディットでデータから吐き出されたhtmlファイルを開いてみるとロックされていて
+次の瞬間、あれ？データ壊れた？ほわーい？</p>
+
+<p>・・・・・・・・・・・・・</p>
+
+<p>どうやらhtmlデータが壊れるとAdobeEdgeAnimate内のデータも壊れるみたいで
+作ったエレメントなどが消えてしまいます！
+また同じフォルダにhtmlデータがなくなるとAdobeEdgeAnimateデータがエラーで開けなくなるので
+必ず一緒にあることを確認しましょう。</p>
+
+<p>気を取り直してデータを作ってやり直し！</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image2.png" alt="画像2" /></p>
+
+<p>赤、青、緑をtrue/falseで表示させるよう作ってみました。
+これをhtmlに外部スクリプトとして打ち込んでみました。
+まずはテキストエディットにhtmlをドラッグ・・・</p>
+
+<p>あー・・・macってテキストエディットにhtmlファイルをドラッグしてもurlしか出てこないんですねー
+winよりふべn⬅
+さ、環境設定をし直して表示させました。</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image3.png" alt="画像3" /></p>
+
+<p>ここに赤、青、緑のtrue/falseを入れていきます。</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image4.png" alt="画像4" /></p>
+
+<p>こんな感じ！
+web上で確認出来るか確認して見てみると</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image5.png" alt="画像5" /></p>
+
+<p>ちゃんと青だけ表示されてますね！
+このようにテキストエディットでhtmlを直接書き込むことが出来ました。
+AdobeEdgeAnimate内で書き込めれば一番便利なのですけどねぇ…。</p>
+
+<p>テキストエディットがロックされて編集できなかった際にテキストエディット以外のツールを試してみました。</p>
+
+<p>Adobe Edge Code Preview 3<br/>
+<img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/icon.png" alt="画像アイコン" /></p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image6.png" alt="画像6" /></p>
+
+<p>おーっときましたよ、日本語対応なしw
+とりあえず使ってみましょう。
+htmlをドラッグして…
+ん？無反応？？何も表示されない…
+ファイルを開くから選ばないと開かないらしいです。
+不便ですn⬅</p>
+
+<p><img src="/images/posts/2013-06-22-how-to-edit-html-in-adobe-edge-animate/image7.png" alt="画像7" /></p>
+
+<p>このAdobe Edge Code Preview 3ツール
+実はCSS、HTML、JavaScript対応しているようで一気に３つのソースを見ながら打ち込むことが出来る便利ツールのようです！！一個の窓で全部が見れるのはいいですね！！
+webでHTMLとCSSをいじる人にはとっても便利です。
+このツールでもAdobeEdgeAnimateのhtmlをいじることも出来ます。</p>
+
+<p>これでどれでもHTMLいじれるね！安心だね！
+と思いきやここでAdobeEdgeAnimateの落とし穴があります。</p>
+
+<p>先ほど書き込んだhtmlデータを保存したあと、
+AdobeEdgeAnimateのデータをいじる（検証では再生停止のsym.stop();をはずしてみた）と
+なんとHTMLに書き込んだ外部スクリプトが消えています！ひゃー！
+どうやらAdobeEdgeAnimatesw更新をする度にhtmlファイルは書き換えられるようです。
+その度に消えると地獄が待っています。
+どうにか消えないようにしてみたのですがダメでした…。</p>
+
+<p>今の時点ではAdobeEdgeAnimateでアニメーションの動きを作った後でJavaScriptいれ
+最終的にHTMLに外部スクリプトを入れ更新する
+という作業になりそうです。</p>
+
+<p>中々にAdobeEdgeAnimateは手強いようです。</p>
+
+<p>今回の反省点
+データが消えるとは思ってなかった。
+もっと簡単に消えないようHTML打てたら…。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6608e3ddb3ef5feb5890a678970bd449" alt="小亀珠美" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>小亀珠美</h3>
+        <p>(プロフィール未記入)<br /></p>
+		<ul class="author-links">
+			
+			
+		</ul>
+	</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/15/unity-study-08-scene-change/">Unity勉強 第8回 「シーンの切り替え」</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-15T23:21:00+09:00" pubdate data-updated="true">Jun 15<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/15/unity-study-08-scene-change/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>前回のおさらい＆今回の目標</h2>
+
+<p>おはようございます。深キョンが好きなのか、はたまたミンカが好きなのか…どちらかを決めきれない罪な漢(おとこ)、智史之介です。<br/>
+今日も元気にUnityに関する勉強を行おうと思います。</p>
+
+<p>前回は「<a href="/blog/2013/05/29/unity-study-07-build-for-android/">Android向けのビルド</a>」を試してみました。
+迂闊なAndroidSDKのバージョンアップで痛い目を見たのはいい思い出です。<br/>
+（どうやらUnityの<a href="http://japan.unity3d.com/unity/whats-new/unity-4.1.4">アップデート(ver4.1.4)</a>が入り、この問題は解消されたみたいですね！）</p>
+
+<p>今日は「シーンの切り替え」に関してちょっと試してみようかななんて思っています。</p>
+
+<h2>シーンの切り替えとは？</h2>
+
+<p>例えば、そうですね、ドラクエで言えば「街から出てフィールドに入る」とか「フィールドで敵に遭遇する」とかでしょうか？<br/>
+画面が、バーッってまったく別の描画系統で表示されるやつです。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/dq_field-to-battle.png" alt="フィールドから戦闘画面へ" /></p>
+
+<p>そうそう。こんな感じの切り替えに関してです。
+こういったシーンの切り替えに関して、そもそもの必須要件がいくつかあるかと思います。</p>
+
+<ul>
+<li>独立した描画スペース</li>
+<li>独立した変数領域</li>
+<li>独立したプログラム領域</li>
+</ul>
+
+
+<p>などがシーン使い分けの必須条件ではないかなと思われます。<br/>
+Flashで言うところのムービークリップにあたるものでしょうか？</p>
+
+<p>Unityにおいて、それに該当するものがないか探したいと思います。</p>
+
+<h2>ずばり、それって「Scene」でしょ？</h2>
+
+<p>そんな決めつけで作業開始です。</p>
+
+<p>さくっと「scene1」と「scene2」を用意します。
+sceneの作成は「Cmd+n」で可能です。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/make-scene.png" alt="scene作成" /></p>
+
+<p>あと、以前から不思議だったのですが<strong>「cmd+s」でsceneの保存</strong>になります。</p>
+
+<p>あれ？けど、これってつまり<strong>「Unityではsceneこそもっとも重要で、最も保存を行う対象」</strong>ということですよね？</p>
+
+<p>不思議だったんですよ、これ。<br/>
+自分にとってFlashとの対比としては、</p>
+
+<ul>
+<li>scene = ムービークリップ</li>
+<li>プロジェクト = flaファイル</li>
+</ul>
+
+
+<p>というとらえ方をしていました。<br/>
+これが間違っている可能性があるということなんですよね。。<br/>
+どうしよう。不安になってきてしまいました。</p>
+
+<p>「プロジェクトさえ保存しておけばsceneも保存されるんでしょ？」というぬるい考えでいたことを反省しなくてはならないかもしれません。</p>
+
+<p>なにはともあれ、作成した二つのsceneに異なる別々の画像を貼り付けておきます。<br/>
+わかりやすく背景の色でも変えておくとよいかもしれません。<br/>
+(背景の色は、hierarchy配下のmain cameraのインスペクターから変更可能です。)</p>
+
+<p>この二つのシーンを利用して、</p>
+
+<p><strong>「scene1の画像をタップすると、scene2に切り替わる」</strong></p>
+
+<p>という動作を試してみることにします。</p>
+
+<h2>プログラムをさくっと書いてみる</h2>
+
+<p>さて、シーンの切り替えのためのスクリプトを記述する必要があります。<br/>
+「SceneSwicher.js」というファイルを用意して、scene1の画像にアタッチします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">OnMouseUpAsButton</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">Debug</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="s1">&#39;Now scene is &#39;</span> <span class="o">+</span> <span class="nx">Application</span><span class="p">.</span><span class="nx">loadedLevelName</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">Application</span><span class="p">.</span><span class="nx">LoadLevel</span><span class="p">(</span><span class="s1">&#39;scene2&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これでいけるんじゃないか？なんていう甘い考えで実行してみると…</p>
+
+<blockquote><p>Level &#8216;scene2&#8217; (-1) couldn&#8217;t be loaded because it has not been added to the build settings.
+To add a level to the build settings use the menu File->Build Settings&#8230;</p></blockquote>
+
+<p>というお叱りをいただきました。ハイ。<br/>
+言われた通りに、build settingsにシーンを追加します。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/add-build-setting.png" alt="build settingsに追加" /></p>
+
+<p>これで、正常にシーンの切り替えができるようになりました。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/scene-change1.gif" alt="build settingsに追加" /></p>
+
+<p>けれども、、、、うーん。これではなんだかスイッチを切り替えるように切り替わってしまうので、イマイチ想像と違うのは否めないですね…。<br/>
+本当は、もっと、こう、例えば、<strong>「上から次のシーンが落ちてくる」</strong>、というような感じの切り替えをやりたいのです。</p>
+
+<h2>はたしてそんな事が可能なのか？</h2>
+
+<p>ずいぶん長い間ググってみたのですが、どうにも難しそうですね…。<br/>
+シーンをまたいだ変数の保持すら、ちょっとしたトリッキーな手法が必要そうなので、シーンの上にシーンをかぶせる（二つのシーンを同時に描画する）なんてもってのほか、という感じですかね…。<br/>
+致し方無しです！今回はそれは諦めることにします。</p>
+
+<p>自分がもし、こういった制限(1シーンの描画しかできない)内で、今思い描いている手法を実現するなら、うーん、そうですね…。<br/>
+たとえば、こんな感じではできないでしょうか？</p>
+
+<p>「<strong>スクリーンショット的なものを撮り内部領域に保存する。次のシーンは内部領域に保存されたスクリーンショットをまず最初に描画し、その上にシーンの突入演出を表示する</strong>」</p>
+
+<p>難しいかな…？</p>
+
+<h2>次回に向けて</h2>
+
+<p>今回は、シーンの切り替えに関して試してみました。Unityはどうもこの「シーン」というものにすごく苦労しそうな印象ですね…。<br/>
+エンジニアとしては多少苦労する方が楽しくていいんですけどね！</p>
+
+<p>次回は、「永続データストレージ領域に保存/読み込み」というものを試して見たいと思います。<br/>
+（そういう機能があるかどうかも分からないんですが…！）</p>
+
+<p>シーンをまたいだ変数とかではなく、たとえばゲームを落とすなどしても次回起ち上げ時に読み出し可能なデータ、とかそういうものですね。<br/>
+次回も楽しみですね〜。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>木内智史之介</h3>
+        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1611,249 +1956,6 @@ Can&#8217;t add script behavior main.js. The scripts file name does not match th
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/16/unity-study-03-use-sound/">Unity勉強 第3回 「サウンドを流してみる」</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-16T20:43:00+09:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/16/unity-study-03-use-sound/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>前回までのおさらい</h2>
-
-<p>おさらう程積み重ねがあるわけではありませんが、一応。<br/>
-Hello World、画像を置いてみる、など本当にさわりだけを進めている感じで、今回はよし音楽でもおいちゃうぞーといった、そういう感じです。<br/>
-アジカンとかのmp3をさくっとおいて、iPhoneから流しちゃって、かわいい女の子からきゃーきゃー言われたいです。
-間違っても、初音ミクの「ストロボナイツ」とか、鏡音リンの「メランコリック」とか置いちゃだめですよ！女の子からどん引きされてしまいます！</p>
-
-<h2>まずは音楽の調達</h2>
-
-<p>さーて、大好きなこの曲を、youtubeあたりから落としてきます。</p>
-
-<iframe width="420" height="315" src="http://www.youtube.com/embed/qWWlFdiT8b4" frameborder="0" allowfullscreen></iframe>
-
-
-<p>くっ…違うんだ、僕よ、違うぞ…アジカンを選ぶんだ！<br/>
-アジカンを選んで、もて路線を進むんだ！<br/>
-サカナクションでも大丈夫だよ…。</p>
-
-<p>うう…だめだ…、僕はミクさんを裏切れない(´；ω；`)ﾌﾞﾜｯ</p>
-
-<h2>懲りずにドラッグ&amp;ドロップしてみる</h2>
-
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/drag_and_drop_sound.png" alt="ドラッグ&amp;ドロップ" /></p>
-
-<p>ステージに直接、というのは無理で、やはりassetsに投げ込む、という形になりました。</p>
-
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/inspector_sound.png" alt="インスペクター" />
-インスペクターをなんとなく確認してみた。
-今のところさっぱりですね！</p>
-
-<h2>これを再生させたい</h2>
-
-<p>というわけで、いつも通り「GameObject > Create Other」の中を確認してみる。<br/>
-が、ない。それっぽいメニューがない。<br/>
-「Audio Reverb Zone」というのがあるけど、僕の直感が「こいつは違う…」と言っている。</p>
-
-<p>さて、どうするかな。</p>
-
-<p>もうよく分からないので「GameObject > Create Empty」で空のオブジェクトを追加してやりました。</p>
-
-<p>inspectorタブの中に「add component」というのがあり、それをクリックすると、「audio > audio source」というメニューがあるじゃないか！</p>
-
-<p>「これだな…」</p>
-
-<p>と僕のゴーストがささやいた。</p>
-
-<p>秒速でそれを選択し、同じくinspector内に追加された「audio clip」の項目をクリック。先ほど追加した初音ミクサウンドを選択！</p>
-
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/add_sound_component.png" alt="サウンド追加" /></p>
-
-<p>おお！<br/>
-それっぽい画面になっているじゃないですかー。</p>
-
-<p>プレビュー再生ボタンを押して確認してみる。</p>
-
-<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/preview.png" alt="プレビュー" /></p>
-
-<p>再生されている…！！！（画像じゃわからないけど）</p>
-
-<h2>次回の課題</h2>
-
-<p>画像も置いた、サウンドも再生できた、あれ、これもうゲーム作れるんじゃない？と調子に乗っております。<br/>
-次回は、ちょこーっとだけプログラム的なことができたらと思っています。<br/>
-そうだ、じゃあ、こんなのはどうでしょう？</p>
-
-<p>「画像をクリックしたら、音楽が再生される」</p>
-
-<p>これだ！
-次回へつづく。</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>木内智史之介</h3>
-        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
-		<ul class="author-links">
-			
-			<li>
-			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
-			</li>
-			
-			
-			<li>
-            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
-			</li>
-			
-		</ul>
-	</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/01/unity-study-02-use-image/">Unity勉強 第2回 「画像を使ってみる」</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-01T23:55:00+09:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/01/unity-study-02-use-image/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>なにはともあれプロジェクトの作成</h2>
-
-<p>File > New Project<br/>
-を選択して、プロジェクトの作成。<br/>
-常に、まずはここからです。<br/>
-<strong>Import the following the packages</strong> に関しては今のところ空のままでいいでしょう。</p>
-
-<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/NewProject.png" alt="New Project" /></p>
-
-<h2>漢は黙ってドラッグ＆ドロップ</h2>
-
-<p>まだ第二回ということで、右も左も分からない赤子同然。
-画像の挿入に関しても「ドラッグ＆ドロップでいけるでしょ？」と完全に相手ををなめきっている模様。</p>
-
-<p>「<strong>おれのミンカフォルダが火を噴くぜ！</strong>」</p>
-
-<p>と言わんばかりに光の速度でFinderを開き、お気に入りの画像をドラッグ＆ドロップ！</p>
-
-<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/DragAndDropToStage.png" alt="Drag &amp; Drop" /></p>
-
-<p>(´・ω・｀)<br/>
-「Scene」へ直接はダメだったけど、なんか「Assets」には入った。</p>
-
-<p>分かった。AssetsからはSceneに投げ込めるんだな！天才か。自分は。自分で自分が怖くなるぜ…。誰か俺を止めてくれ。<br/>
-など、ブツブツ意味不明な供述をしながらAssetsからドラッグして、Sceneへドロップ！</p>
-
-<p>だめでした(´・ω・｀)</p>
-
-<p>もしかしたらUnityにはドラッグ＆ドロップという概念がないのかもしれないですね！（そんなばかな）</p>
-
-<h2>GUI Textureなにするものぞ</h2>
-
-<p>Google先生に聞いてみると、「GUI Texture」なるものがあるらしい。<br/>
-見るからに2D画像を扱いそうな名前をしている！これに違いない。</p>
-
-<p>GameObject > Create Other > GUI Texture</p>
-
-<p>を選択してオブジェクトを追加。<br/>
-すると、「UnityWatermark-small」なるものがHierarchyに追加された。クリックすると、ステージ上でカメラとは別のオブジェクトが選択されたように見える。
-これは、もしかして…？と思い「Game」タブをクリックしてみると…。</p>
-
-<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/AddImageUnity.png" alt="Unity画像" /></p>
-
-<p>表示されてる！だけど漂う「キミジャナイ」感。<br/>
-そう、私はミンカの画像を表示させたいのである。<br/>
-Inspector上で、画像の参照を、先ほどAssetsに追加されたミンカ画像を選択、っと。<br/>
-同じくInspector上で、サイズ、配置などをチョコチョコッと修正、っと。</p>
-
-<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/AddImageMinka.png" alt="ミンカ画像" /></p>
-
-<p>できた！というわけで今日はここまで。<br/>
-次回は、サウンドの挿入をやってみたいと思います。</p>
-
-<h2>ミンカが結婚を前提にお付き合いしてくれないかな</h2>
-
-<p>ミンカさん、僕と結婚してください！|ω・`）ﾁﾗｯ</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>木内智史之介</h3>
-        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
-		<ul class="author-links">
-			
-			<li>
-			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
-			</li>
-			
-			
-			<li>
-            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
-			</li>
-			
-		</ul>
-	</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1869,6 +1971,14 @@ Inspector上で、画像の参照を、先ほどAssetsに追加されたミン�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/">【AdobeEdgeAnimate】AdobeEdgeAnimateのHTMLはどうやって書くのか</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/15/unity-study-08-scene-change/">Unity勉強 第8回 「シーンの切り替え」</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/06/11/build-php-environment-with-synaptic/">SynapticでPHP開発環境を構築しよう</a>
       </li>
     
@@ -1880,15 +1990,16 @@ Inspector上で、画像の参照を、先ほどAssetsに追加されたミン�
         <a href="/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/">【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/05/31/unity-raharu-drawcall/">【Unity 入門】DrawCallが多かった原因</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/29/unity-study-07-build-for-android/">Unity勉強 第7回 「Android向けのビルドも試してみる」</a>
-      </li>
-    
   </ul>
+</section>
+<section>
+    <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (9)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/study'>study (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li></ul>
+    <a href="/blog/categories">All Categories</a>
+</section>
+<section>
+    <h1>Authors</h1>
+    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (10)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (2)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li></ul>
 </section>
 
 

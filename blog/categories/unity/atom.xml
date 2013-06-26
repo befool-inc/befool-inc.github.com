@@ -4,7 +4,7 @@
   <title><![CDATA[Category: unity | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/unity/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-06-11T03:02:18+09:00</updated>
+  <updated>2013-06-27T00:03:30+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -12,6 +12,140 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第8回 「シーンの切り替え」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/06/15/unity-study-08-scene-change/"/>
+    <updated>2013-06-15T23:21:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/06/15/unity-study-08-scene-change</id>
+    <content type="html"><![CDATA[<h2>前回のおさらい＆今回の目標</h2>
+
+<p>おはようございます。深キョンが好きなのか、はたまたミンカが好きなのか…どちらかを決めきれない罪な漢(おとこ)、智史之介です。<br/>
+今日も元気にUnityに関する勉強を行おうと思います。</p>
+
+<p>前回は「<a href="/blog/2013/05/29/unity-study-07-build-for-android/">Android向けのビルド</a>」を試してみました。
+迂闊なAndroidSDKのバージョンアップで痛い目を見たのはいい思い出です。<br/>
+（どうやらUnityの<a href="http://japan.unity3d.com/unity/whats-new/unity-4.1.4">アップデート(ver4.1.4)</a>が入り、この問題は解消されたみたいですね！）</p>
+
+<p>今日は「シーンの切り替え」に関してちょっと試してみようかななんて思っています。</p>
+
+<h2>シーンの切り替えとは？</h2>
+
+<p>例えば、そうですね、ドラクエで言えば「街から出てフィールドに入る」とか「フィールドで敵に遭遇する」とかでしょうか？<br/>
+画面が、バーッってまったく別の描画系統で表示されるやつです。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/dq_field-to-battle.png" alt="フィールドから戦闘画面へ" /></p>
+
+<p>そうそう。こんな感じの切り替えに関してです。
+こういったシーンの切り替えに関して、そもそもの必須要件がいくつかあるかと思います。</p>
+
+<ul>
+<li>独立した描画スペース</li>
+<li>独立した変数領域</li>
+<li>独立したプログラム領域</li>
+</ul>
+
+
+<p>などがシーン使い分けの必須条件ではないかなと思われます。<br/>
+Flashで言うところのムービークリップにあたるものでしょうか？</p>
+
+<p>Unityにおいて、それに該当するものがないか探したいと思います。</p>
+
+<h2>ずばり、それって「Scene」でしょ？</h2>
+
+<p>そんな決めつけで作業開始です。</p>
+
+<p>さくっと「scene1」と「scene2」を用意します。
+sceneの作成は「Cmd+n」で可能です。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/make-scene.png" alt="scene作成" /></p>
+
+<p>あと、以前から不思議だったのですが<strong>「cmd+s」でsceneの保存</strong>になります。</p>
+
+<p>あれ？けど、これってつまり<strong>「Unityではsceneこそもっとも重要で、最も保存を行う対象」</strong>ということですよね？</p>
+
+<p>不思議だったんですよ、これ。<br/>
+自分にとってFlashとの対比としては、</p>
+
+<ul>
+<li>scene = ムービークリップ</li>
+<li>プロジェクト = flaファイル</li>
+</ul>
+
+
+<p>というとらえ方をしていました。<br/>
+これが間違っている可能性があるということなんですよね。。<br/>
+どうしよう。不安になってきてしまいました。</p>
+
+<p>「プロジェクトさえ保存しておけばsceneも保存されるんでしょ？」というぬるい考えでいたことを反省しなくてはならないかもしれません。</p>
+
+<p>なにはともあれ、作成した二つのsceneに異なる別々の画像を貼り付けておきます。<br/>
+わかりやすく背景の色でも変えておくとよいかもしれません。<br/>
+(背景の色は、hierarchy配下のmain cameraのインスペクターから変更可能です。)</p>
+
+<p>この二つのシーンを利用して、</p>
+
+<p><strong>「scene1の画像をタップすると、scene2に切り替わる」</strong></p>
+
+<p>という動作を試してみることにします。</p>
+
+<h2>プログラムをさくっと書いてみる</h2>
+
+<p>さて、シーンの切り替えのためのスクリプトを記述する必要があります。<br/>
+「SceneSwicher.js」というファイルを用意して、scene1の画像にアタッチします。</p>
+
+<p>```javascript
+function OnMouseUpAsButton() {</p>
+
+<pre><code>Debug.Log('Now scene is ' + Application.loadedLevelName);
+Application.LoadLevel('scene2'); 
+</code></pre>
+
+<p>}
+```</p>
+
+<p>これでいけるんじゃないか？なんていう甘い考えで実行してみると…</p>
+
+<blockquote><p>Level 'scene2' (-1) couldn't be loaded because it has not been added to the build settings.
+To add a level to the build settings use the menu File->Build Settings...</p></blockquote>
+
+<p>というお叱りをいただきました。ハイ。<br/>
+言われた通りに、build settingsにシーンを追加します。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/add-build-setting.png" alt="build settingsに追加" /></p>
+
+<p>これで、正常にシーンの切り替えができるようになりました。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/scene-change1.gif" alt="build settingsに追加" /></p>
+
+<p>けれども、、、、うーん。これではなんだかスイッチを切り替えるように切り替わってしまうので、イマイチ想像と違うのは否めないですね…。<br/>
+本当は、もっと、こう、例えば、<strong>「上から次のシーンが落ちてくる」</strong>、というような感じの切り替えをやりたいのです。</p>
+
+<h2>はたしてそんな事が可能なのか？</h2>
+
+<p>ずいぶん長い間ググってみたのですが、どうにも難しそうですね…。<br/>
+シーンをまたいだ変数の保持すら、ちょっとしたトリッキーな手法が必要そうなので、シーンの上にシーンをかぶせる（二つのシーンを同時に描画する）なんてもってのほか、という感じですかね…。<br/>
+致し方無しです！今回はそれは諦めることにします。</p>
+
+<p>自分がもし、こういった制限(1シーンの描画しかできない)内で、今思い描いている手法を実現するなら、うーん、そうですね…。<br/>
+たとえば、こんな感じではできないでしょうか？</p>
+
+<p>「<strong>スクリーンショット的なものを撮り内部領域に保存する。次のシーンは内部領域に保存されたスクリーンショットをまず最初に描画し、その上にシーンの突入演出を表示する</strong>」</p>
+
+<p>難しいかな…？</p>
+
+<h2>次回に向けて</h2>
+
+<p>今回は、シーンの切り替えに関して試してみました。Unityはどうもこの「シーン」というものにすごく苦労しそうな印象ですね…。<br/>
+エンジニアとしては多少苦労する方が楽しくていいんですけどね！</p>
+
+<p>次回は、「永続データストレージ領域に保存/読み込み」というものを試して見たいと思います。<br/>
+（そういう機能があるかどうかも分からないんですが…！）</p>
+
+<p>シーンをまたいだ変数とかではなく、たとえばゲームを落とすなどしても次回起ち上げ時に読み出し可能なデータ、とかそういうものですね。<br/>
+次回も楽しみですね〜。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[【Unity 入門】DrawCallが多かった原因]]></title>
@@ -492,167 +626,6 @@ guiTexture.texture = frames[index];
 
 <p>Unityがとんでもない発表をしてくれました。Unityのモバイル向け機能を完全無償化するというのです。
 早速試そう！ということで、次回は「iPhone用にビルド」、いってみたいと思います！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Unity勉強 第4回 「簡単なプログラムをやってみる：ボタンを押したら音楽を再生」]]></title>
-    <link href="http://befool-inc.github.io/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed/"/>
-    <updated>2013-05-20T20:58:00+09:00</updated>
-    <id>http://befool-inc.github.io/blog/2013/05/20/unity-study-04-easy-programing-play-sound-on-button-pushed</id>
-    <content type="html"><![CDATA[<h2>前回までのおさらい＆今日の目標</h2>
-
-<p>どうもみなさん。おはようございます。初音ミクとミンカが三度の飯より大好きな智史之介です。
-今日も今日とてUnityの勉強をおこないたいと思います。<br/>
-前回は「サウンドを鳴らす」というテーマでやりましたが、今回はそれに簡単なプログラミングをつけてみたいと思います。</p>
-
-<p>フー！プログラマの腕が鳴るというものです。</p>
-
-<h2>音楽の調達</h2>
-
-<p>今日こそ、モテ路線です。レミオロメンとか、ガリレオガリレイとかビシーッと選んでやろうじゃないの、ということで選んだのがこれです。
-ババーン。</p>
-
-<iframe width="420" height="315" src="http://www.youtube.com/embed/1dB8in_QRrw" frameborder="0" allowfullscreen></iframe>
-
-
-<p>いいんです。これでいいんです！(川平風)<br/>
-ありのままの姿でモテてこそ、真のモテ男子でしょう。</p>
-
-<p>DLしてきたMP3をさくっとassetsに追加します。</p>
-
-<h2>スクリプトの追加</h2>
-
-<p>そろそろ何か参考書でも買えよ、っていう感じですが、やはり手探りで進めてこそオツというものでしょう。
-ググって済ませるのがよく訓練された職業プログラマの正しい姿勢ではないでしょうか。</p>
-
-<p>なにかそれっぽいメニューはないかなーと探していたら、ありました。</p>
-
-<p>Assets > Create</p>
-
-<p>の中に、</p>
-
-<ul>
-<li>Javascript</li>
-<li>C# Script</li>
-<li>Boo Script</li>
-</ul>
-
-
-<p>などなど、それっぽいのがあるではありませんか。（Boo Scriptってなんだ？）<br/>
-どれでもいけるのかな？<br/>
-そしたら、とりあえずは慣れ親しんでいる「Javascript」を選びたいと思います。ファイル名は当たり障りのない感じで「main.js」とでもしておきました。</p>
-
-<h2>MonoDevelop</h2>
-
-<p>main.jsのinspectorに、「open」なんてボタンがあるものだからついつい押してしまったら、なんと組み込みのエディターみたいなものが立ち上がるじゃないですか！<br/>
-内心「うぜーーー」と思いつつも、Unity初心者の域を出ない僕としては贅沢は言ってられません。vim上に開発環境を置く作業はUnity中級になってからにします。</p>
-
-<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/monodevelop.png" alt="MonoDevelop" /></p>
-
-<p>さて。<br/>
-コーディングを始めましょうか。</p>
-
-<h2>なにをすればよいのやら</h2>
-
-<p>```js</p>
-
-<h1>pragma strict</h1>
-
-<p>function Start () {</p>
-
-<p>}</p>
-
-<p>function Update () {</p>
-
-<p>}
-```</p>
-
-<p>main.js内にはデフォルトでこのような記述がされています。<br/>
-「function Start」は、シーンの開始時、あるいはアタッチされたオブジェクトのロード時に実行されるのかな？<br/>
-「function Update」は、シーンの描画時（再描画含む）にでも実行されるのかな？<br/>
-などと適当な想像を膨らませつつ、「じゃあ、ボタンを押した時のスクリプトはどうすればいいんじゃい！」と突っ込みます。<br/>
-ActionScriptで言うところの、ムービークリップに記述するonPressにあたる処理ですね。
-イメージとしては、まずこのjsファイルを、特定のオブジェクトにアタッチ的な何かをする必要性がありそうです。</p>
-
-<h2>適当なオブジェクトを追加</h2>
-
-<p>というわけで、main.jsのアタッチ先にするために、何か適当にオブジェクトを画面上に配置してみることにします。<br/>
-僕は「GUI Text」をチョイスしました。テキストの中身は「ボタン」。プログラマらしい、実に的確に表現された文言です。</p>
-
-<p>Hierarhy上のGUI Textに、ものは試しだとドラッグ＆ドロップでmain.jsを投げ込んでみました。
-すると…、</p>
-
-<blockquote><p><strong>Can't add script</strong><br/>
-Can't add script behavior main.js. The scripts file name does not match the name of class defined in the script!</p></blockquote>
-
-<p>怒られました。<br/>
-勉強第4回目にしてやる内容じゃねえよ、出直してきな！と言われているような気がして、急に冷や汗が出てきました。</p>
-
-<p>大丈夫。大丈夫さ…。君はやれる。いつだって困難を乗り越えてきたじゃないか。</p>
-
-<p>と自分を励ましてみる。</p>
-
-<p>ああ、そうさ。我が名は智史之介。日本を代表するエンジニアになる漢(おとこ)さ…。</p>
-
-<h2>inspectorからのcomponentの追加</h2>
-
-<p>何度ドラッグ＆ドロップしても当然状況は改善しないので、別の方法を試してみることにしました。<br/>
-「GUI Text」をクリックして、inspectorウインドウから「add component」をクリック。<br/>
-なんとそこに「New script」の文字列が…！あるではないか、あるではないかとテンションが上がるのを抑えつつ、scriptを追加（言語はJavascriptを選択）。
-おお、なんか、追加されたっぽい！</p>
-
-<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/inspector.add.script.png" alt="スクリプトをアタッチ" /></p>
-
-<h2>scriptの編集</h2>
-
-<p>先ほどの操作で、スクリプトとGameObjectの関連づけに成功しているはず。
-なので、あとは「クリックされたとき」というイベントに処理を記述すればおｋ、ということになります。</p>
-
-<p>一生懸命ググった結果、下記のようなコードを追加してみました。</p>
-
-<p><code>js
-function OnMouseUpAsButton() {
-  Debug.Log("pressed!!");
-}
-</code></p>
-
-<p>そして、プレビューして、無我夢中でクリック！！すると…、</p>
-
-<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/preview.onpress.png" alt="onPressイベント" /></p>
-
-<p>できてるよママ！</p>
-
-<h2>さあ、あとはサウンドを再生すればいいだけ</h2>
-
-<p>もうすっかりドラッグ＆ドロップがくせになってしまっている僕は、assets内のサウンドファイルを、hierarhy上のGUI Textに投げ込んでみたら、なんかあっさり追加された。<br/>
-このままだと、開始時に即サウンドがなってしまうので、inspector上の「Play On Awake」のチェックを外しておきました。<br/>
-これを、プログラムで再生トリガーを引きたいのですぞ！</p>
-
-<p><code>js
-var sound : AudioClip;
-function OnMouseUpAsButton() {
-  Debug.Log("pressed!!");
-  audio.play();
-}
-</code></p>
-
-<p>ググりつつ、「こう書けばいいのだろうか？」という感じに適当に書いてみる。
-複数のサウンドがアタッチされるケースだってあるし、これだとどのサウンドを鳴らせばいいのか全然わからないなー、Unity先生もお困りになるだろう、
-なんて考えつつ、プレビューしてみる。そして「ボタン」をクリックしてみる。
-すると…、</p>
-
-<p><img src="/images/posts/2013-05-20-unity-study-04-easy-programing-play-sound-on-button-pushed/preview.sound.png" alt="onPressイベントでサウンド鳴った" /></p>
-
-<p>鳴った…！ボタンを押したらサウンドが再生され始めました。<br/>
-へへっ。ちょろいもんだぜ☆</p>
-
-<p>細かい疑問は色々とあるけれど、そのうち色々分かるでしょう、という甘い期待をしつつ今日はここまで〜！</p>
-
-<h2>次回に向けて</h2>
-
-<p>次回は、そうですね、、、なにげに今回のテーマが重たくてすっかりビクついてしまった僕は、「アニメーションGIFって扱えるの？」という少し軽めの（と思われる）テーマで行きたいと思います。
-よろしくお願いします！</p>
 ]]></content>
   </entry>
   
