@@ -4,7 +4,7 @@
   <title><![CDATA[BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-07-06T01:43:37+09:00</updated>
+  <updated>2013-07-06T01:59:24+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -620,6 +620,9 @@ To add a level to the build settings use the menu File->Build Settings&#8230;</p
 
 <p>あいかわらずスクリーンショット多め内容薄めです。</p>
 
+<!-- more -->
+
+
 <h2>パッケージ管理にSynaptic パッケージマネージャを使う</h2>
 
 <p>Debianにはソフトウェアをインストール、管理するためにあらかじめ用意された
@@ -783,6 +786,9 @@ phpMyAdminのログイン画面が表示できました。</p>
 
 <p>※ スクリーンショットなどは自分が現在 <em>Mac</em> (OS X) を使用しているのでMac版になってしまいますが、
 Windows版でも大きな違いはありませんので適時読み替えてください。ごめんなさい。</p>
+
+<!-- more -->
+
 
 <h2>VirtualBox をインストールする</h2>
 

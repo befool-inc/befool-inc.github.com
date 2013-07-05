@@ -4,7 +4,7 @@
   <title><![CDATA[Category: debian | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/debian/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-07-06T01:43:37+09:00</updated>
+  <updated>2013-07-06T01:59:24+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -24,6 +24,9 @@
 <p>今回は伝統的な <em>Apache</em> , <em>PHP</em> , <em>MySQL</em> 構成を構築します。</p>
 
 <p>あいかわらずスクリーンショット多め内容薄めです。</p>
+
+<!-- more -->
+
 
 <h2>パッケージ管理にSynaptic パッケージマネージャを使う</h2>
 
