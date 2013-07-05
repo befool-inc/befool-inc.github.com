@@ -28,6 +28,8 @@ author: jiska
 ※ スクリーンショットなどは自分が現在 *Mac* (OS X) を使用しているのでMac版になってしまいますが、
 Windows版でも大きな違いはありませんので適時読み替えてください。ごめんなさい。
 
+<!-- more -->
+
 ## VirtualBox をインストールする
 
 [VirtualBoxのダウンロードページ](http://www.oracle.com/technetwork/jp/server-storage/virtualbox/downloads/index.html) から
