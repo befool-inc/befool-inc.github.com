@@ -9,10 +9,8 @@
   <meta name="author" content="8823-scholar">
 
   
-  <meta name="description" content="初めまして、デザイン部はらだです。
-BEFOOLでは珍しくプログラムが打てない人間です。
-絵とかデザインとか、絵素材に関するお仕事をしています。 目新しくもないですが、今回はお絵かき講座的なものを書いていきたいと思います。 題して
-【 &hellip;">
+  <meta name="description" content="森です。先日開催された Vagrant meetup に参加しまして
+開発者のHashimotoさんからVagrantのお話を聞くことができすごくホクホクしております。 熱が抜けないうちにVagrantを用いての開発環境作成のおさらいをこの場にまとめます Vagrant とは &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +81,79 @@ BEFOOLでは珍しくプログラムが打てない人間です。
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/14/use-vagrant/">Vagrantで開発環境構築を自動化する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-14T15:53:00+09:00" pubdate data-updated="true">Jul 14<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/14/use-vagrant/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/images/posts/2013-07-14-use-vagrant/vagrant-logo.png" alt="Vagrant logo" /></p>
+
+<p>森です。先日開催された <a href="http://chef-meetup.doorkeeper.jp/events/4624">Vagrant meetup</a> に参加しまして
+開発者のHashimotoさんからVagrantのお話を聞くことができすごくホクホクしております。</p>
+
+<p>熱が抜けないうちにVagrantを用いての開発環境作成のおさらいをこの場にまとめます</p>
+
+<h2>Vagrant とは</h2>
+
+<p>そもそもVagrantとは何か、乱暴にいうと <strong>開発環境を簡単に作成する</strong> ためのツールです。
+Virtual Boxなどの仮想化ソフトウェアなどを用いて各人のマシンに本番環境にほぼ等しい環境を誤りなくセットアップしてくれます。</p>
+
+<p>開発者の Hashimoto さんの <a href="http://mitchellh.com/the-tao-of-vagrant">The Tao of Vagrant</a> から引用すると</p>
+
+<blockquote><p>In a world with Vagrant, developers can check out any repository from version control, run vagrant up, and have a fully running development environment without any human interaction.
+Developers continue to work on their own machine, in the comfort of their own editors, browsers, and other tools.</p></blockquote>
+
+<p>Vagrantを使用することで <em>完全に動作する開発環境を人間の作業なしで作成でき、開発者は自分のマシンで好みのエディタ、ブラウザ、デバッグツールなどを使うことができます。</em></p>
+
+<p>さっそくVagrantをインストールして仮想環境を起動してみましょう。</p>
+
+<p>余談ですが手動でVirtual Boxを起動してVMを設定して必要ソフトウェアをセットアップして…という作業は最初の一回だけやるぶんにはいいのですが
+<em>他メンバーに同じ環境を用意する</em> 場合に大変です。
+自分が使っているVMをコピーして渡してもいいのですが
+セットアップ後にインストールした不要ツールを取り除いたり逆に後から追加したライブラリ設定を戻したり…
+こんなことをしているうちに元のVMが何が何だかわからなくなってしまった…という経験はありませんでしょうか？自分はかなり多いです。</p>
+
+<h2>お断り</h2>
+
+<p>先に断っておきますと、この記事に書いてある内容は <a href="http://www.vagrantup.com/">Vagrant 公式サイト</a> の <a href="http://docs.vagrantup.com/v2/getting-started/index.html">GETTING STARTED</a> を自分なりに噛み砕いたものです。
+より正確にVagrantについての理解を深めたい場合は公式サイトを一読することがオススメです。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/07/14/use-vagrant/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1237,237 +1308,6 @@ Dev centerとか、証明書とか、Provisioning Profileとか…もう未知�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/22/unity-study-05-enable-animated-gif/">Unity勉強 第5回 「アニメーションgifって使えるの？」</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-22T21:05:00+09:00" pubdate data-updated="true">May 22<span>nd</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/22/unity-study-05-enable-animated-gif/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>前回までのおさらい＆今回の目標</h2>
-
-<p>前回は、「ボタンを押したらサウンドを鳴らす」というテーマに挑み、情報の少なさに辟易しながらも、匍匐前進でなんとか目標を達成しました。
-本日は、「アニメーションgifって使えるの？」をテーマに進行したいと思います。</p>
-
-<h2>画像の選出</h2>
-
-<p>まずは組み込むためのアニメーションgif探しからです。<br/>
-オシャレ男子であれば、ここで颯爽と「ゴッホ」だとか「ゴーギャン」だとか拾ってくるところですが、僕のようなオタク男子ではやはりこういう結果にあいなります。</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/miku.gif" alt="ミクさん" /></p>
-
-<p>ブヒヒヒィィィィィ！<br/>
-ミクさんかわいいよ、ぺろぺろ。</p>
-
-<p>落としてきたgifファイルはassetsに投げ込んでおきます。</p>
-
-<h2>初音ミクは動かない</h2>
-
-<p>さて、assetsに追加したミクさんgifを、ステージに配置したいので、</p>
-
-<p>GameObject > Create Other > GUI Texture</p>
-
-<p>を選択。なんかデフォルトでミクさんgifが選択されていましたが、もし選択されない場合はinspectorのtextureメニューでミクさんgifを選択してあげてください。</p>
-
-<p>Unity先生であれば、もうこれでミクさんを動かしてくれてるんでしょ？もうかっこよすぎ☆なんて思ってプレビューしてみると…、</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/preiew.first.png" alt="初音ミクは動かない" /></p>
-
-<p>動かない、だと…。<br/>
-ミクさんは止まったままです。一向に動いてくれる気配がありません。</p>
-
-<p>「やれやれだぜ…」</p>
-
-<p>Unity先生も万能じゃないのね、と失望半分、かわいさ半分の気持ちを織り交ぜつつ、今回も大変な回になりそうだぜ、という予感がざわざわと立ち上ぼり始めました。</p>
-
-<h2>どうしてアニメーションgifは使えないのか？</h2>
-
-<p><a href="http://forum.unity3d.com/threads/27873-animated-gif-is-not-working">animated gif is not working</a></p>
-
-<p>この質問に回答しているEric5h5さんが言うには、</p>
-
-<blockquote><p>Unity doesn&#8217;t have any support for animated gifs. It&#8217;s a terrible format anyway; use a series of textures instead.<br/>
-(智史之介訳：Unityはアニメーションgifをサポートしていないよ！あれはひどい形式をしてやがるんだよ…。代わりにtextureを使ってくれよな！)</p></blockquote>
-
-<p>まじかー。そんなこと言わずにサポートしてくださいおねがいします(ｽﾞｻﾞｰ</p>
-
-<p>しかたがないので、textureでやってみようと思います。</p>
-
-<h2>アニメーションgifを分割してみる</h2>
-
-<p>アニメーションgifを分解するのに「ImageMagick」を用いました。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>convert +adjoin -coalesce miku.gif miku-notanimated.gif
-</span><span class='line'><span class="nv">$ </span>ls -1
-</span><span class='line'>miku-notanimated-0.gif
-</span><span class='line'>miku-notanimated-1.gif
-</span><span class='line'>miku-notanimated-2.gif
-</span><span class='line'>miku-notanimated-3.gif
-</span><span class='line'>miku-notanimated-4.gif
-</span><span class='line'>miku-notanimated-5.gif
-</span><span class='line'>miku-notanimated-6.gif
-</span><span class='line'>miku-notanimated-7.gif
-</span><span class='line'>miku-notanimated-8.gif
-</span><span class='line'>miku-notanimated-9.gif
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>うん、おｋっぽいですね。</p>
-
-<h2>箱形の作成</h2>
-
-<p>これらの画像を表示するための箱形を用意しましょう。
-僕は「GUITexture」を選びました。</p>
-
-<p>GameObject > Create Other > GUI Texture</p>
-
-<p>で、シーンに配置します。
-デフォルトのtextureには、「miku-notanimated-0.gif」を選択し、pixel insetに関しても調整しておきます。</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.add.guitexture.png" alt="GUI Texture追加" /></p>
-
-<h2>ミクさん画像を切り替えるためのスクリプトを追加</h2>
-
-<p>Assets > Create > Javascript</p>
-
-<p>で、スクリプトを作成します。名前は「miku」とでもしておきます。
-そしてそれを先ほど作成した「GUI Texture」にドラッグ＆ドロップでアタッチ！</p>
-
-<p>inspector上で、「miku(script)」が追加されていればおｋです。</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.add.script.png" alt="script追加" /></p>
-
-<p>さあ、ここらが本番です。<br/>
-今追加したスクリプトでやりたいことは、「textureを一定時間毎に切り替えていく」という処理です。</p>
-
-<p>スクリプトはこんな感じになると思います。</p>
-
-<p><a href="http://answers.unity3d.com/questions/13156/animated-gif-as-a-texture-on-iphone.html">Animated Gif(Unity Answers)</a>
-を参考にしました。<br/>
-はい、コピペって言わない！</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="err">#</span><span class="nx">pragma</span> <span class="nx">strict</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">frames</span> <span class="o">:</span> <span class="nx">Texture2D</span><span class="p">[];</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">framesPerSecond</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">Start</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">Update</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">index</span> <span class="o">:</span> <span class="kr">int</span> <span class="o">=</span> <span class="nx">Time</span><span class="p">.</span><span class="nx">time</span> <span class="o">*</span> <span class="nx">framesPerSecond</span><span class="p">;</span>
-</span><span class='line'>    <span class="nx">index</span> <span class="o">=</span> <span class="nx">index</span> <span class="o">%</span> <span class="nx">frames</span><span class="p">.</span><span class="nx">Length</span><span class="p">;</span>
-</span><span class='line'>    <span class="nx">guiTexture</span><span class="p">.</span><span class="nx">texture</span> <span class="o">=</span> <span class="nx">frames</span><span class="p">[</span><span class="nx">index</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ただ、ここで即プレビューしてもうまく動きません。当たり前の話ですが「frames」として定義された配列に、何もデータが入っていないためです。
-この配列にデータをぶち込むにはどうしたらよいのでしょうか？<br/>
-答えは「inspector上で追加する」でした。</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.frames.size0.png" alt="size0" /></p>
-
-<p>この「size」プロパティに「10」をぶち込んでください。すると…</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.frames.size10.png" alt="size10" /></p>
-
-<p>おおおお！textureを指定できる覧が出てきたぞ！これはかなりの感動ものです。<br/>
-プログラマ的には、ソース上で定義したデータ箱にGUI上からサイズの指定を行う、というフローになかなか感覚がついていかないので、
-時間があるときにでもソース上からsizeを指定する方法を探してみます。ひとまず今日はこのまま進むぜ！</p>
-
-<p>あとは、簡単です。出てきたtextureの指定欄の一つ一つに、分解されたgifを当て込んでいきます。<br/>
-それでプレビューすると…</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/preview.animated.png" alt="アニメーションしてる" /></p>
-
-<p>動いてるーーーーー！（画像じゃ分からないけど）</p>
-
-<p>まあいいだろう。ミッションコンプリートだ！</p>
-
-<h2>次回に向けて</h2>
-
-<p>Unityがとんでもない発表をしてくれました。Unityのモバイル向け機能を完全無償化するというのです。
-早速試そう！ということで、次回は「iPhone用にビルド」、いってみたいと思います！</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>木内智史之介</h3>
-        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
-		<ul class="author-links">
-			
-			<li>
-			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
-			</li>
-			
-			
-			<li>
-            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
-			</li>
-			
-		</ul>
-	</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1481,6 +1321,10 @@ Dev centerとか、証明書とか、Provisioning Profileとか…もう未知�
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/14/use-vagrant/">Vagrantで開発環境構築を自動化する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/07/05/efficient-way-of-drawing-of-a-character-illustration/">商業用キャライラストを一ヶ月にたくさん描く時の効率的な描き方</a>
@@ -1498,15 +1342,11 @@ Dev centerとか、証明書とか、Provisioning Profileとか…もう未知�
         <a href="/blog/2013/06/11/build-php-environment-with-synaptic/">SynapticでPHP開発環境を構築しよう</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">Oracle VM VirtualBoxでデスクトップLinuxを始めよう</a>
-      </li>
-    
   </ul>
 </section>
 <section>
     <h1>Top Categories</h1>
-    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (9)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/study'>study (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li></ul>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (9)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/study'>study (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/Vagrant'>Vagrant (1)</a></li></ul>
     <a href="/blog/categories">All Categories</a>
 </section>
 <section>

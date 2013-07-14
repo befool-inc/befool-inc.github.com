@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Vagrantで開発環境構築を自動化する - BEFOOL blog</title>
+  <meta name="author" content="8823-scholar">
+
+  
+  <meta name="description" content="森です。先日開催された Vagrant meetup に参加しまして
+開発者のHashimotoさんからVagrantのお話を聞くことができすごくホクホクしております。 熱が抜けないうちにVagrantを用いての開発環境作成のおさらいをこの場にまとめます Vagrant とは &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/07/14/use-vagrant">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/atom.xml" rel="alternate" title="BEFOOL blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40545969-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEFOOL blog</a></h1>
+  
+    <h2>今日もいい天気</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:befool-inc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives/">Archives</a></li>
+  <li><a href="/blog/categories/">Categories</a></li>
+  <li><a href="/blog/authors/">Authors</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Vagrantで開発環境構築を自動化する</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-14T15:53:00+09:00" pubdate data-updated="true">Jul 14<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img src="/images/posts/2013-07-14-use-vagrant/vagrant-logo.png" alt="Vagrant logo" /></p>
+
+<p>森です。先日開催された <a href="http://chef-meetup.doorkeeper.jp/events/4624">Vagrant meetup</a> に参加しまして
+開発者のHashimotoさんからVagrantのお話を聞くことができすごくホクホクしております。</p>
+
+<p>熱が抜けないうちにVagrantを用いての開発環境作成のおさらいをこの場にまとめます</p>
+
+<h2>Vagrant とは</h2>
+
+<p>そもそもVagrantとは何か、乱暴にいうと <strong>開発環境を簡単に作成する</strong> ためのツールです。
+Virtual Boxなどの仮想化ソフトウェアなどを用いて各人のマシンに本番環境にほぼ等しい環境を誤りなくセットアップしてくれます。</p>
+
+<p>開発者の Hashimoto さんの <a href="http://mitchellh.com/the-tao-of-vagrant">The Tao of Vagrant</a> から引用すると</p>
+
+<blockquote><p>In a world with Vagrant, developers can check out any repository from version control, run vagrant up, and have a fully running development environment without any human interaction.
+Developers continue to work on their own machine, in the comfort of their own editors, browsers, and other tools.</p></blockquote>
+
+<p>Vagrantを使用することで <em>完全に動作する開発環境を人間の作業なしで作成でき、開発者は自分のマシンで好みのエディタ、ブラウザ、デバッグツールなどを使うことができます。</em></p>
+
+<p>さっそくVagrantをインストールして仮想環境を起動してみましょう。</p>
+
+<p>余談ですが手動でVirtual Boxを起動してVMを設定して必要ソフトウェアをセットアップして…という作業は最初の一回だけやるぶんにはいいのですが
+<em>他メンバーに同じ環境を用意する</em> 場合に大変です。
+自分が使っているVMをコピーして渡してもいいのですが
+セットアップ後にインストールした不要ツールを取り除いたり逆に後から追加したライブラリ設定を戻したり…
+こんなことをしているうちに元のVMが何が何だかわからなくなってしまった…という経験はありませんでしょうか？自分はかなり多いです。</p>
+
+<h2>お断り</h2>
+
+<p>先に断っておきますと、この記事に書いてある内容は <a href="http://www.vagrantup.com/">Vagrant 公式サイト</a> の <a href="http://docs.vagrantup.com/v2/getting-started/index.html">GETTING STARTED</a> を自分なりに噛み砕いたものです。
+より正確にVagrantについての理解を深めたい場合は公式サイトを一読することがオススメです。</p>
+
+<!-- more -->
+
+
+<p>まず <em>Virtual Box</em> のインストールが必要です。僕の <a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">前回の記事</a> あたりを参考にしつつインストールをしてください。</p>
+
+<h2>Vagrantのインストール</h2>
+
+<p>まずは <a href="http://www.vagrantup.com/">公式サイト</a> へアクセスしましょう。</p>
+
+<p><a href="http://downloads.vagrantup.com/">ダウンロードページ</a> へアクセスし、最新バージョンのVagrantを選択して自分の使用しているOSにあわせたインストーラをダウンロードします。
+以降Macを利用しているていで進めますがUbuntuなどのLinuxでも同じ手順で進められると思います。Windowsはよくわかりませんので後で環境探して試してみます…。
+2013年7月14日現在の最新バージョンは <strong>1.2.3</strong> です。</p>
+
+<p><img src="/images/posts/2013-07-14-use-vagrant/download-vagrant.png" alt="Download" /></p>
+
+<p>ダウンロードしたインストーラを起動してVagrantをインストールしたらターミナルを開いてvagrantコマンドの確認をしましょう。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant -v
+</span><span class='line'>Vagrant version 1.2.3
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>バージョン情報が表示されればインストール成功です。</p>
+
+<h2>プロジェクトの設定</h2>
+
+<p>Vagrantを使う上で必須なのがプロジェクトの設定ファイルである <strong>Vagrantfile</strong> を作成することです。
+共通のVagrantfileを利用することで前述の完全に動作する開発環境を人間の作業なしで作成することができるのです。</p>
+
+<p>今回はサンプルとして新規にVagrantfileを作成しましょう。適当なディレクトリを作成し、そこで <code>vagrant init</code> をすることでVagrantfileを作成します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mkdir vagrant_getting_started
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>vagrant_getting_started
+</span><span class='line'><span class="nv">$ </span>vagrant init
+</span><span class='line'>A <span class="sb">`</span>Vagrantfile<span class="sb">`</span> has been placed in this directory. You are now
+</span><span class='line'>ready to <span class="sb">`</span>vagrant up<span class="sb">`</span> your first virtual environment! Please <span class="nb">read</span>
+</span><span class='line'>the comments in the Vagrantfile as well as documentation on
+</span><span class='line'><span class="sb">`</span>vagrantup.com<span class="sb">`</span> <span class="k">for </span>more information on using Vagrant.
+</span><span class='line'><span class="nv">$ </span>ls -l
+</span><span class='line'>total 16
+</span><span class='line'>-rw-r--r--  1 jiska  staff   4.4K Jul 14 17:07 Vagrantfile
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>できました。</p>
+
+<p>Vagrantfileは <em>ruby</em> で記述することができます。
+初期生成されたVagrantfileには細かいサンプルが記述されているのでそれを参考にして自分用のプロジェクトの設定を行いましょう。</p>
+
+<h2>boxのダウンロード</h2>
+
+<p>boxとはVagrantで使用する仮想マシーンの基本イメージです。ひな形とかテンプレートとかいうほうがイメージしやすいと思います。
+boxにはCentOS, Debian, Ubuntu, Windows Serverなど様々なOSが利用できます。</p>
+
+<p>本来ならば各人のシステムに合わせてboxを生成するのですが、今回は公式に提供されているboxから <em>precise64 (Ubuntu12.04 64bit)</em> を追加します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant box add precise64 http://files.vagrantup.com/precise64.box
+</span><span class='line'><span class="o">(</span>ダウンロードに時間がかかるのでちょっと待つ）
+</span><span class='line'><span class="nv">$ </span>vagrant box list
+</span><span class='line'>precise64 <span class="o">(</span>virtualbox<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>boxの追加には <code>vagrant box add {name} {url}</code> , 一覧の確認には <code>vagrant box list</code> コマンドを利用します。これでboxにprecise64という名前でUbuntu12.04サーバーエディションが登録されました。</p>
+
+<p>先ほどのVagrantfileを編集してboxの設定を変更します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;precise64&quot;</span> <span class="c1"># box名をここで指定する</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>仮想マシンを起動する</h2>
+
+<p>起動には <code>vagrant up</code> コマンドを使用します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant up
+</span><span class='line'>Bringing machine <span class="s1">&#39;default&#39;</span> up with <span class="s1">&#39;virtualbox&#39;</span> provider...
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> Importing base box <span class="s1">&#39;precise64&#39;</span>...
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> Matching MAC address <span class="k">for </span>NAT networking...
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> Setting the name of the VM...
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> Clearing any previously <span class="nb">set </span>forwarded ports...
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> Creating shared folders metadata...
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> Clearing any previously <span class="nb">set </span>network interfaces...
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> Preparing network interfaces based on configuration...
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> Forwarding ports...
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> -- <span class="nv">22</span> <span class="o">=</span>&gt; 2222 <span class="o">(</span>adapter 1<span class="o">)</span>
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> Booting VM...
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> Waiting <span class="k">for </span>VM to boot. This can take a few minutes.
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> VM booted and ready <span class="k">for </span>use!
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> Mounting shared folders...
+</span><span class='line'><span class="o">[</span>default<span class="o">]</span> -- /vagrant
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>VMが起動しました。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>ps aux | grep vagrant
+</span><span class='line'>jiska          30771   0.5  5.3  2724752 223116   ??  S     5:37PM   0:12.09 /Applications/VirtualBox.app/Contents/MacOS/VBoxHeadless --comment vagrant_getting_started_1373791025 --startvm 489b9052-9bfd-4063-b1cc-a6572b8a3a94 --vrde config
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>起動したVMにsshで接続するためには <code>vagrant ssh</code> コマンドを使用します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant ssh
+</span><span class='line'>Welcome to Ubuntu 12.04 LTS <span class="o">(</span>GNU/Linux 3.2.0-23-generic x86_64<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'> * Documentation:  https://help.ubuntu.com/
+</span><span class='line'>Welcome to your Vagrant-built virtual machine.
+</span><span class='line'>Last login: Sun Jul 14 08:42:40 2013 from 10.0.2.2
+</span><span class='line'>vagrant@precise64:~<span class="nv">$ </span><span class="nb">exit</span>
+</span><span class='line'><span class="nb">logout</span>
+</span><span class='line'>Connection to 127.0.0.1 closed.
+</span><span class='line'><span class="nv">$ </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>VMの停止は <code>vagrant halt</code> コマンドです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant halt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>後は <strong>box起動時に必要な環境をセットアップするための設定をVagrantfile</strong> に記述することで各プロジェクトに沿った開発環境を作成することができます。Vagrantfileについては長くなってきたので次回です。</p>
+
+<p>Vagrantを用いることでVMの初期設定、起動、停止が簡単にできました。Vagrantfileに設定でホストOS,ゲストOSとの共有フォルダ設定やネットワーク設定なども定義できます。
+また、Vagrantfileをバージョン管理することで変更を追うことも容易になります。</p>
+
+<p>現在のバージョンのVagrantはVirtualBoxだけでなく <em>VMware</em> や <em>Amazon EC2</em> もサポートしています。ネットワークさえ繋がれば仮想マシンを簡単に作成することが出来るのです。すごい！</p>
+
+<h2>結論</h2>
+
+<p><strong>Vagrant使おう!</strong> ということです。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6edaeca6d206ade350bc34b74ecc07e1" alt="森裕介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>森裕介</h3>
+        <p>無念<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/jiskanulo">@jiskanulo</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/jiskay/">jiskaのメモ書き</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">jiska</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-14T15:53:00+09:00" pubdate data-updated="true">Jul 14<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/Vagrant/'>Vagrant</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/07/14/use-vagrant/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/07/14/use-vagrant/" >Tweet</a>
+  
+
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+  
+
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+  
+    <div class="fb-comments" data-href="http://befool-inc.github.io" data-num-posts="2" data-width="689"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/05/efficient-way-of-drawing-of-a-character-illustration/" title="Previous Post: 商業用キャライラストを一ヶ月にたくさん描く時の効率的な描き方">&laquo; 商業用キャライラストを一ヶ月にたくさん描く時の効率的な描き方</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/14/use-vagrant/">Vagrantで開発環境構築を自動化する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/05/efficient-way-of-drawing-of-a-character-illustration/">商業用キャライラストを一ヶ月にたくさん描く時の効率的な描き方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/">【AdobeEdgeAnimate】AdobeEdgeAnimateのHTMLはどうやって書くのか</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/15/unity-study-08-scene-change/">Unity勉強 第8回 「シーンの切り替え」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/build-php-environment-with-synaptic/">SynapticでPHP開発環境を構築しよう</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (9)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/study'>study (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/Vagrant'>Vagrant (1)</a></li></ul>
+    <a href="/blog/categories">All Categories</a>
+</section>
+<section>
+    <h1>Authors</h1>
+    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (10)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (2)</a></li><li><a href='/blog/authors/aizawa/'>はらだ (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li></ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - 8823-scholar -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'befoolblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/07/14/use-vagrant/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/07/14/use-vagrant/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
