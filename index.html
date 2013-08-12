@@ -9,8 +9,8 @@
   <meta name="author" content="8823-scholar">
 
   
-  <meta name="description" content="森です。先日開催された Vagrant meetup に参加しまして
-開発者のHashimotoさんからVagrantのお話を聞くことができすごくホクホクしております。 熱が抜けないうちにVagrantを用いての開発環境作成のおさらいをこの場にまとめます Vagrant とは &hellip;">
+  <meta name="description" content="森です。さいきん気がつくと社内でmac使ってる人が増えてきたので、共有のためと
+自分用の備忘、２つを兼ねてOS Xの設定とインストールしているソフトウェアを２つの記事に分けて記述します。 自分が想定している主な使い方は PHPを用いたWEBアプリケーションの開発 に使うための設定です。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/12/set-up-os-x-part-1/">自分用のOS X設定 その１</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-12T20:30:00+09:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/08/12/set-up-os-x-part-1/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>森です。さいきん気がつくと社内でmac使ってる人が増えてきたので、共有のためと
+自分用の備忘、２つを兼ねてOS Xの設定とインストールしているソフトウェアを２つの記事に分けて記述します。</p>
+
+<p>自分が想定している主な使い方は <strong>PHPを用いたWEBアプリケーションの開発</strong> に使うための設定です。</p>
+
+<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
+そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/12/set-up-os-x-part-1/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1116,198 +1167,6 @@ stderr: Error: Could not create the Java Virtual Machine. Error: A fatal excepti
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/23/unity-study-06-build-for-ios/">Unity勉強 第6回 「ついに！無償化された、build for iOS を試してみる」</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-23T21:36:00+09:00" pubdate data-updated="true">May 23<span>rd</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/23/unity-study-06-build-for-ios/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>モバイル向け機能の完全無償化</h2>
-
-<p>おはようございます。AKB48の中では、横山由依ちゃんが大好きな智史之介です。</p>
-
-<p><a href="http://japan.unity3d.com/blog/press/2013/05/21/unity-ios-%E3%81%A8-android-%E3%82%92%E5%90%AB%E3%82%80%E5%80%8B%E4%BA%BA%E3%83%BB%E5%B0%8F%E8%A6%8F%E6%A8%A1%E9%96%8B%E7%99%BA%E8%80%85%E5%90%91%E3%81%91%E3%81%AE-%E3%83%A2%E3%83%90%E3%82%A4/">Unity, iOS と Android を含む個人・小規模開発者向けのモバイル向け機能を完全無償化</a></p>
-
-<p>やってくれました…！我々にできないような事を平然とやってのけるUnity…そこにしびれるぅあこがれるゥゥッ！</p>
-
-<p>確かに、「file > build settings」のメニュー内で、ios向けを選択できるようになっているようです（できない人はアップデートしてみてね）。
-これは試してみるしかないでしょう、というわけで、本日の課題は、この「モバイル向けの機能」というものを試してみようと思います。</p>
-
-<p>ズバリ！「iOS向けにビルド」しちゃいます。ウヒヒ。</p>
-
-<h2>前回のプロジェクトをコピー</h2>
-
-<p>なんか適当なプロジェクトを作成するのも面倒ですので、
-<a href="/blog/2013/05/22/unity-study-05-enable-animated-gif/">Unity勉強 第5回 「アニメーションgifって使えるの？」</a>
-で作成したプロジェクトをコピーして「06.Build4iOS」とでも名前変更し開きます。</p>
-
-<p>え、そんなんでいいのかって？<br/>
-いいんです！これでいいんです！（川平風）
-今日も張り切って行きましょう。</p>
-
-<h2>Build Settings</h2>
-
-<h3>cross platform settings</h3>
-
-<p>iOS向けにビルドするために、まずは「File > Build Settings」のメニューを選択し、ビルド設定画面を開いてください。<br/>
-開くと、ビルド可能なプラットフォームの一覧が並んでいると思いますので、ノーシンクで「iOS」を選択しましょう。</p>
-
-<p>すると「inspecotr」内に設定項目がでてきます。</p>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/settings.cross-platform.jpg" alt="てきとーに入力" /></p>
-
-<p>このあたりはテキトーに入力していいものだろうか？と悩みつつテキトーに入力しちゃいます。</p>
-
-<h3>per platform settings</h3>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/settings.per-platform.png" alt="よくわからないまま入力" /></p>
-
-<p>こちらもよくわからないのですが、いじった方が良さそうな項目はこちらかな？</p>
-
-<table>
-<thead>
-<tr>
-<th align="left">設定キー                    </th>
-<th align="left"> 値                           </th>
-<th align="left"> メモ </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Bundle identifier           </td>
-<td align="left"> jp.co.befool.study.build4ios </td>
-<td align="left"> 事前にApp IDsをApp Dev Centerで作成の必要あり</td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>いざ、ビルド！</h2>
-
-<p>各種設定項目を適当に入力したら、ついにビルドです。</p>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/build.png" alt="ビルド" /></p>
-
-<p>「add current」でビルド対象のシーンを追加したうえで、「build」実行するだーーーーーッ！</p>
-
-<p>ビルドが完了したらfinderで出力先のフォルダが開くので、「Unity-iPhone.xcodeproj」を選択してXcodeを開きましょう。</p>
-
-<h2>Xcode…それは未知の世界</h2>
-
-<p>ここから先は、本当に正直よくわからないです…。とにかくいろんなサイトを参考にしながら手探りで進めました。</p>
-
-<p>ちょっとApple周りの各種手続きに関する説明まで本記事に含めると、とんでもない大作になってしまいそうなので今回は割愛させてください。
-気が向いたら、別記事で起こします。</p>
-
-<p>本記事では、簡単ですがやったことリストだけ並べさせていただきます。</p>
-
-<ul>
-<li>Apple Dev Centerへの登録</li>
-<li>開発に関する権利を購入</li>
-<li>証明書の作成</li>
-<li>identifierの作成</li>
-<li>開発機の登録</li>
-<li>Provisioning Profileの作成</li>
-<li>証明書、Provisioning Profileのmac機への設定</li>
-</ul>
-
-
-<p>などをおこないました。
-このあたりの手続きに関しては詳細に説明したWEBページが色々ありますので、是非それらを参考に進めてみてください。</p>
-
-<h3>code signing</h3>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/xcode.settings.code-signing.png" alt="code signing" /></p>
-
-<p>なんだかよくわからないけど、設定しろ書いてあった。</p>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/xcode.choice.device.jpg" alt="デバイス選択" /></p>
-
-<p>さあ、「Run」を押しましょうぞ！！</p>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/build.to.iphone.png" alt="入った！" /></p>
-
-<p>入った！！！</p>
-
-<p>入ったが…！</p>
-
-<p>いたーーーーい！！！なんだかよく分からないけど僕の心がいたーーーーーいッ！<br/>
-iPhoneの待ち受け画面を全世界に公開してしまい、これでまたモテ道から遠のいてしまうんですね…。
-どうか皆さんどん引きしないでください…orz</p>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/run.on.iphone.png" alt="うごいた！" /></p>
-
-<p>起動！！</p>
-
-<p>おおおおおおおおお！いい感じに動いています！！</p>
-
-<p>というわけで、今日はここまで〜！</p>
-
-<h2>次回に向けて</h2>
-
-<p>今日は無償化されたiOS向けのビルドを試してみました。<br/>
-Unity側の設定は驚くほど簡単で、困ることはないでしょう。</p>
-
-<p>ただただXcode周りの設定が難しかった…。
-Dev centerとか、証明書とか、Provisioning Profileとか…もう未知の言葉のオンパレードでしたね…orz</p>
-
-<p>ただ、おかげでなんとか各種役割のようなものは理解できたつもりでいます。</p>
-
-<p>次回は、この流れで、「Android向けのビルドを試してみる」行ってみたいと思います！
-どうぞよろしくお願いいたします。</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>木内智史之介</h3>
-        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
-		<ul class="author-links">
-			
-			<li>
-			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
-			</li>
-			
-			
-			<li>
-            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
-			</li>
-			
-		</ul>
-	</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1321,6 +1180,10 @@ Dev centerとか、証明書とか、Provisioning Profileとか…もう未知�
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/08/12/set-up-os-x-part-1/">自分用のOS X設定 その１</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/07/14/use-vagrant/">Vagrantで開発環境構築を自動化する</a>
@@ -1338,20 +1201,16 @@ Dev centerとか、証明書とか、Provisioning Profileとか…もう未知�
         <a href="/blog/2013/06/15/unity-study-08-scene-change/">Unity勉強 第8回 「シーンの切り替え」</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/06/11/build-php-environment-with-synaptic/">SynapticでPHP開発環境を構築しよう</a>
-      </li>
-    
   </ul>
 </section>
 <section>
     <h1>Top Categories</h1>
-    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (9)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/study'>study (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/Vagrant'>Vagrant (1)</a></li></ul>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (9)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/study'>study (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/Vagrant'>Vagrant (1)</a></li></ul>
     <a href="/blog/categories">All Categories</a>
 </section>
 <section>
     <h1>Authors</h1>
-    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (10)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (2)</a></li><li><a href='/blog/authors/aizawa/'>はらだ (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li></ul>
+    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (10)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (4)</a></li><li><a href='/blog/authors/aizawa/'>はらだ (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li></ul>
 </section>
 
 

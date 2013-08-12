@@ -4,7 +4,7 @@
   <title><![CDATA[BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-07-14T17:54:32+09:00</updated>
+  <updated>2013-08-12T22:09:44+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -12,6 +12,128 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[自分用のOS X設定 その１]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/08/12/set-up-os-x-part-1/"/>
+    <updated>2013-08-12T20:30:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/08/12/set-up-os-x-part-1</id>
+    <content type="html"><![CDATA[<p>森です。さいきん気がつくと社内でmac使ってる人が増えてきたので、共有のためと
+自分用の備忘、２つを兼ねてOS Xの設定とインストールしているソフトウェアを２つの記事に分けて記述します。</p>
+
+<p>自分が想定している主な使い方は <strong>PHPを用いたWEBアプリケーションの開発</strong> に使うための設定です。</p>
+
+<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
+そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
+
+<!-- more -->
+
+
+<h2>システム環境設定</h2>
+
+<p>まずは <strong>システム環境設定</strong> の設定内容です。
+画面左上の <strong>Appleのロゴをクリックしてシステム環境設定</strong> で表示できます。</p>
+
+<p>この画面ですね。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-08-12-set-up-os-x-part-1/system_preferences.png" alt="システム環境設定" /></p>
+
+<h3>言語とテキスト</h3>
+
+<p>自分は本体を <strong>英語</strong> に設定してます。
+英語の勉強するためにいいかな、などと思ってますが <em>あまり勉強になってない感じが強い</em> です…無念(´人｀)</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-08-12-set-up-os-x-part-1/system_preferences_en.png" alt="system preferences" /></p>
+
+<p><strong>言語とテキスト</strong> で <em>English</em> をリスト上部にドラッグすると本体設定が英語になります。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-08-12-set-up-os-x-part-1/language_and_text.png" alt="言語とテキスト" /></p>
+
+<p>他の言語に変えたい、または日本語に戻したいなと思ったら自由に入れ替えることができるので一度試してみてもいいかもしれません。
+今回の記事ではスクリーンショットは今回日本語で撮っています、
+後で言語を切り替えてどのように表記が変わるのか見比べてみると楽しいかもしれません。</p>
+
+<h3>キーボード</h3>
+
+<p>自分はファンクションキーを押すことが多いので <strong>キーボード</strong> の設定で
+<strong>F1、F2 などのすべてのキーを標準のファンクションキーとして使用</strong> にチェックをいれます。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-08-12-set-up-os-x-part-1/keyboard.png" alt="キーボード" /></p>
+
+<p>キーボードショートカットでは <strong>フルキーボードアクセス</strong> を <strong>すべてのコントロール</strong> に設定しています。
+<em>テキストボックスとリストのみ</em> を設定しているとダイアログが表示されたときにタブを連打してOKやキャンセルを選択するといった操作ができないからです。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-08-12-set-up-os-x-part-1/keyboard_shortcut.png" alt="キーボードショートカット" /></p>
+
+<h3>トラックパッド</h3>
+
+<p>MacBook Airにしてよかったなと思うのがトラックパッドの設定です。とても快適です。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-08-12-set-up-os-x-part-1/trackpad.png" alt="トラックパッド" /></p>
+
+<p>ウィンドウを3本指で選択してドラッグしたり、
+4本指で左右にスワイプしてワークスペースを切り替えたり、
+<del>仕事がつらくなって現実逃避したくなったり</del>
+なにか思いついたら右端から左にスワイプしてTwitterにつぶやいたり…</p>
+
+<p>いろいろな項目がありますが自分はとりあえず <strong>全部ON</strong> にしてます。お好みでどうぞ。</p>
+
+<p>次はターミナルを使って行う設定です。</p>
+
+<!-- more -->
+
+
+<h3>スクリーンショットの保存先を変更する</h3>
+
+<p><strong>~/Pictures/Screen_Shots</strong> に保存してほしいので以下のコマンドをターミナルで実行します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>defaults write com.apple.screencapture location ~/Pictures/Screen_Shots
+</span><span class='line'><span class="nv">$ </span>killall SystemUIServer
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定がうまくいったか確認するには以下のコマンドです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>defaults <span class="nb">read </span>com.apple.screencapture location
+</span><span class='line'>/Users/jiska/Pictures/Screen_Shots
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>まとめ</h2>
+
+<p>他にもいろいろあった気がしますがとりあえず思いつく範囲で設定している項目はこんなところです。</p>
+
+<p>次の記事は今回に引き続きインストールしているソフトウェアをまとめます。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6edaeca6d206ade350bc34b74ecc07e1" alt="森裕介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>森裕介</h3>
+        <p>無念<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/jiskanulo">@jiskanulo</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/jiskay/">jiskaのメモ書き</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Vagrantで開発環境構築を自動化する]]></title>

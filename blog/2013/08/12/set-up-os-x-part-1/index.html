@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>自分用のOS X設定 その１ - BEFOOL blog</title>
+  <meta name="author" content="8823-scholar">
+
+  
+  <meta name="description" content="森です。さいきん気がつくと社内でmac使ってる人が増えてきたので、共有のためと
+自分用の備忘、２つを兼ねてOS Xの設定とインストールしているソフトウェアを２つの記事に分けて記述します。 自分が想定している主な使い方は PHPを用いたWEBアプリケーションの開発 に使うための設定です。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/08/12/set-up-os-x-part-1">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/atom.xml" rel="alternate" title="BEFOOL blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40545969-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEFOOL blog</a></h1>
+  
+    <h2>今日もいい天気</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:befool-inc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives/">Archives</a></li>
+  <li><a href="/blog/categories/">Categories</a></li>
+  <li><a href="/blog/authors/">Authors</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">自分用のOS X設定 その１</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-12T20:30:00+09:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>森です。さいきん気がつくと社内でmac使ってる人が増えてきたので、共有のためと
+自分用の備忘、２つを兼ねてOS Xの設定とインストールしているソフトウェアを２つの記事に分けて記述します。</p>
+
+<p>自分が想定している主な使い方は <strong>PHPを用いたWEBアプリケーションの開発</strong> に使うための設定です。</p>
+
+<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
+そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
+
+<!-- more -->
+
+
+<h2>システム環境設定</h2>
+
+<p>まずは <strong>システム環境設定</strong> の設定内容です。
+画面左上の <strong>Appleのロゴをクリックしてシステム環境設定</strong> で表示できます。</p>
+
+<p>この画面ですね。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/system_preferences.png" alt="システム環境設定" /></p>
+
+<h3>言語とテキスト</h3>
+
+<p>自分は本体を <strong>英語</strong> に設定してます。
+英語の勉強するためにいいかな、などと思ってますが <em>あまり勉強になってない感じが強い</em> です…無念(´人｀)</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/system_preferences_en.png" alt="system preferences" /></p>
+
+<p><strong>言語とテキスト</strong> で <em>English</em> をリスト上部にドラッグすると本体設定が英語になります。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/language_and_text.png" alt="言語とテキスト" /></p>
+
+<p>他の言語に変えたい、または日本語に戻したいなと思ったら自由に入れ替えることができるので一度試してみてもいいかもしれません。
+今回の記事ではスクリーンショットは今回日本語で撮っています、
+後で言語を切り替えてどのように表記が変わるのか見比べてみると楽しいかもしれません。</p>
+
+<h3>キーボード</h3>
+
+<p>自分はファンクションキーを押すことが多いので <strong>キーボード</strong> の設定で
+<strong>F1、F2 などのすべてのキーを標準のファンクションキーとして使用</strong> にチェックをいれます。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/keyboard.png" alt="キーボード" /></p>
+
+<p>キーボードショートカットでは <strong>フルキーボードアクセス</strong> を <strong>すべてのコントロール</strong> に設定しています。
+<em>テキストボックスとリストのみ</em> を設定しているとダイアログが表示されたときにタブを連打してOKやキャンセルを選択するといった操作ができないからです。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/keyboard_shortcut.png" alt="キーボードショートカット" /></p>
+
+<h3>トラックパッド</h3>
+
+<p>MacBook Airにしてよかったなと思うのがトラックパッドの設定です。とても快適です。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/trackpad.png" alt="トラックパッド" /></p>
+
+<p>ウィンドウを3本指で選択してドラッグしたり、
+4本指で左右にスワイプしてワークスペースを切り替えたり、
+<del>仕事がつらくなって現実逃避したくなったり</del>
+なにか思いついたら右端から左にスワイプしてTwitterにつぶやいたり…</p>
+
+<p>いろいろな項目がありますが自分はとりあえず <strong>全部ON</strong> にしてます。お好みでどうぞ。</p>
+
+<p>次はターミナルを使って行う設定です。</p>
+
+<!-- more -->
+
+
+<h3>スクリーンショットの保存先を変更する</h3>
+
+<p><strong>~/Pictures/Screen_Shots</strong> に保存してほしいので以下のコマンドをターミナルで実行します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>defaults write com.apple.screencapture location ~/Pictures/Screen_Shots
+</span><span class='line'><span class="nv">$ </span>killall SystemUIServer
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定がうまくいったか確認するには以下のコマンドです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>defaults <span class="nb">read </span>com.apple.screencapture location
+</span><span class='line'>/Users/jiska/Pictures/Screen_Shots
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>まとめ</h2>
+
+<p>他にもいろいろあった気がしますがとりあえず思いつく範囲で設定している項目はこんなところです。</p>
+
+<p>次の記事は今回に引き続きインストールしているソフトウェアをまとめます。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6edaeca6d206ade350bc34b74ecc07e1" alt="森裕介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>森裕介</h3>
+        <p>無念<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/jiskanulo">@jiskanulo</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/jiskay/">jiskaのメモ書き</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">jiska</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-12T20:30:00+09:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/OS_X/'>OS_X</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/08/12/set-up-os-x-part-1/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/08/12/set-up-os-x-part-1/" >Tweet</a>
+  
+
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+  
+
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+  
+    <div class="fb-comments" data-href="http://befool-inc.github.io" data-num-posts="2" data-width="689"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/14/use-vagrant/" title="Previous Post: Vagrantで開発環境構築を自動化する">&laquo; Vagrantで開発環境構築を自動化する</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/08/12/set-up-os-x-part-1/">自分用のOS X設定 その１</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/14/use-vagrant/">Vagrantで開発環境構築を自動化する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/05/efficient-way-of-drawing-of-a-character-illustration/">商業用キャライラストを一ヶ月にたくさん描く時の効率的な描き方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/">【AdobeEdgeAnimate】AdobeEdgeAnimateのHTMLはどうやって書くのか</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/15/unity-study-08-scene-change/">Unity勉強 第8回 「シーンの切り替え」</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (9)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/study'>study (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/Vagrant'>Vagrant (1)</a></li></ul>
+    <a href="/blog/categories">All Categories</a>
+</section>
+<section>
+    <h1>Authors</h1>
+    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (10)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (4)</a></li><li><a href='/blog/authors/aizawa/'>はらだ (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li></ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - 8823-scholar -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'befoolblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/08/12/set-up-os-x-part-1/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/08/12/set-up-os-x-part-1/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
