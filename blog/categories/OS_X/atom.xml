@@ -4,7 +4,7 @@
   <title><![CDATA[Category: OS_X | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/OS_X/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-08-12T22:10:08+09:00</updated>
+  <updated>2013-08-31T05:09:40+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -12,6 +12,108 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[自分用のOS X設定 その２]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/08/31/set-up-os-x-part-2/"/>
+    <updated>2013-08-31T10:00:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/08/31/set-up-os-x-part-2</id>
+    <content type="html"><![CDATA[<p>森です。前回にmacの設定をまとめましたが今回は自分が使っているソフトウェアを紹介します。</p>
+
+<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
+そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
+
+<!-- more -->
+
+
+<h2>ユーティリティ</h2>
+
+<h3>XtraFinder</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/XtraFinder.png" alt="XtraFinder" />
+<a href="http://www.trankynam.com/xtrafinder/">ダウンロード</a></p>
+
+<p>mac標準のファイラーのFinderを拡張するソフトウェアです。Finderの操作が自分にはどうにも使いづらいので必須です。</p>
+
+<p>Finderでは ファイル（ディレクトリ）選択時に <em>command + ↓</em> で選択項目を開きます、<em>return</em> だと選択項目のリネームです。
+これが自分には全く馴染めません…。</p>
+
+<p><strong>Return で選択項目を開く</strong> にチェックを入れます。
+代わりにリネームを有効にするため <strong>名前変更</strong> に好きなキーボードショートカットを割り当てましょう。
+自分は <em>command + return</em> にしています。</p>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/XtraFinder-setting.png" alt="XtraFinderの設定" /></p>
+
+<h3>iTerm 2</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/iTerm-2.png" alt="iTerm 2" />
+<a href="http://www.iterm2.com/">ダウンロード</a></p>
+
+<p>標準のターミナルよりも多機能で色々設定ができます。</p>
+
+<p>全角文字の表示崩れを防ぐために <strong>Treat ambiguous-width characters as double width</strong> にチェックをいれます。</p>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/iTerm-2-setting.png" alt="iTerm 2の設定" /></p>
+
+<h3>AppCleaner</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/AppCleaner.png" alt="AppCleaner" />
+<a href="http://www.freemacsoft.net/appcleaner/">ダウンロード</a></p>
+
+<p>macで色々ソフトウェアをインストールして試し、
+使わなくなったソフトウェアをアンインストール（といっても <em>/Applications</em> から削除するだけですが）しても
+不要ファイルが残ってしまいます。</p>
+
+<p>AppCleanerを使えば不要ファイルも一緒にアンインストールしてくれるので楽です。</p>
+
+<h3>The Unarchiver</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/The-Unarchiver.png" alt="The Unarchiver" />
+<a href="https://itunes.apple.com/en/app/the-unarchiver/id425424353">ダウンロード</a></p>
+
+<p>mac標準の解凍ツールではwindowsで作成されたzipファイルを解答できない場合があります。</p>
+
+<p>The Unarchiverなら問題なく解答できます。</p>
+
+<h3>FileZilla</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/FileZilla.png" alt="FileZilla" />
+<a href="https://filezilla-project.org/">ダウンロード</a></p>
+
+<p>FTP, SFTPクライアントです。最近は使う機会が減りましたがたまにSFTPでファイルを複数やりとりするときに使います。</p>
+
+<h2>テキストエディタ</h2>
+
+<h3>mi</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/mi.png" alt="mi" />
+<a href="http://www.mimikaki.net/">ダウンロード</a></p>
+
+<p>標準のテキストエディタはいろいろ心もとないのです…。
+自分はβ版の <strong>mi テキストエディタ バージョン 3.0.0b3</strong> を使用しています。</p>
+
+<h2>IDE</h2>
+
+<h3>PhpStorm</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/PhpStorm.png" alt="PhpStorm" />
+<a href="http://www.jetbrains.com/phpstorm/">ダウンロード</a></p>
+
+<p>PHPのIDEとして自分には必須です。もはやPhpStormがないと複数ファイルを扱うプロジェクトの開発ができない体になってしまいました。
+初年 <strong>$99</strong> 、翌年から <strong>$49</strong> かかりますがそれ以上の価値は間違いなくあります。</p>
+
+<p>日本の公認代理店の <a href="http://samuraism.com/products/jetbrains/phpstorm">サムライズムさん</a> で日本円で購入することもできるみたいです。</p>
+
+<h2>だいたいこんなところ</h2>
+
+<p>他には <em>Google Chrome</em> や <em>Google 日本語入力</em> 、 <em>RubyMine</em> を使ってますが紹介は割愛します。</p>
+
+<p>次は <strong>HomeBrew</strong> を使って <strong>tmux</strong> やら <strong>git</strong> やら <strong>subversion</strong> やらをインストールする方法を説明しますが長くなってきたので一旦区切ります。
+無念。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[自分用のOS X設定 その１]]></title>
