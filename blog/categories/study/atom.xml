@@ -4,7 +4,7 @@
   <title><![CDATA[Category: study | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/study/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-08-31T05:09:40+09:00</updated>
+  <updated>2013-09-30T18:57:40+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -12,6 +12,127 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/"/>
+    <updated>2013-09-08T16:56:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/09/08/unity-study-09-save-variables-to-local-strage</id>
+    <content type="html"><![CDATA[<h2>前回のおさらい＆今回の目標</h2>
+
+<p>最近FXを始めました。智史之介です。<br/>
+前回から結構時間が開いてしまいましたね…。反省です。できれば週一と言わないまでも、隔週くらいでは勉強する時間を確保していきたいものです。</p>
+
+<p>さて、前回のUnityの勉強ですが「<a href="/blog/2013/06/15/unity-study-08-scene-change/">シーンの切り替え</a>」というような内容でした。
+その関係で「シーンを跨いだ変数の保持」というような内容を試してみたくはあるのですが、ちょっと後回しにして…、今日は「永続データストレージ」に挑戦です。</p>
+
+<h3>永続データストレージとは？</h3>
+
+<p>ここで言うところの「永続データストレージ」とは、つまり、「 <strong>ゲームを落としても次回起動後に保存したデータを参照可能な領域</strong> 」というような意味合いです。
+（なにっ、わかりづらいですと！すみません。）</p>
+
+<h2>まずは箱形を用意</h2>
+
+<p><img src="/images/posts/2013-09-08-unity-study-09-save-variables-to-local-strage/create_project.png" alt="箱形" /></p>
+
+<p>本当に簡単な内容になりますが、GUI Textオブジェクトをさくっと画面上に配置してみました。
+ここに、ゲームを起ち上げてからの秒数を記録してみることにします。</p>
+
+<p>```javascript</p>
+
+<h1>pragma strict</h1>
+
+<p>var timer : int = 0;</p>
+
+<p>function Start () {</p>
+
+<pre><code>guiText.text = timer.ToString();
+</code></pre>
+
+<p>}</p>
+
+<p>function Update () {</p>
+
+<pre><code>var time : int = timer + Time.time;
+guiText.text = time.ToString();
+</code></pre>
+
+<p>}
+<code>`` &lt;!--</code> --></p>
+
+<p>スクリプトとしてはこんな感じ。これをGUI Textにドラッグ＆ドロップでアタッチすることで、ゲームを起ち上げてからの秒数が画面上に表示されます。</p>
+
+<p>ただし！これはゲームを一度落とすと再度「0」から始まってしまいます。
+これを、前回の秒数を記録しておき、次回起ち上げ時には前回落とす前の数字から始まるように調整してみることにします。</p>
+
+<h2>ローカルストレージにデータを保存する</h2>
+
+<p>PlayerPrefsなるものを使用するようです。</p>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/nakamura001/20110712/1310441315">強火で進め: ゲームのスコア情報などを簡単に保存出来るPlayerPrefsクラス</a></li>
+<li><a href="http://docs.unity3d.com/Documentation/ScriptReference/PlayerPrefs.html">Unity Script Reference: PlayerPrefs</a></li>
+</ul>
+
+
+<p>上記のサイトを参考にしつつ、スクリプトをこんな感じに改修。</p>
+
+<p>```javascript
+function Update() {</p>
+
+<pre><code>var time : int = timer + Time.time;
+
+// Save to PlayerPrefs
+PlayerPrefs.SetInt('timer', time); 
+
+guiText.text = time.ToString();
+</code></pre>
+
+<p>}
+<code>`` &lt;!--</code> --></p>
+
+<p>どうやら、<code>PlayerPrefs.SetString</code>とか<code>PlayerPrefs.SetFloat</code>とか、型を指定して保存するらしい。<br/>
+これはめんどくさいかもしれぬ…。</p>
+
+<h2>ローカルストレージからデータを読み込んでみる</h2>
+
+<p>上の修正だけではただデータを保存しているだけなので、起動時にPlayerPrefsから秒数を読み込む改修も加えてみることにします。</p>
+
+<p>```javascript
+function Start () {</p>
+
+<pre><code>// Has in PlayerPrefs ?
+if (PlayerPrefs.HasKey('timer')) {
+    timer = PlayerPrefs.GetInt('timer');
+}
+
+guiText.text = timer.ToString();
+</code></pre>
+
+<p>}
+<code>`` &lt;!--</code> --></p>
+
+<p>これで、ゲームを落としても次回起動時は秒数が途中からカウントされるようになりました！ｳﾎﾎｰｲ。</p>
+
+<p><img src="/images/posts/2013-09-08-unity-study-09-save-variables-to-local-strage/countup_timer.png" alt="カウントアップ成功" /></p>
+
+<h2>PlayerPrefsの注意点</h2>
+
+<p>PlayerPrefsは、そのデータをローカルの端末自身に保存されます（Windowsに至ってはどうもレジストリに書き込まれる模様？！）。
+データ改ざんが容易である可能性が高いので、重要なデータなどはやはりネットワークを通じた外部に保存するのがよいのではないかなと思われます。。</p>
+
+<p>ただ、プレイヤーの設定情報など、簡単なデータに関しては十分活用の余地はあると思いますので、適材適所で使って行けたらと思います。</p>
+
+<h2>次回に向けて</h2>
+
+<p>次回は、ついにというかなんというか、今まで見て見ぬ振りをしてきた「Prefab」なるものに手を出してみようかなと…。</p>
+
+<p>Unityの事を調べる度にその名前が登場するほど、Unityでは当たり前の存在らしい、「Prefab」とは一体なにものなのか？！<br/>
+まずはそこから調べてみようかと思います。</p>
+
+<p>ではでは！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Unity勉強 第8回 「シーンの切り替え」]]></title>

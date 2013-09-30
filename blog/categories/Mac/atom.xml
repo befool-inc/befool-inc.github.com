@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mac | BEFOOL blog]]></title>
+  <link href="http://befool-inc.github.io/blog/categories/Mac/atom.xml" rel="self"/>
+  <link href="http://befool-inc.github.io/"/>
+  <updated>2013-09-30T18:57:40+09:00</updated>
+  <id>http://befool-inc.github.io/</id>
+  <author>
+    <name><![CDATA[8823-scholar]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/"/>
+    <updated>2013-09-30T15:49:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch</id>
+    <content type="html"><![CDATA[<p>森です。アクセルハンマー派生だけで村クエクリアするべく奮闘中です。</p>
+
+<p>仕事の都合上 <strong>subversion</strong> を使うことが多いのですが、 <strong>HomeBrew</strong> でインストールする際に
+<strong>--unicode-path</strong> オプション指定時にエラーが出てしまい困っていたので暫定対処をしたのでその経緯をまとめました。</p>
+
+<h2>お断り</h2>
+
+<p>この記事を書いている間に修正が入りました。ですのでこの記事の内容は過去の遺物であり現在は問題なく動作します。</p>
+
+<p>以降は備忘録として閲覧ください…。</p>
+
+<!-- more -->
+
+
+<h2>前提</h2>
+
+<p>HomeBrewでそのままsubversionをインストールすると <em>subversion 1.8</em> になります。
+subversion 1.8では後述の <code>--unicode-path</code> オプションが利用できないため <em>subversion 1.7</em> を使用します。
+簡単にインストールしたいので <em>homebrew/versions</em> をtapして subversion 1.7用のパッケージ <em>subversion17</em> をインストールしています。</p>
+
+<p>ただインストールしただけでは日本語を含んだファイル名をsvn上でうまく判断してくれないためいちいちmodified扱いになってしまいつらいです。というか使い物になりません。
+そのため <code>--unicode-path</code> オプションを指定してインストールします。</p>
+
+<p>```bash
+$ brew tap homebrew/versions
+(tapped)</p>
+
+<p>$ brew info subversion17
+subversion17: stable 1.7.11
+http://subversion.apache.org/
+Not installed
+From: https://github.com/homebrew/homebrew-versions/commits/master/subversion17.rb
+==> Dependencies
+Build: pkg-config
+Required: neon, serf, sqlite
+==> Options
+--java</p>
+
+<pre><code>    Build Java bindings
+</code></pre>
+
+<p>--perl</p>
+
+<pre><code>    Build Perl bindings
+</code></pre>
+
+<p>--ruby</p>
+
+<pre><code>    Build Ruby bindings
+</code></pre>
+
+<p>--unicode-path</p>
+
+<pre><code>    Include support for OS X UTF-8-MAC filename
+</code></pre>
+
+<p>--universal</p>
+
+<pre><code>    Build a universal binary
+</code></pre>
+
+<p>--with-homebrew-openssl</p>
+
+<pre><code>    Include OpenSSL support via Homebrew
+</code></pre>
+
+<p>--with-python</p>
+
+<pre><code>    Build with python support
+</code></pre>
+
+<p>```</p>
+
+<h2>現象</h2>
+
+<p>ところがいつの頃からか <code>--unicode-path</code> オプションを指定するとエラーが発生してしまいインストールが中断してしまうようになりました(´人｀)</p>
+
+<p>```bash
+$ brew install subversion17 --unicode-path
+==> Downloading http://www.apache.org/dyn/closer.cgi?path=subversion/subversion-1.7.11.tar.bz2
+==> Best Mirror http://ftp.kddilabs.jp/infosystems/apache/subversion/subversion-1.7.11.tar.bz2</p>
+
+<h6>################################################################## 100.0%</h6>
+
+<p>==> Downloading patches</p>
+
+<p>curl: (22) The requested URL returned error: 404
+Error: Failure while executing: /usr/bin/curl -f#LA Homebrew\ 0.9.5\ (Ruby\ 1.8.7-358;\ Mac\ OS\ X\ 10.8.5) https://raw.github.com/gist/3044094/1648c28f6133bcbb68b76b42669b0dc237c02dba/patch-path.c.diff -o 000-homebrew.diff<code>
+</code></p>
+
+<p>これは困ります。</p>
+
+<h2>対処</h2>
+
+<p>エラーログによると <em>unicode-pathのパッチを記したGistのURLが404を返してしまっている</em> ようです。
+<em>subversion17</em> の設定を手動で変更します。</p>
+
+<p><code>bash
+$ vi /usr/local/Library/Taps/homebrew-versions/subversion17.rb
+</code></p>
+
+<p>```ruby</p>
+
+<h1>Patch for Subversion handling of OS X UTF-8-MAC filename.</h1>
+
+<p>if build.include? 'unicode-path'
+  ps &lt;&lt; "https://raw.github.com/gist/3044094/1648c28f6133bcbb68b76b42669b0dc237c02dba/patch-path.c.diff"
+end
+```</p>
+
+<p>ここを</p>
+
+<p>```ruby</p>
+
+<h1>Patch for Subversion handling of OS X UTF-8-MAC filename.</h1>
+
+<p>if build.include? 'unicode-path'
+  ps &lt;&lt; "https://gist.github.com/jeffstyr/3044094/raw/1648c28f6133bcbb68b76b42669b0dc237c02dba/patch-path.c.diff"
+end
+```</p>
+
+<p>こうします。</p>
+
+<p>再度インストールしてみます。</p>
+
+<p>```bash
+$ brew install subversion17 --unicode-path
+==> Downloading http://www.apache.org/dyn/closer.cgi?path=subversion/subversion-1.7.11.tar.bz2
+Already downloaded: /Library/Caches/Homebrew/subversion17-1.7.11.tar.bz2
+==> Downloading patches</p>
+
+<h6>################################################################## 100.0%</h6>
+
+<p>==> Patching
+patching file subversion/libsvn_subr/path.c
+==> ./configure --prefix=/usr/local/Cellar/subversion17/1.7.11 --with-apr=/usr/local/Library/ENV/4.3 --with-zlib=/usr --with-sqlite=/usr/local/opt/sqlite --with-serf=/usr/local/opt/serf --dis
+==> make
+==> make install
+==> make tools
+==> make install-tools
+==> Caveats
+This unicode-path version implements a hack to deal with composed/decomposed
+unicode handling on Mac OS X which is different from linux and windows.
+It is an implementation of solution 1 from
+http://svn.collab.net/repos/svn/trunk/notes/unicode-composition-for-filenames
+which <em>WILL</em> break some setups. Please be sure you understand what you
+are asking for when you install this version.</p>
+
+<p>Bash completion has been installed to:
+  /usr/local/etc/bash_completion.d
+==> Summary
+🍺  /usr/local/Cellar/subversion17/1.7.11: 106 files, 8.1M, built in 4.8 minutes
+```</p>
+
+<p><code>bash
+$ svn --version
+svn, version 1.7.11 (r1503888)
+   compiled Sep 30 2013, 18:00:03
+</code></p>
+
+<p>無事にインストールできました！</p>
+
+<h2>原因とPull Requests</h2>
+
+<p>詳細なソースが見当たらないのですが <a href="https://github.com/blog/1406-namespaced-gists">GistのURL形式が変更になった</a> のですが、
+いままで旧形式URLにアクセスしても新形式のURLにリダイレクトをしてくれていたのが
+ある日を堺にリダイレクトをかけずに404を返すようになったのかな、と憶測しています。</p>
+
+<p>とりあえず上記の件は<a href="https://github.com/Homebrew/homebrew-versions/pull/218">URLを変更するPull Requestを投げました</a>。
+無事通るといいな。</p>
+
+<p><em>18:53 09-30-2013 追記 → 無事にコミットされました</em> 。 <a href="https://github.com/Homebrew/homebrew-versions/commit/173b764c6b051144b23e01eb662896659f092eff">173b764c6b051144b23e01eb662896659f092eff</a></p>
+]]></content>
+  </entry>
+  
+</feed>

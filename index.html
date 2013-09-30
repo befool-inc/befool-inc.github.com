@@ -9,8 +9,8 @@
   <meta name="author" content="8823-scholar">
 
   
-  <meta name="description" content="森です。前回にmacの設定をまとめましたが今回は自分が使っているソフトウェアを紹介します。 このまとめを書いている自分のMacは MacBook Air 11-inch Mid 2011 、 OS X 10.8.4 です。
-そのため他の機種、 &hellip;">
+  <meta name="description" content="森です。アクセルハンマー派生だけで村クエクリアするべく奮闘中です。 仕事の都合上 subversion を使うことが多いのですが、 HomeBrew でインストールする際に
+&#8211;unicode-path &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,303 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-30T15:49:00+09:00" pubdate data-updated="true">Sep 30<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>森です。アクセルハンマー派生だけで村クエクリアするべく奮闘中です。</p>
+
+<p>仕事の都合上 <strong>subversion</strong> を使うことが多いのですが、 <strong>HomeBrew</strong> でインストールする際に
+<strong>&#8211;unicode-path</strong> オプション指定時にエラーが出てしまい困っていたので暫定対処をしたのでその経緯をまとめました。</p>
+
+<h2>お断り</h2>
+
+<p>この記事を書いている間に修正が入りました。ですのでこの記事の内容は過去の遺物であり現在は問題なく動作します。</p>
+
+<p>以降は備忘録として閲覧ください…。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/">Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-08T16:56:00+09:00" pubdate data-updated="true">Sep 8<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>前回のおさらい＆今回の目標</h2>
+
+<p>最近FXを始めました。智史之介です。<br/>
+前回から結構時間が開いてしまいましたね…。反省です。できれば週一と言わないまでも、隔週くらいでは勉強する時間を確保していきたいものです。</p>
+
+<p>さて、前回のUnityの勉強ですが「<a href="/blog/2013/06/15/unity-study-08-scene-change/">シーンの切り替え</a>」というような内容でした。
+その関係で「シーンを跨いだ変数の保持」というような内容を試してみたくはあるのですが、ちょっと後回しにして…、今日は「永続データストレージ」に挑戦です。</p>
+
+<h3>永続データストレージとは？</h3>
+
+<p>ここで言うところの「永続データストレージ」とは、つまり、「 <strong>ゲームを落としても次回起動後に保存したデータを参照可能な領域</strong> 」というような意味合いです。
+（なにっ、わかりづらいですと！すみません。）</p>
+
+<h2>まずは箱形を用意</h2>
+
+<p><img src="/images/posts/2013-09-08-unity-study-09-save-variables-to-local-strage/create_project.png" alt="箱形" /></p>
+
+<p>本当に簡単な内容になりますが、GUI Textオブジェクトをさくっと画面上に配置してみました。
+ここに、ゲームを起ち上げてからの秒数を記録してみることにします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="err">#</span><span class="nx">pragma</span> <span class="nx">strict</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">timer</span> <span class="o">:</span> <span class="kr">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">Start</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">guiText</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">timer</span><span class="p">.</span><span class="nx">ToString</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">Update</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">time</span> <span class="o">:</span> <span class="kr">int</span> <span class="o">=</span> <span class="nx">timer</span> <span class="o">+</span> <span class="nx">Time</span><span class="p">.</span><span class="nx">time</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">guiText</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">ToString</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> <!-- ` --></p>
+
+<p>スクリプトとしてはこんな感じ。これをGUI Textにドラッグ＆ドロップでアタッチすることで、ゲームを起ち上げてからの秒数が画面上に表示されます。</p>
+
+<p>ただし！これはゲームを一度落とすと再度「0」から始まってしまいます。
+これを、前回の秒数を記録しておき、次回起ち上げ時には前回落とす前の数字から始まるように調整してみることにします。</p>
+
+<h2>ローカルストレージにデータを保存する</h2>
+
+<p>PlayerPrefsなるものを使用するようです。</p>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/nakamura001/20110712/1310441315">強火で進め: ゲームのスコア情報などを簡単に保存出来るPlayerPrefsクラス</a></li>
+<li><a href="http://docs.unity3d.com/Documentation/ScriptReference/PlayerPrefs.html">Unity Script Reference: PlayerPrefs</a></li>
+</ul>
+
+
+<p>上記のサイトを参考にしつつ、スクリプトをこんな感じに改修。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">Update</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">time</span> <span class="o">:</span> <span class="kr">int</span> <span class="o">=</span> <span class="nx">timer</span> <span class="o">+</span> <span class="nx">Time</span><span class="p">.</span><span class="nx">time</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Save to PlayerPrefs</span>
+</span><span class='line'>    <span class="nx">PlayerPrefs</span><span class="p">.</span><span class="nx">SetInt</span><span class="p">(</span><span class="s1">&#39;timer&#39;</span><span class="p">,</span> <span class="nx">time</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">guiText</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">ToString</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> <!-- ` --></p>
+
+<p>どうやら、<code>PlayerPrefs.SetString</code>とか<code>PlayerPrefs.SetFloat</code>とか、型を指定して保存するらしい。<br/>
+これはめんどくさいかもしれぬ…。</p>
+
+<h2>ローカルストレージからデータを読み込んでみる</h2>
+
+<p>上の修正だけではただデータを保存しているだけなので、起動時にPlayerPrefsから秒数を読み込む改修も加えてみることにします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">Start</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Has in PlayerPrefs ?</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">PlayerPrefs</span><span class="p">.</span><span class="nx">HasKey</span><span class="p">(</span><span class="s1">&#39;timer&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">timer</span> <span class="o">=</span> <span class="nx">PlayerPrefs</span><span class="p">.</span><span class="nx">GetInt</span><span class="p">(</span><span class="s1">&#39;timer&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">guiText</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">timer</span><span class="p">.</span><span class="nx">ToString</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> <!-- ` --></p>
+
+<p>これで、ゲームを落としても次回起動時は秒数が途中からカウントされるようになりました！ｳﾎﾎｰｲ。</p>
+
+<p><img src="/images/posts/2013-09-08-unity-study-09-save-variables-to-local-strage/countup_timer.png" alt="カウントアップ成功" /></p>
+
+<h2>PlayerPrefsの注意点</h2>
+
+<p>PlayerPrefsは、そのデータをローカルの端末自身に保存されます（Windowsに至ってはどうもレジストリに書き込まれる模様？！）。
+データ改ざんが容易である可能性が高いので、重要なデータなどはやはりネットワークを通じた外部に保存するのがよいのではないかなと思われます。。</p>
+
+<p>ただ、プレイヤーの設定情報など、簡単なデータに関しては十分活用の余地はあると思いますので、適材適所で使って行けたらと思います。</p>
+
+<h2>次回に向けて</h2>
+
+<p>次回は、ついにというかなんというか、今まで見て見ぬ振りをしてきた「Prefab」なるものに手を出してみようかなと…。</p>
+
+<p>Unityの事を調べる度にその名前が登場するほど、Unityでは当たり前の存在らしい、「Prefab」とは一体なにものなのか？！<br/>
+まずはそこから調べてみようかと思います。</p>
+
+<p>ではでは！</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>木内智史之介</h3>
+        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/03/set-up-os-x-part-3/">自分用のOS X設定 その３</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-03T22:00:00+09:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2013</time>
+        
+         | <a href="/blog/2013/09/03/set-up-os-x-part-3/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>森です。前々回にて<a href="/blog/2013/08/12/set-up-os-x-part-1/">２つの記事に分けて記述します</a>といいましたが…スマンありゃウソだった。</p>
+
+<p>オールスターバトルの回復待ち時間を利用しつつ３つ目の記事を書いていきます…。</p>
+
+<p>今回は <strong>HomeBrew</strong> を用いて <strong>git</strong> . <strong>subversion</strong> , <strong>rbenv</strong> などなど自分の開発環境整備に</p>
+
+<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
+そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/03/set-up-os-x-part-3/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -713,311 +1010,6 @@ To add a level to the build settings use the menu File->Build Settings&#8230;</p
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">Oracle VM VirtualBoxでデスクトップLinuxを始めよう</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-08T10:00:00+09:00" pubdate data-updated="true">Jun 8<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>森です。他メンバーはUnityのことばっかり書いていますがマイペースで書きます。</p>
-
-<p>昔 <a href="http://d.hatena.ne.jp/jiskay/20101123/1290527829">windowsでwebサービスの開発をしているひとにUbuntuをオススメしたい３つの理由</a> を書いたわけですが
-今となっては古い情報になりつつあるので改めて。</p>
-
-<h2>はじめに</h2>
-
-<p>大多数のwebサービスは <em>Linux系OS</em> で動作しています。webサービスを開発、運用する上でLinuxを操作することを避けては通れません。
-前述の記事は <em>Windows</em> は使い慣れているけれどLinuxの仕組みはよくわからない…という人に向けて
-<em>それじゃあデスクトップLinuxを使ってLinuxに慣れてみようよ</em> という意図でかいたものです。</p>
-
-<p>親しみのあるWindows環境を捨てて新しい環境へ移行するというのは中々勇気が要ることです。
-そこで <em>既存の環境を壊さずに別環境を試す</em> ために <em>仮想化ソフトウェア</em> の出番です。
-1つのマシンで複数の <em>仮想マシン</em> を動作させることができます。
-ここ2~3年のマシンならば必要に応じて仮想マシンを新規作成、起動、いらなくなったら削除する…ということを気楽に行えます。</p>
-
-<p>今回は仮想化ソフトウェアに <strong>Oracle VM VirtualBox</strong> （以降VirtualBox）を使用して仮想環境を作成します。</p>
-
-<p>※ スクリーンショットなどは自分が現在 <em>Mac</em> (OS X) を使用しているのでMac版になってしまいますが、
-Windows版でも大きな違いはありませんので適時読み替えてください。ごめんなさい。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/">【AdobeEdgeAnimate】ベクターデータをFlashからEdgeへ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-07T18:13:00+09:00" pubdate data-updated="true">Jun 7<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/07/vector-data-convert-to-illustrator-from-flash/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>こんばんは。デザイン部フラッシャー 中田です。</p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/1.png" alt="画像1" /></p>
-
-<p>最近HTML5だとかAdobeEdgeAnimate(アドビエッジアニメイト)だとか言われてますが、
-今までFlashを使っていた者としては、めんどくせーよ…と思うわけです。</p>
-
-<p>Flashは「ここもっとキラっとさせてー」なんての定番の注文を言われた時も
-Flash内で星などのベクター画像がヒョイと描けたんですが、Edgeではそうもいきません。</p>
-
-<p>Edge内では簡単な丸や四角のベクター画像しか描けません。
-なんて不便なんでしょう…。
-なのでIllustratorを使い、星を描いて
-なんだか分けわからん形式にして読み込んで…と一手間二手間掛かるわけですよ。</p>
-
-<p>まぁそれは仕方ないとして、問題なのは今までFlash内で描いていた素材だったり
-AIデータが無くライブラリにしか保存されていない画像を持ってくる場合です。</p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/2.png" alt="画像2" /></p>
-
-<p>試しに単純にベクター画像をEdgeに直接コピペしてみましたが、対応してないみたいです。
-世の中そんなに甘くないですね。</p>
-
-<p>じゃあIllustratorにコピペはどうだ？</p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/3.png" alt="画像3" /></p>
-
-<p>ダメですね。背景色が付いてきてしまいます。</p>
-
-<p>似たようなものをIllustratorで描き直すのも一つの手段ではありますが、面倒ですよね。
-また、自分で描いたものであれば再現もできますが、他人が作った素材だとなかなか難しい…。</p>
-
-<p>なのでやり方を色々探してみた所、一つ方法を発見しました！
-ここではその方法について説明したいと思います。
-※所々画像が違うのは気にしないでください！</p>
-
-<p>まず、Flash(FLAファイル)からEdgeに移動したいベクター画像を選択します。</p>
-
-<p>ファイルから書き出し⇒イメージの書き出し を選択します。</p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/4.png" alt="画像4" /></p>
-
-<p>ファイルの種類から「Adobe FXG」を選択して任意の場所に保存します。</p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/5.png" alt="画像5" /></p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/6.png" alt="画像6" /></p>
-
-<p>このFXGという形式、全然知らなかったのでググってみると、
-AdobeFlex(アドビフレックス)で使うものだそうです。
-んー、なんだかよく分からんので見なかったことに。</p>
-
-<p>とりあえずこの謎のファイルFXGをIllustratorに読み込むと･･･。</p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/7.png" alt="画像7" /></p>
-
-<p>見れるじゃないか！スバラシイ！
-背景色もついてないですね。</p>
-
-<p>それで、これをIllustratorからSVG形式で保存します。</p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/13.png" alt="画像13" /></p>
-
-<p>このSVG形式も今日初めて知ったんですが、ググってみると
-『XMLベースの2Dベクター画像記述言語』だそうです。
-つまりどういうこと？</p>
-
-<p>社長「中身見たらわかる」</p>
-
-<p>ふむ。中身ですか…。
-とりあえずSVG形式はブラウザで開けるようなので、
-Chromeに放り込んでソースを見てみると…。</p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/9.png" alt="画像9" /></p>
-
-<p>なーるほど、全部テキストなんですね。
-誰がこんなの思いつくんですかね。天才だと思います。</p>
-
-<p>話を戻しまして
-AdobeEdgeにベクター画像を読み込むには上記のSVGとかいう形式にしないといけないわけです。
-ファイル形式をSVGにして保存。</p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/8.png" alt="画像8" /></p>
-
-<p>あとはお好きな方法でEdgeに読み込んで配置。</p>
-
-<p>はい、成功です！
-アルファ値があるものも大丈夫みたいです。</p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/10.png" alt="画像10" /></p>
-
-<p>Edge内で見るとぼやけてるってるように見えますが、
-実際にブラウザなどで拡大してみると問題ないようです。</p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/11.png" alt="画像11" /></p>
-
-<p><img src="/images/posts/2013-06-07-vector-data-convert-to-illustrator-from-flash/12.png" alt="画像11" /></p>
-
-<p>他にもっと簡単な方法をご存知の方、是非コメントください。</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/f765a055aea1aa7d2bd49734455a3f3a" alt="中田潤" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>中田潤</h3>
-        <p>FLASHER兼BEFOOLの用務員。<br />バイク、自転車、家電の修理は朝飯前。<br /></p>
-		<ul class="author-links">
-			
-			
-		</ul>
-	</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/31/unity-raharu-drawcall/">【Unity 入門】DrawCallが多かった原因</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-31T21:36:00+09:00" pubdate data-updated="true">May 31<span>st</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/31/unity-raharu-drawcall/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>初めまして、技術部raharuです。<br/>
-今回は前にUnityを勉強していた際に気づいた事を一つ。</p>
-
-<p>とりあえず動くものを作る事を目標に今までつくってみましたが<br/>
-他の方の記事をみていたらDrawCallなる物がFPSおよび負荷に多大な影響を与えているとのこと。<br/>
-自分のつくった物を見てみたらなんと最大値160！これはちょっと多すぎる。</p>
-
-<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/1.png" alt="New Project" /></p>
-
-<p>基準としてはスマホも対応させるなら40が程度に押さえるのが良いそうです。<br/>
-で、なにかこんなにDrawCallを増やしているのかしらべてみました。<br/>
-色々調べた結果遂に原因がわかりました。原因は<strong>ライト</strong>です。</p>
-
-<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/2.png" alt="New Project" /></p>
-
-<p>今回プレイヤーの周りだけを明るくする為に追尾カメラにPointLightを入れていたのですが、<br/>
-このライトが壁のプレハブを照らすのが良くない様です。<br/>
-ライトが照らす壁やオブジェクトが多いとDrawCallが多くなってしまうのでしょうか。<br/>
-これは予想ですが、照らされている場所と暗い場所は別にCallしてるのかもしれません（どなたかわかる方教えてください。）<br/>
-兎にも角にもこのライトが原因だったのでこのpointLightをやめて全体を照らすDirectional Lightにしてみました。</p>
-
-<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/3.png" alt="New Project" /></p>
-
-<p><strong>その結果最大値９！</strong></p>
-
-<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/4.png" alt="New Project" /></p>
-
-<p>そんなに違うんですか！そうですか！<br/>
-もしかしたらUnityユーザーの方達の間では当たり前の事なのかもしれませんが、<br/>
-劇的に値が違ったので備忘録として残しておきます。<br/>
-DrawCallライトには気をつけろ。<br/>
-肝に命じておく事にします。</p>
-
-<p>本家は<a href="http://d.hatena.ne.jp/raharu0425/20130131#1359645274">とあるプログラマの備忘録</a>こっち</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/0b413cd0038a2b91cd7c0cb0f8f5d1e0" alt="raharu(仮名)" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>raharu(仮名)</h3>
-        <p>これがダイバージェンス1%の先の世界か。。。<br /></p>
-		<ul class="author-links">
-			
-			<li>
-			<a href="http://twitter.com/raharu0425">@raharu0425</a>
-			</li>
-			
-			
-			<li>
-            <a href="http://d.hatena.ne.jp/raharu0425/">とあるプログラマの備忘録</a>
-			</li>
-			
-		</ul>
-	</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1033,6 +1025,18 @@ DrawCallライトには気をつけろ。<br/>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/">Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/set-up-os-x-part-3/">自分用のOS X設定 その３</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/08/31/set-up-os-x-part-2/">自分用のOS X設定 その２</a>
       </li>
     
@@ -1040,28 +1044,16 @@ DrawCallライトには気をつけろ。<br/>
         <a href="/blog/2013/08/12/set-up-os-x-part-1/">自分用のOS X設定 その１</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/07/14/use-vagrant/">Vagrantで開発環境構築を自動化する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/05/efficient-way-of-drawing-of-a-character-illustration/">商業用キャライラストを一ヶ月にたくさん描く時の効率的な描き方</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/06/22/how-to-edit-html-in-adobe-edge-animate/">【AdobeEdgeAnimate】AdobeEdgeAnimateのHTMLはどうやって書くのか</a>
-      </li>
-    
   </ul>
 </section>
 <section>
     <h1>Top Categories</h1>
-    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (9)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/OS_X'>OS_X (2)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li><li><a href='/blog/categories/study'>study (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/Vagrant'>Vagrant (1)</a></li></ul>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (10)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/OS_X'>OS_X (3)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/study'>study (2)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li></ul>
     <a href="/blog/categories">All Categories</a>
 </section>
 <section>
     <h1>Authors</h1>
-    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (10)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (5)</a></li><li><a href='/blog/authors/aizawa/'>はらだ (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li><li><a href='/blog/authors/default/'>匿名希望 (1)</a></li></ul>
+    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (11)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (7)</a></li><li><a href='/blog/authors/aizawa/'>はらだ (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li></ul>
 </section>
 
 

@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」 - BEFOOL blog</title>
+  <meta name="author" content="8823-scholar">
+
+  
+  <meta name="description" content="前回のおさらい＆今回の目標 最近FXを始めました。智史之介です。
+前回から結構時間が開いてしまいましたね…。反省です。できれば週一と言わないまでも、隔週くらいでは勉強する時間を確保していきたいものです。 さて、前回のUnityの勉強ですが「シーンの切り替え」というような内容でした。
+その関係で「 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/09/08/unity-study-09-save-variables-to-local-strage">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/atom.xml" rel="alternate" title="BEFOOL blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40545969-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEFOOL blog</a></h1>
+  
+    <h2>今日もいい天気</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:befool-inc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives/">Archives</a></li>
+  <li><a href="/blog/categories/">Categories</a></li>
+  <li><a href="/blog/authors/">Authors</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-08T16:56:00+09:00" pubdate data-updated="true">Sep 8<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>前回のおさらい＆今回の目標</h2>
+
+<p>最近FXを始めました。智史之介です。<br/>
+前回から結構時間が開いてしまいましたね…。反省です。できれば週一と言わないまでも、隔週くらいでは勉強する時間を確保していきたいものです。</p>
+
+<p>さて、前回のUnityの勉強ですが「<a href="/blog/2013/06/15/unity-study-08-scene-change/">シーンの切り替え</a>」というような内容でした。
+その関係で「シーンを跨いだ変数の保持」というような内容を試してみたくはあるのですが、ちょっと後回しにして…、今日は「永続データストレージ」に挑戦です。</p>
+
+<h3>永続データストレージとは？</h3>
+
+<p>ここで言うところの「永続データストレージ」とは、つまり、「 <strong>ゲームを落としても次回起動後に保存したデータを参照可能な領域</strong> 」というような意味合いです。
+（なにっ、わかりづらいですと！すみません。）</p>
+
+<h2>まずは箱形を用意</h2>
+
+<p><img src="/images/posts/2013-09-08-unity-study-09-save-variables-to-local-strage/create_project.png" alt="箱形" /></p>
+
+<p>本当に簡単な内容になりますが、GUI Textオブジェクトをさくっと画面上に配置してみました。
+ここに、ゲームを起ち上げてからの秒数を記録してみることにします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="err">#</span><span class="nx">pragma</span> <span class="nx">strict</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">timer</span> <span class="o">:</span> <span class="kr">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">Start</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">guiText</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">timer</span><span class="p">.</span><span class="nx">ToString</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">Update</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">time</span> <span class="o">:</span> <span class="kr">int</span> <span class="o">=</span> <span class="nx">timer</span> <span class="o">+</span> <span class="nx">Time</span><span class="p">.</span><span class="nx">time</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">guiText</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">ToString</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> <!-- ` --></p>
+
+<p>スクリプトとしてはこんな感じ。これをGUI Textにドラッグ＆ドロップでアタッチすることで、ゲームを起ち上げてからの秒数が画面上に表示されます。</p>
+
+<p>ただし！これはゲームを一度落とすと再度「0」から始まってしまいます。
+これを、前回の秒数を記録しておき、次回起ち上げ時には前回落とす前の数字から始まるように調整してみることにします。</p>
+
+<h2>ローカルストレージにデータを保存する</h2>
+
+<p>PlayerPrefsなるものを使用するようです。</p>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/nakamura001/20110712/1310441315">強火で進め: ゲームのスコア情報などを簡単に保存出来るPlayerPrefsクラス</a></li>
+<li><a href="http://docs.unity3d.com/Documentation/ScriptReference/PlayerPrefs.html">Unity Script Reference: PlayerPrefs</a></li>
+</ul>
+
+
+<p>上記のサイトを参考にしつつ、スクリプトをこんな感じに改修。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">Update</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">time</span> <span class="o">:</span> <span class="kr">int</span> <span class="o">=</span> <span class="nx">timer</span> <span class="o">+</span> <span class="nx">Time</span><span class="p">.</span><span class="nx">time</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Save to PlayerPrefs</span>
+</span><span class='line'>    <span class="nx">PlayerPrefs</span><span class="p">.</span><span class="nx">SetInt</span><span class="p">(</span><span class="s1">&#39;timer&#39;</span><span class="p">,</span> <span class="nx">time</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">guiText</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">ToString</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> <!-- ` --></p>
+
+<p>どうやら、<code>PlayerPrefs.SetString</code>とか<code>PlayerPrefs.SetFloat</code>とか、型を指定して保存するらしい。<br/>
+これはめんどくさいかもしれぬ…。</p>
+
+<h2>ローカルストレージからデータを読み込んでみる</h2>
+
+<p>上の修正だけではただデータを保存しているだけなので、起動時にPlayerPrefsから秒数を読み込む改修も加えてみることにします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">Start</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Has in PlayerPrefs ?</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">PlayerPrefs</span><span class="p">.</span><span class="nx">HasKey</span><span class="p">(</span><span class="s1">&#39;timer&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">timer</span> <span class="o">=</span> <span class="nx">PlayerPrefs</span><span class="p">.</span><span class="nx">GetInt</span><span class="p">(</span><span class="s1">&#39;timer&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">guiText</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">timer</span><span class="p">.</span><span class="nx">ToString</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> <!-- ` --></p>
+
+<p>これで、ゲームを落としても次回起動時は秒数が途中からカウントされるようになりました！ｳﾎﾎｰｲ。</p>
+
+<p><img src="/images/posts/2013-09-08-unity-study-09-save-variables-to-local-strage/countup_timer.png" alt="カウントアップ成功" /></p>
+
+<h2>PlayerPrefsの注意点</h2>
+
+<p>PlayerPrefsは、そのデータをローカルの端末自身に保存されます（Windowsに至ってはどうもレジストリに書き込まれる模様？！）。
+データ改ざんが容易である可能性が高いので、重要なデータなどはやはりネットワークを通じた外部に保存するのがよいのではないかなと思われます。。</p>
+
+<p>ただ、プレイヤーの設定情報など、簡単なデータに関しては十分活用の余地はあると思いますので、適材適所で使って行けたらと思います。</p>
+
+<h2>次回に向けて</h2>
+
+<p>次回は、ついにというかなんというか、今まで見て見ぬ振りをしてきた「Prefab」なるものに手を出してみようかなと…。</p>
+
+<p>Unityの事を調べる度にその名前が登場するほど、Unityでは当たり前の存在らしい、「Prefab」とは一体なにものなのか？！<br/>
+まずはそこから調べてみようかと思います。</p>
+
+<p>ではでは！</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>木内智史之介</h3>
+        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">8823-scholar</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-08T16:56:00+09:00" pubdate data-updated="true">Sep 8<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/study/'>study</a>, <a class='category' href='/blog/categories/unity/'>unity</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/" >Tweet</a>
+  
+
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+  
+
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+  
+    <div class="fb-comments" data-href="http://befool-inc.github.io" data-num-posts="2" data-width="689"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/09/03/set-up-os-x-part-3/" title="Previous Post: 自分用のOS X設定 その３">&laquo; 自分用のOS X設定 その３</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/" title="Next Post: HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処">HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/">Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/set-up-os-x-part-3/">自分用のOS X設定 その３</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/31/set-up-os-x-part-2/">自分用のOS X設定 その２</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/12/set-up-os-x-part-1/">自分用のOS X設定 その１</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (10)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/OS_X'>OS_X (3)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/study'>study (2)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li></ul>
+    <a href="/blog/categories">All Categories</a>
+</section>
+<section>
+    <h1>Authors</h1>
+    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (11)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (7)</a></li><li><a href='/blog/authors/aizawa/'>はらだ (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li></ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - 8823-scholar -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'befoolblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

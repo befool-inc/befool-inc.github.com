@@ -4,7 +4,7 @@
   <title><![CDATA[Category: unity | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/unity/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-08-31T05:09:40+09:00</updated>
+  <updated>2013-09-30T18:58:02+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -14,618 +14,57 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Unity勉強 第8回 「シーンの切り替え」]]></title>
-    <link href="http://befool-inc.github.io/blog/2013/06/15/unity-study-08-scene-change/"/>
-    <updated>2013-06-15T23:21:00+09:00</updated>
-    <id>http://befool-inc.github.io/blog/2013/06/15/unity-study-08-scene-change</id>
-    <content type="html"><![CDATA[<h2>前回のおさらい＆今回の目標</h2>
+    <title type="html"><![CDATA[Unity勉強 第1回 「Hello World」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/04/30/unity-study-01-hello-world/"/>
+    <updated>2013-04-30T13:21:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/04/30/unity-study-01-hello-world</id>
+    <content type="html"><![CDATA[<h2>Unityとは？</h2>
 
-<p>おはようございます。深キョンが好きなのか、はたまたミンカが好きなのか…どちらかを決めきれない罪な漢(おとこ)、智史之介です。<br/>
-今日も元気にUnityに関する勉強を行おうと思います。</p>
+<p>iPhoneアプリの開発とか、Androidアプリの開発だとかで、
+やれObjective-Cだとか、やれJAVAだとか、そういった言語の習得が必須なわけですね。<br/>
+エンジニアとしては、できればそれぞれそのネイティブな言語でアプリを開発したい気持ちが強いのですが、そうも言ってられない事情もありまして…。</p>
 
-<p>前回は「<a href="/blog/2013/05/29/unity-study-07-build-for-android/">Android向けのビルド</a>」を試してみました。
-迂闊なAndroidSDKのバージョンアップで痛い目を見たのはいい思い出です。<br/>
-（どうやらUnityの<a href="http://japan.unity3d.com/unity/whats-new/unity-4.1.4">アップデート(ver4.1.4)</a>が入り、この問題は解消されたみたいですね！）</p>
+<p>開発環境の構築、言語の習得、ノウハウの蓄積など、様々なコストがあり、
+「iPhoneでもAndroidでもアプリを出すんだい！」というプロジェクトの場合、
+それらのコストが「2倍になります」という状況は、非常にツライものがあります。<br/>
+特別めんどくさがり屋さんでなくとも、一つ作れば、それがiPhoneでも動くし、Androidでも動く、というのが理想なわけです。</p>
 
-<p>今日は「シーンの切り替え」に関してちょっと試してみようかななんて思っています。</p>
+<p>それを実現してくれるのが「Unity」なのです。</p>
 
-<h2>シーンの切り替えとは？</h2>
+<h2>プロジェクトを作成する</h2>
 
-<p>例えば、そうですね、ドラクエで言えば「街から出てフィールドに入る」とか「フィールドで敵に遭遇する」とかでしょうか？<br/>
-画面が、バーッってまったく別の描画系統で表示されるやつです。</p>
+<p>さあさあとりあえずいじってみよう、というわけで、みんな大好き「Hello World」行ってみようと思います。</p>
 
-<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/dq_field-to-battle.png" alt="フィールドから戦闘画面へ" /></p>
+<p>File > New Project<br/>
+を選択して、プロジェクトの作成。<br/>
+<strong>Import the following the packages</strong> は今のところよく分からないので空で。</p>
 
-<p>そうそう。こんな感じの切り替えに関してです。
-こういったシーンの切り替えに関して、そもそもの必須要件がいくつかあるかと思います。</p>
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/NewProject.png" alt="New Project" /></p>
 
-<ul>
-<li>独立した描画スペース</li>
-<li>独立した変数領域</li>
-<li>独立したプログラム領域</li>
-</ul>
+<h2>「Hello World」を表示する</h2>
 
+<p>ググってみると、みなさん、<strong>debug.log('hello world.')</strong>のように、コンソール上に出力しているようですが、
+やはりユーザー目線で何かしらの表示させたいのが正直なところでしょう。</p>
 
-<p>などがシーン使い分けの必須条件ではないかなと思われます。<br/>
-Flashで言うところのムービークリップにあたるものでしょうか？</p>
+<p>何かないかなーとメニューを漁っていると、「<strong>3D Text</strong>」なるものを発見！これか？！</p>
 
-<p>Unityにおいて、それに該当するものがないか探したいと思います。</p>
+<p>GameObject > CreateOther > 3D Text</p>
 
-<h2>ずばり、それって「Scene」でしょ？</h2>
+<p>選択してみると…、おっ。なんか画面上に配置された。しかも、既に「Hello World」ってなってる！</p>
 
-<p>そんな決めつけで作業開始です。</p>
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/CreateObject.png" alt="New Project" /></p>
 
-<p>さくっと「scene1」と「scene2」を用意します。
-sceneの作成は「Cmd+n」で可能です。</p>
+<p>憎い…この気の利かせ方が憎いでござる…！</p>
 
-<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/make-scene.png" alt="scene作成" /></p>
+<p>なんかこれで「できました」っていうのも癪なので、めくらめっぽにあっちいじったり、こっちいじったりしながら作成したのがこちらのHelloWorldです。</p>
 
-<p>あと、以前から不思議だったのですが<strong>「cmd+s」でsceneの保存</strong>になります。</p>
+<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/HelloWorld.png" alt="New Project" /></p>
 
-<p>あれ？けど、これってつまり<strong>「Unityではsceneこそもっとも重要で、最も保存を行う対象」</strong>ということですよね？</p>
+<p>よし。「枠に収まらない漢」というアピールができました！</p>
 
-<p>不思議だったんですよ、これ。<br/>
-自分にとってFlashとの対比としては、</p>
+<h2>次回の予定</h2>
 
-<ul>
-<li>scene = ムービークリップ</li>
-<li>プロジェクト = flaファイル</li>
-</ul>
-
-
-<p>というとらえ方をしていました。<br/>
-これが間違っている可能性があるということなんですよね。。<br/>
-どうしよう。不安になってきてしまいました。</p>
-
-<p>「プロジェクトさえ保存しておけばsceneも保存されるんでしょ？」というぬるい考えでいたことを反省しなくてはならないかもしれません。</p>
-
-<p>なにはともあれ、作成した二つのsceneに異なる別々の画像を貼り付けておきます。<br/>
-わかりやすく背景の色でも変えておくとよいかもしれません。<br/>
-(背景の色は、hierarchy配下のmain cameraのインスペクターから変更可能です。)</p>
-
-<p>この二つのシーンを利用して、</p>
-
-<p><strong>「scene1の画像をタップすると、scene2に切り替わる」</strong></p>
-
-<p>という動作を試してみることにします。</p>
-
-<h2>プログラムをさくっと書いてみる</h2>
-
-<p>さて、シーンの切り替えのためのスクリプトを記述する必要があります。<br/>
-「SceneSwicher.js」というファイルを用意して、scene1の画像にアタッチします。</p>
-
-<p>```javascript
-function OnMouseUpAsButton() {</p>
-
-<pre><code>Debug.Log('Now scene is ' + Application.loadedLevelName);
-Application.LoadLevel('scene2'); 
-</code></pre>
-
-<p>}
-```</p>
-
-<p>これでいけるんじゃないか？なんていう甘い考えで実行してみると…</p>
-
-<blockquote><p>Level 'scene2' (-1) couldn't be loaded because it has not been added to the build settings.
-To add a level to the build settings use the menu File->Build Settings...</p></blockquote>
-
-<p>というお叱りをいただきました。ハイ。<br/>
-言われた通りに、build settingsにシーンを追加します。</p>
-
-<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/add-build-setting.png" alt="build settingsに追加" /></p>
-
-<p>これで、正常にシーンの切り替えができるようになりました。</p>
-
-<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/scene-change1.gif" alt="build settingsに追加" /></p>
-
-<p>けれども、、、、うーん。これではなんだかスイッチを切り替えるように切り替わってしまうので、イマイチ想像と違うのは否めないですね…。<br/>
-本当は、もっと、こう、例えば、<strong>「上から次のシーンが落ちてくる」</strong>、というような感じの切り替えをやりたいのです。</p>
-
-<h2>はたしてそんな事が可能なのか？</h2>
-
-<p>ずいぶん長い間ググってみたのですが、どうにも難しそうですね…。<br/>
-シーンをまたいだ変数の保持すら、ちょっとしたトリッキーな手法が必要そうなので、シーンの上にシーンをかぶせる（二つのシーンを同時に描画する）なんてもってのほか、という感じですかね…。<br/>
-致し方無しです！今回はそれは諦めることにします。</p>
-
-<p>自分がもし、こういった制限(1シーンの描画しかできない)内で、今思い描いている手法を実現するなら、うーん、そうですね…。<br/>
-たとえば、こんな感じではできないでしょうか？</p>
-
-<p>「<strong>スクリーンショット的なものを撮り内部領域に保存する。次のシーンは内部領域に保存されたスクリーンショットをまず最初に描画し、その上にシーンの突入演出を表示する</strong>」</p>
-
-<p>難しいかな…？</p>
-
-<h2>次回に向けて</h2>
-
-<p>今回は、シーンの切り替えに関して試してみました。Unityはどうもこの「シーン」というものにすごく苦労しそうな印象ですね…。<br/>
-エンジニアとしては多少苦労する方が楽しくていいんですけどね！</p>
-
-<p>次回は、「永続データストレージ領域に保存/読み込み」というものを試して見たいと思います。<br/>
-（そういう機能があるかどうかも分からないんですが…！）</p>
-
-<p>シーンをまたいだ変数とかではなく、たとえばゲームを落とすなどしても次回起ち上げ時に読み出し可能なデータ、とかそういうものですね。<br/>
-次回も楽しみですね〜。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[【Unity 入門】DrawCallが多かった原因]]></title>
-    <link href="http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall/"/>
-    <updated>2013-05-31T21:36:00+09:00</updated>
-    <id>http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall</id>
-    <content type="html"><![CDATA[<p>初めまして、技術部raharuです。<br/>
-今回は前にUnityを勉強していた際に気づいた事を一つ。</p>
-
-<p>とりあえず動くものを作る事を目標に今までつくってみましたが<br/>
-他の方の記事をみていたらDrawCallなる物がFPSおよび負荷に多大な影響を与えているとのこと。<br/>
-自分のつくった物を見てみたらなんと最大値160！これはちょっと多すぎる。</p>
-
-<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/1.png" alt="New Project" /></p>
-
-<p>基準としてはスマホも対応させるなら40が程度に押さえるのが良いそうです。<br/>
-で、なにかこんなにDrawCallを増やしているのかしらべてみました。<br/>
-色々調べた結果遂に原因がわかりました。原因は<strong>ライト</strong>です。</p>
-
-<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/2.png" alt="New Project" /></p>
-
-<p>今回プレイヤーの周りだけを明るくする為に追尾カメラにPointLightを入れていたのですが、<br/>
-このライトが壁のプレハブを照らすのが良くない様です。<br/>
-ライトが照らす壁やオブジェクトが多いとDrawCallが多くなってしまうのでしょうか。<br/>
-これは予想ですが、照らされている場所と暗い場所は別にCallしてるのかもしれません（どなたかわかる方教えてください。）<br/>
-兎にも角にもこのライトが原因だったのでこのpointLightをやめて全体を照らすDirectional Lightにしてみました。</p>
-
-<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/3.png" alt="New Project" /></p>
-
-<p><strong>その結果最大値９！</strong></p>
-
-<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/4.png" alt="New Project" /></p>
-
-<p>そんなに違うんですか！そうですか！<br/>
-もしかしたらUnityユーザーの方達の間では当たり前の事なのかもしれませんが、<br/>
-劇的に値が違ったので備忘録として残しておきます。<br/>
-DrawCallライトには気をつけろ。<br/>
-肝に命じておく事にします。</p>
-
-<p>本家は<a href="http://d.hatena.ne.jp/raharu0425/20130131#1359645274">とあるプログラマの備忘録</a>こっち</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Unity勉強 第7回 「Android向けのビルドも試してみる」]]></title>
-    <link href="http://befool-inc.github.io/blog/2013/05/29/unity-study-07-build-for-android/"/>
-    <updated>2013-05-29T21:24:00+09:00</updated>
-    <id>http://befool-inc.github.io/blog/2013/05/29/unity-study-07-build-for-android</id>
-    <content type="html"><![CDATA[<h2>前回のおさらい＆今日の目標</h2>
-
-<p>おはようございます。深田恭子ともっとも結婚したい漢(おとこ)、智史之介です。<br/>
-今日も今日とて、unity勉強をおこないたいと思います。</p>
-
-<p>さて、前回は<a href="/blog/2013/05/23/unity-study-06-build-for-ios/">無償化されたiOS向けのビルド</a>を試しました。<br/>
-今日はその流れで「Android向けのビルド」も試してみたいと思います。</p>
-
-<h2>前回のプロジェクトをコピー</h2>
-
-<p>今回もさくっと前回のプロジェクトをコピーしてしまいましょう。</p>
-
-<h2>Build Settingsはとにかくデフォ</h2>
-
-<p>前回にならって「File > Build Settings」で項目をざらっと眺めてみたのですが、どうもどれもこれもデフォでいけそうな雰囲気です(甘い期待)。<br/>
-ものは試しということで、とくにどの設定も気にかけないでいこうと思います</p>
-
-<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/settings.png" alt="デフォ！" /></p>
-
-<h2>Android SDKのインストール＆設定</h2>
-
-<p>iOSは、パブリッシュに関してXcode＋SDKのインストール＆設定が必須でした。<br/>
-Androidには似たようなものはないの？ということですが、それが「Android SDK」になります。</p>
-
-<p><a href="http://developer.android.com/sdk/index.html">Android SDK</a></p>
-
-<p>ダウンロードしてインスコします。<br/>
-インストールにあたって、Unityのドキュメントを軽く眺めておくとよいかもしれないですね。</p>
-
-<p><a href="http://docs-jp.unity3d.com/Documentation/Manual/android-sdksetup.html">Unity Manual - Android SDK セットアップ</a></p>
-
-<p><code>bash
-$ /path/to/android-sdk/tools/android
-</code></p>
-
-<p>とコマンドを打つと、android sdkに関するツールが立ち上がるので、</p>
-
-<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/android-sdk.png" alt="こんなかんじ" /></p>
-
-<p>こんな感じで入れておけばいいんじゃないでしょうか？（適当）</p>
-
-<h3>Unity Preferencesも忘れずに</h3>
-
-<p>Unity > Preferences（Cmd+,）で設定画面を開き、「External Tools」を選択すると、中にAndroid SDKのパスに関する項目があります。<br/>
-めんどくさいですが設定しましょう。</p>
-
-<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/preferences.png" alt="こんなかんじ" /></p>
-
-<h2>さあ、ビルドぜよ！</h2>
-
-<p>Build Settings > build</p>
-
-<p>でビルドを開始してください。ビルドが無事完了すると、Finderが開く…あれ、開かない。<br/>
-iOSでは開いたのに！もしかして、ビルド失敗したかな？と思って、保存先を確認してみると…、ない！
-やっぱりビルドに失敗しているようだ。</p>
-
-<p>Consoleにエラーがでている。なになに。</p>
-
-<blockquote><p>Error building Player: Exception: android (invokation failed)
-ERROR: unknown error
-cmd:android list target -c
-stdout: Error: occurred during initialization of VM Could not reserve enough space for object heap
-stderr: Error: Could not create the Java Virtual Machine. Error: A fatal exception has occurred. Program will exit.</p></blockquote>
-
-<p>脊髄反射でググってみる。</p>
-
-<p><a href="http://answers.unity3d.com/questions/399121/error-building-player-exception-android-invokation.html">Error building Player: Exception: android (invokation failed) ERROR: unknown error</a></p>
-
-<blockquote><p>Also you can downgrade the tools version to r21 by installing:</p></blockquote>
-
-<p>ダウングレードしてみたら、と言っている。ふむ。そういえば、さっきアップグレードしちゃった…。<br/>
-というわけでダウングレードします。</p>
-
-<p><a href="http://dl.google.com/android/android-sdk_r21-macosx.zip">Android SDK rev21</a></p>
-
-<p>DL＆解凍したら、toolsを上書きしちゃってください。そして再度「platform-tools」もインストールし直してください。
-これでダウングレード完了です。</p>
-
-<h2>改めて、ビルドぜよ！</h2>
-
-<p>さあ、もうこれでいけるでしょう。</p>
-
-<p>Build Settings > build</p>
-
-<p>さあ、どうなるかな！</p>
-
-<p>(ビルド中…)<br/>
-(mac機がものすごい勢いでファンを回しているぜ…)</p>
-
-<p>終わった！Finderでビルド先のディレクトリが開いた。<br/>
-ファイル名は「android.apk」。<br/>
-ひねりのない命名で申し訳ない気持ちでいっぱいです。</p>
-
-<p>このapkファイルを下記のコマンドで端末に転送します。</p>
-
-<p>```bash
-$ /path/to/android-sdk/platform-tools/adb start-server</p>
-
-<h1>ここでandroid端末をUSBで接続</h1>
-
-<p>$ /path/to/android-sdk/platform-tools/adb devices
-List of devices attached
-015d8ecf9927f410    device
-$ /path/to/android-sdk/platform-tools/adb install -r 07.Build4Android/android.apk
-1280 KB/s (8335911 bytes in 6.355s)</p>
-
-<pre><code>pkg: /data/local/tmp/android.apk
-</code></pre>
-
-<p>Success
-```</p>
-
-<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/android.installed.png" alt="インストール成功" /></p>
-
-<p>入ってる！
-起動も問題なさそうです。</p>
-
-<p>よし、いいでしょう！</p>
-
-<h2>今回の反省</h2>
-
-<ul>
-<li>迂闊に、android-sdkのアップデートはしない</li>
-</ul>
-
-
-<p>ちょっとはまりました…。</p>
-
-<h2>次回に向けて</h2>
-
-<p>iOSとAndroid向けのビルドも成功しました。一歩一歩確実に進んでいけているような気がして、非常に嬉しいです。<br/>
-次の課題は「シーンとシーンの切り替え」を試してみようと思います！<br/>
-それではまた。シーユー！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Unity勉強 第6回 「ついに！無償化された、build for iOS を試してみる」]]></title>
-    <link href="http://befool-inc.github.io/blog/2013/05/23/unity-study-06-build-for-ios/"/>
-    <updated>2013-05-23T21:36:00+09:00</updated>
-    <id>http://befool-inc.github.io/blog/2013/05/23/unity-study-06-build-for-ios</id>
-    <content type="html"><![CDATA[<h2>モバイル向け機能の完全無償化</h2>
-
-<p>おはようございます。AKB48の中では、横山由依ちゃんが大好きな智史之介です。</p>
-
-<p><a href="http://japan.unity3d.com/blog/press/2013/05/21/unity-ios-%E3%81%A8-android-%E3%82%92%E5%90%AB%E3%82%80%E5%80%8B%E4%BA%BA%E3%83%BB%E5%B0%8F%E8%A6%8F%E6%A8%A1%E9%96%8B%E7%99%BA%E8%80%85%E5%90%91%E3%81%91%E3%81%AE-%E3%83%A2%E3%83%90%E3%82%A4/">Unity, iOS と Android を含む個人・小規模開発者向けのモバイル向け機能を完全無償化</a></p>
-
-<p>やってくれました…！我々にできないような事を平然とやってのけるUnity…そこにしびれるぅあこがれるゥゥッ！</p>
-
-<p>確かに、「file > build settings」のメニュー内で、ios向けを選択できるようになっているようです（できない人はアップデートしてみてね）。
-これは試してみるしかないでしょう、というわけで、本日の課題は、この「モバイル向けの機能」というものを試してみようと思います。</p>
-
-<p>ズバリ！「iOS向けにビルド」しちゃいます。ウヒヒ。</p>
-
-<h2>前回のプロジェクトをコピー</h2>
-
-<p>なんか適当なプロジェクトを作成するのも面倒ですので、
-<a href="/blog/2013/05/22/unity-study-05-enable-animated-gif/">Unity勉強 第5回 「アニメーションgifって使えるの？」</a>
-で作成したプロジェクトをコピーして「06.Build4iOS」とでも名前変更し開きます。</p>
-
-<p>え、そんなんでいいのかって？<br/>
-いいんです！これでいいんです！（川平風）
-今日も張り切って行きましょう。</p>
-
-<h2>Build Settings</h2>
-
-<h3>cross platform settings</h3>
-
-<p>iOS向けにビルドするために、まずは「File > Build Settings」のメニューを選択し、ビルド設定画面を開いてください。<br/>
-開くと、ビルド可能なプラットフォームの一覧が並んでいると思いますので、ノーシンクで「iOS」を選択しましょう。</p>
-
-<p>すると「inspecotr」内に設定項目がでてきます。</p>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/settings.cross-platform.jpg" alt="てきとーに入力" /></p>
-
-<p>このあたりはテキトーに入力していいものだろうか？と悩みつつテキトーに入力しちゃいます。</p>
-
-<h3>per platform settings</h3>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/settings.per-platform.png" alt="よくわからないまま入力" /></p>
-
-<p>こちらもよくわからないのですが、いじった方が良さそうな項目はこちらかな？</p>
-
-<table>
-<thead>
-<tr>
-<th align="left">設定キー                    </th>
-<th align="left"> 値                           </th>
-<th align="left"> メモ </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Bundle identifier           </td>
-<td align="left"> jp.co.befool.study.build4ios </td>
-<td align="left"> 事前にApp IDsをApp Dev Centerで作成の必要あり</td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>いざ、ビルド！</h2>
-
-<p>各種設定項目を適当に入力したら、ついにビルドです。</p>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/build.png" alt="ビルド" /></p>
-
-<p>「add current」でビルド対象のシーンを追加したうえで、「build」実行するだーーーーーッ！</p>
-
-<p>ビルドが完了したらfinderで出力先のフォルダが開くので、「Unity-iPhone.xcodeproj」を選択してXcodeを開きましょう。</p>
-
-<h2>Xcode…それは未知の世界</h2>
-
-<p>ここから先は、本当に正直よくわからないです…。とにかくいろんなサイトを参考にしながら手探りで進めました。</p>
-
-<p>ちょっとApple周りの各種手続きに関する説明まで本記事に含めると、とんでもない大作になってしまいそうなので今回は割愛させてください。
-気が向いたら、別記事で起こします。</p>
-
-<p>本記事では、簡単ですがやったことリストだけ並べさせていただきます。</p>
-
-<ul>
-<li>Apple Dev Centerへの登録</li>
-<li>開発に関する権利を購入</li>
-<li>証明書の作成</li>
-<li>identifierの作成</li>
-<li>開発機の登録</li>
-<li>Provisioning Profileの作成</li>
-<li>証明書、Provisioning Profileのmac機への設定</li>
-</ul>
-
-
-<p>などをおこないました。
-このあたりの手続きに関しては詳細に説明したWEBページが色々ありますので、是非それらを参考に進めてみてください。</p>
-
-<h3>code signing</h3>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/xcode.settings.code-signing.png" alt="code signing" /></p>
-
-<p>なんだかよくわからないけど、設定しろ書いてあった。</p>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/xcode.choice.device.jpg" alt="デバイス選択" /></p>
-
-<p>さあ、「Run」を押しましょうぞ！！</p>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/build.to.iphone.png" alt="入った！" /></p>
-
-<p>入った！！！</p>
-
-<p>入ったが…！</p>
-
-<p>いたーーーーい！！！なんだかよく分からないけど僕の心がいたーーーーーいッ！<br/>
-iPhoneの待ち受け画面を全世界に公開してしまい、これでまたモテ道から遠のいてしまうんですね…。
-どうか皆さんどん引きしないでください…orz</p>
-
-<p><img src="/images/posts/2013-05-23-unity-study-06-build-for-ios/run.on.iphone.png" alt="うごいた！" /></p>
-
-<p>起動！！</p>
-
-<p>おおおおおおおおお！いい感じに動いています！！</p>
-
-<p>というわけで、今日はここまで〜！</p>
-
-<h2>次回に向けて</h2>
-
-<p>今日は無償化されたiOS向けのビルドを試してみました。<br/>
-Unity側の設定は驚くほど簡単で、困ることはないでしょう。</p>
-
-<p>ただただXcode周りの設定が難しかった…。
-Dev centerとか、証明書とか、Provisioning Profileとか…もう未知の言葉のオンパレードでしたね…orz</p>
-
-<p>ただ、おかげでなんとか各種役割のようなものは理解できたつもりでいます。</p>
-
-<p>次回は、この流れで、「Android向けのビルドを試してみる」行ってみたいと思います！
-どうぞよろしくお願いいたします。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Unity勉強 第5回 「アニメーションgifって使えるの？」]]></title>
-    <link href="http://befool-inc.github.io/blog/2013/05/22/unity-study-05-enable-animated-gif/"/>
-    <updated>2013-05-22T21:05:00+09:00</updated>
-    <id>http://befool-inc.github.io/blog/2013/05/22/unity-study-05-enable-animated-gif</id>
-    <content type="html"><![CDATA[<h2>前回までのおさらい＆今回の目標</h2>
-
-<p>前回は、「ボタンを押したらサウンドを鳴らす」というテーマに挑み、情報の少なさに辟易しながらも、匍匐前進でなんとか目標を達成しました。
-本日は、「アニメーションgifって使えるの？」をテーマに進行したいと思います。</p>
-
-<h2>画像の選出</h2>
-
-<p>まずは組み込むためのアニメーションgif探しからです。<br/>
-オシャレ男子であれば、ここで颯爽と「ゴッホ」だとか「ゴーギャン」だとか拾ってくるところですが、僕のようなオタク男子ではやはりこういう結果にあいなります。</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/miku.gif" alt="ミクさん" /></p>
-
-<p>ブヒヒヒィィィィィ！<br/>
-ミクさんかわいいよ、ぺろぺろ。</p>
-
-<p>落としてきたgifファイルはassetsに投げ込んでおきます。</p>
-
-<h2>初音ミクは動かない</h2>
-
-<p>さて、assetsに追加したミクさんgifを、ステージに配置したいので、</p>
-
-<p>GameObject > Create Other > GUI Texture</p>
-
-<p>を選択。なんかデフォルトでミクさんgifが選択されていましたが、もし選択されない場合はinspectorのtextureメニューでミクさんgifを選択してあげてください。</p>
-
-<p>Unity先生であれば、もうこれでミクさんを動かしてくれてるんでしょ？もうかっこよすぎ☆なんて思ってプレビューしてみると…、</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/preiew.first.png" alt="初音ミクは動かない" /></p>
-
-<p>動かない、だと…。<br/>
-ミクさんは止まったままです。一向に動いてくれる気配がありません。</p>
-
-<p>「やれやれだぜ…」</p>
-
-<p>Unity先生も万能じゃないのね、と失望半分、かわいさ半分の気持ちを織り交ぜつつ、今回も大変な回になりそうだぜ、という予感がざわざわと立ち上ぼり始めました。</p>
-
-<h2>どうしてアニメーションgifは使えないのか？</h2>
-
-<p><a href="http://forum.unity3d.com/threads/27873-animated-gif-is-not-working">animated gif is not working</a></p>
-
-<p>この質問に回答しているEric5h5さんが言うには、</p>
-
-<blockquote><p>Unity doesn't have any support for animated gifs. It's a terrible format anyway; use a series of textures instead.<br/>
-(智史之介訳：Unityはアニメーションgifをサポートしていないよ！あれはひどい形式をしてやがるんだよ…。代わりにtextureを使ってくれよな！)</p></blockquote>
-
-<p>まじかー。そんなこと言わずにサポートしてくださいおねがいします(ｽﾞｻﾞｰ</p>
-
-<p>しかたがないので、textureでやってみようと思います。</p>
-
-<h2>アニメーションgifを分割してみる</h2>
-
-<p>アニメーションgifを分解するのに「ImageMagick」を用いました。</p>
-
-<p><code>bash
-$ convert +adjoin -coalesce miku.gif miku-notanimated.gif
-$ ls -1
-miku-notanimated-0.gif
-miku-notanimated-1.gif
-miku-notanimated-2.gif
-miku-notanimated-3.gif
-miku-notanimated-4.gif
-miku-notanimated-5.gif
-miku-notanimated-6.gif
-miku-notanimated-7.gif
-miku-notanimated-8.gif
-miku-notanimated-9.gif
-</code></p>
-
-<p>うん、おｋっぽいですね。</p>
-
-<h2>箱形の作成</h2>
-
-<p>これらの画像を表示するための箱形を用意しましょう。
-僕は「GUITexture」を選びました。</p>
-
-<p>GameObject > Create Other > GUI Texture</p>
-
-<p>で、シーンに配置します。
-デフォルトのtextureには、「miku-notanimated-0.gif」を選択し、pixel insetに関しても調整しておきます。</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.add.guitexture.png" alt="GUI Texture追加" /></p>
-
-<h2>ミクさん画像を切り替えるためのスクリプトを追加</h2>
-
-<p>Assets > Create > Javascript</p>
-
-<p>で、スクリプトを作成します。名前は「miku」とでもしておきます。
-そしてそれを先ほど作成した「GUI Texture」にドラッグ＆ドロップでアタッチ！</p>
-
-<p>inspector上で、「miku(script)」が追加されていればおｋです。</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.add.script.png" alt="script追加" /></p>
-
-<p>さあ、ここらが本番です。<br/>
-今追加したスクリプトでやりたいことは、「textureを一定時間毎に切り替えていく」という処理です。</p>
-
-<p>スクリプトはこんな感じになると思います。</p>
-
-<p><a href="http://answers.unity3d.com/questions/13156/animated-gif-as-a-texture-on-iphone.html">Animated Gif(Unity Answers)</a>
-を参考にしました。<br/>
-はい、コピペって言わない！</p>
-
-<p>```javascript</p>
-
-<h1>pragma strict</h1>
-
-<p>var frames : Texture2D[];
-var framesPerSecond = 10.0;</p>
-
-<p>function Start () {</p>
-
-<p>}</p>
-
-<p>function Update () {</p>
-
-<pre><code>var index : int = Time.time * framesPerSecond;
-index = index % frames.Length;
-guiTexture.texture = frames[index];
-</code></pre>
-
-<p>}
-```</p>
-
-<p>ただ、ここで即プレビューしてもうまく動きません。当たり前の話ですが「frames」として定義された配列に、何もデータが入っていないためです。
-この配列にデータをぶち込むにはどうしたらよいのでしょうか？<br/>
-答えは「inspector上で追加する」でした。</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.frames.size0.png" alt="size0" /></p>
-
-<p>この「size」プロパティに「10」をぶち込んでください。すると…</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/inspector.frames.size10.png" alt="size10" /></p>
-
-<p>おおおお！textureを指定できる覧が出てきたぞ！これはかなりの感動ものです。<br/>
-プログラマ的には、ソース上で定義したデータ箱にGUI上からサイズの指定を行う、というフローになかなか感覚がついていかないので、
-時間があるときにでもソース上からsizeを指定する方法を探してみます。ひとまず今日はこのまま進むぜ！</p>
-
-<p>あとは、簡単です。出てきたtextureの指定欄の一つ一つに、分解されたgifを当て込んでいきます。<br/>
-それでプレビューすると…</p>
-
-<p><img src="/images/posts/2013-05-22-unity-study-05-enable-animated-gif/preview.animated.png" alt="アニメーションしてる" /></p>
-
-<p>動いてるーーーーー！（画像じゃ分からないけど）</p>
-
-<p>まあいいだろう。ミッションコンプリートだ！</p>
-
-<h2>次回に向けて</h2>
-
-<p>Unityがとんでもない発表をしてくれました。Unityのモバイル向け機能を完全無償化するというのです。
-早速試そう！ということで、次回は「iPhone用にビルド」、いってみたいと思います！</p>
+<p>次回は画像の表示を行いたいと思います。</p>
 ]]></content>
   </entry>
   

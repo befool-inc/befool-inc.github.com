@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処 - BEFOOL blog</title>
+  <meta name="author" content="8823-scholar">
+
+  
+  <meta name="description" content="森です。アクセルハンマー派生だけで村クエクリアするべく奮闘中です。 仕事の都合上 subversion を使うことが多いのですが、 HomeBrew でインストールする際に
+&#8211;unicode-path &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/atom.xml" rel="alternate" title="BEFOOL blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40545969-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEFOOL blog</a></h1>
+  
+    <h2>今日もいい天気</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:befool-inc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives/">Archives</a></li>
+  <li><a href="/blog/categories/">Categories</a></li>
+  <li><a href="/blog/authors/">Authors</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-30T15:49:00+09:00" pubdate data-updated="true">Sep 30<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>森です。アクセルハンマー派生だけで村クエクリアするべく奮闘中です。</p>
+
+<p>仕事の都合上 <strong>subversion</strong> を使うことが多いのですが、 <strong>HomeBrew</strong> でインストールする際に
+<strong>&#8211;unicode-path</strong> オプション指定時にエラーが出てしまい困っていたので暫定対処をしたのでその経緯をまとめました。</p>
+
+<h2>お断り</h2>
+
+<p>この記事を書いている間に修正が入りました。ですのでこの記事の内容は過去の遺物であり現在は問題なく動作します。</p>
+
+<p>以降は備忘録として閲覧ください…。</p>
+
+<!-- more -->
+
+
+<h2>前提</h2>
+
+<p>HomeBrewでそのままsubversionをインストールすると <em>subversion 1.8</em> になります。
+subversion 1.8では後述の <code>--unicode-path</code> オプションが利用できないため <em>subversion 1.7</em> を使用します。
+簡単にインストールしたいので <em>homebrew/versions</em> をtapして subversion 1.7用のパッケージ <em>subversion17</em> をインストールしています。</p>
+
+<p>ただインストールしただけでは日本語を含んだファイル名をsvn上でうまく判断してくれないためいちいちmodified扱いになってしまいつらいです。というか使い物になりません。
+そのため <code>--unicode-path</code> オプションを指定してインストールします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew tap homebrew/versions
+</span><span class='line'><span class="o">(</span>tapped<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>brew info subversion17
+</span><span class='line'>subversion17: stable 1.7.11
+</span><span class='line'>http://subversion.apache.org/
+</span><span class='line'>Not installed
+</span><span class='line'>From: https://github.com/homebrew/homebrew-versions/commits/master/subversion17.rb
+</span><span class='line'><span class="o">==</span>&gt; Dependencies
+</span><span class='line'>Build: pkg-config
+</span><span class='line'>Required: neon, serf, <span class="nv">sqlite</span>
+</span><span class='line'><span class="o">==</span>&gt; Options
+</span><span class='line'>--java
+</span><span class='line'>        Build Java bindings
+</span><span class='line'>--perl
+</span><span class='line'>        Build Perl bindings
+</span><span class='line'>--ruby
+</span><span class='line'>        Build Ruby bindings
+</span><span class='line'>--unicode-path
+</span><span class='line'>        Include support <span class="k">for </span>OS X UTF-8-MAC filename
+</span><span class='line'>--universal
+</span><span class='line'>        Build a universal binary
+</span><span class='line'>--with-homebrew-openssl
+</span><span class='line'>        Include OpenSSL support via Homebrew
+</span><span class='line'>--with-python
+</span><span class='line'>        Build with python support
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>現象</h2>
+
+<p>ところがいつの頃からか <code>--unicode-path</code> オプションを指定するとエラーが発生してしまいインストールが中断してしまうようになりました(´人｀)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install subversion17 --unicode-path
+</span><span class='line'><span class="o">==</span>&gt; Downloading http://www.apache.org/dyn/closer.cgi?path<span class="o">=</span>subversion/subversion-1.7.11.tar.bz2
+</span><span class='line'><span class="o">==</span>&gt; Best Mirror http://ftp.kddilabs.jp/infosystems/apache/subversion/subversion-1.7.11.tar.bz2
+</span><span class='line'><span class="c">######################################################################## 100.0%</span>
+</span><span class='line'><span class="o">==</span>&gt; Downloading patches
+</span><span class='line'>
+</span><span class='line'>curl: <span class="o">(</span>22<span class="o">)</span> The requested URL returned error: 404
+</span><span class='line'>Error: Failure <span class="k">while </span>executing: /usr/bin/curl -f#LA Homebrew<span class="se">\ </span>0.9.5<span class="se">\ </span><span class="o">(</span>Ruby<span class="se">\ </span>1.8.7-358;<span class="se">\ </span>Mac<span class="se">\ </span>OS<span class="se">\ </span>X<span class="se">\ </span>10.8.5<span class="o">)</span> https://raw.github.com/gist/3044094/1648c28f6133bcbb68b76b42669b0dc237c02dba/patch-path.c.diff -o 000-homebrew.diff<span class="sb">```</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これは困ります。</p>
+
+<h2>対処</h2>
+
+<p>エラーログによると <em>unicode-pathのパッチを記したGistのURLが404を返してしまっている</em> ようです。
+<em>subversion17</em> の設定を手動で変更します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vi /usr/local/Library/Taps/homebrew-versions/subversion17.rb
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Patch for Subversion handling of OS X UTF-8-MAC filename.</span>
+</span><span class='line'><span class="k">if</span> <span class="n">build</span><span class="o">.</span><span class="n">include?</span> <span class="s1">&#39;unicode-path&#39;</span>
+</span><span class='line'>  <span class="n">ps</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;https://raw.github.com/gist/3044094/1648c28f6133bcbb68b76b42669b0dc237c02dba/patch-path.c.diff&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ここを</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Patch for Subversion handling of OS X UTF-8-MAC filename.</span>
+</span><span class='line'><span class="k">if</span> <span class="n">build</span><span class="o">.</span><span class="n">include?</span> <span class="s1">&#39;unicode-path&#39;</span>
+</span><span class='line'>  <span class="n">ps</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;https://gist.github.com/jeffstyr/3044094/raw/1648c28f6133bcbb68b76b42669b0dc237c02dba/patch-path.c.diff&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こうします。</p>
+
+<p>再度インストールしてみます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install subversion17 --unicode-path
+</span><span class='line'><span class="o">==</span>&gt; Downloading http://www.apache.org/dyn/closer.cgi?path<span class="o">=</span>subversion/subversion-1.7.11.tar.bz2
+</span><span class='line'>Already downloaded: /Library/Caches/Homebrew/subversion17-1.7.11.tar.bz2
+</span><span class='line'><span class="o">==</span>&gt; Downloading patches
+</span><span class='line'><span class="c">######################################################################## 100.0%</span>
+</span><span class='line'><span class="o">==</span>&gt; Patching
+</span><span class='line'>patching file subversion/libsvn_subr/path.c
+</span><span class='line'><span class="o">==</span>&gt; ./configure --prefix<span class="o">=</span>/usr/local/Cellar/subversion17/1.7.11 --with-apr<span class="o">=</span>/usr/local/Library/ENV/4.3 --with-zlib<span class="o">=</span>/usr --with-sqlite<span class="o">=</span>/usr/local/opt/sqlite --with-serf<span class="o">=</span>/usr/local/opt/serf --dis
+</span><span class='line'><span class="o">==</span>&gt; <span class="nv">make</span>
+</span><span class='line'><span class="o">==</span>&gt; make <span class="nv">install</span>
+</span><span class='line'><span class="o">==</span>&gt; make <span class="nv">tools</span>
+</span><span class='line'><span class="o">==</span>&gt; make install-tools
+</span><span class='line'><span class="o">==</span>&gt; Caveats
+</span><span class='line'>This unicode-path version implements a hack to deal with composed/decomposed
+</span><span class='line'>unicode handling on Mac OS X which is different from linux and windows.
+</span><span class='line'>It is an implementation of solution 1 from
+</span><span class='line'>http://svn.collab.net/repos/svn/trunk/notes/unicode-composition-for-filenames
+</span><span class='line'>which _WILL_ <span class="nb">break </span>some setups. Please be sure you understand what you
+</span><span class='line'>are asking <span class="k">for </span>when you install this version.
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>Bash completion has been installed to:
+</span><span class='line'>  /usr/local/etc/bash_completion.d
+</span><span class='line'><span class="o">==</span>&gt; Summary
+</span><span class='line'>🍺  /usr/local/Cellar/subversion17/1.7.11: 106 files, 8.1M, built in 4.8 minutes
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>svn --version
+</span><span class='line'>svn, version 1.7.11 <span class="o">(</span>r1503888<span class="o">)</span>
+</span><span class='line'>   compiled Sep 30 2013, 18:00:03
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>無事にインストールできました！</p>
+
+<h2>原因とPull Requests</h2>
+
+<p>詳細なソースが見当たらないのですが <a href="https://github.com/blog/1406-namespaced-gists">GistのURL形式が変更になった</a> のですが、
+いままで旧形式URLにアクセスしても新形式のURLにリダイレクトをしてくれていたのが
+ある日を堺にリダイレクトをかけずに404を返すようになったのかな、と憶測しています。</p>
+
+<p>とりあえず上記の件は<a href="https://github.com/Homebrew/homebrew-versions/pull/218">URLを変更するPull Requestを投げました</a>。
+無事通るといいな。</p>
+
+<p><em>18:53 09-30-2013 追記 → 無事にコミットされました</em> 。 <a href="https://github.com/Homebrew/homebrew-versions/commit/173b764c6b051144b23e01eb662896659f092eff">173b764c6b051144b23e01eb662896659f092eff</a></p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6edaeca6d206ade350bc34b74ecc07e1" alt="森裕介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>森裕介</h3>
+        <p>無念<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/jiskanulo">@jiskanulo</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/jiskay/">jiskaのメモ書き</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">jiska</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-30T15:49:00+09:00" pubdate data-updated="true">Sep 30<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/HomeBrew/'>HomeBrew</a>, <a class='category' href='/blog/categories/Mac/'>Mac</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/" >Tweet</a>
+  
+
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+  
+
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+  
+    <div class="fb-comments" data-href="http://befool-inc.github.io" data-num-posts="2" data-width="689"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/" title="Previous Post: Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」">&laquo; Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/">Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/set-up-os-x-part-3/">自分用のOS X設定 その３</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/31/set-up-os-x-part-2/">自分用のOS X設定 その２</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/12/set-up-os-x-part-1/">自分用のOS X設定 その１</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (10)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/OS_X'>OS_X (3)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/study'>study (2)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li></ul>
+    <a href="/blog/categories">All Categories</a>
+</section>
+<section>
+    <h1>Authors</h1>
+    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (11)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (7)</a></li><li><a href='/blog/authors/aizawa/'>はらだ (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li></ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - 8823-scholar -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'befoolblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
