@@ -1,15 +1,15 @@
 ---
 layout: post
-title: "HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処"
+title: "HomebrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処"
 date: 2013-09-30 15:49
 comments: true
-categories: Mac HomeBrew
+categories: Mac Homebrew
 author: jiska
 ---
 
 森です。アクセルハンマー派生だけで村クエクリアするべく奮闘中です。
 
-仕事の都合上 **subversion** を使うことが多いのですが、 **HomeBrew** でインストールする際に
+仕事の都合上 **subversion** を使うことが多いのですが、 **Homebrew** でインストールする際に
 **--unicode-path** オプション指定時にエラーが出てしまい困っていたので暫定対処をしたのでその経緯をまとめました。
 
 ## お断り
@@ -22,7 +22,7 @@ author: jiska
 
 ## 前提
 
-HomeBrewでそのままsubversionをインストールすると *subversion 1.8* になります。
+Homebrewでそのままsubversionをインストールすると *subversion 1.8* になります。
 subversion 1.8では後述の `--unicode-path` オプションが利用できないため *subversion 1.7* を使用します。
 簡単にインストールしたいので *homebrew/versions* をtapして subversion 1.7用のパッケージ *subversion17* をインストールしています。
 

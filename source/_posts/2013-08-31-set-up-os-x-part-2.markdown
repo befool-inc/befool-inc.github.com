@@ -98,5 +98,5 @@ PHPのIDEとして自分には必須です。もはやPhpStormがないと複数
 
 他には *Google Chrome* や *Google 日本語入力* 、 *RubyMine* を使ってますが紹介は割愛します。
 
-次は **HomeBrew** を使って **tmux** やら **git** やら **subversion** やらをインストールする方法を説明しますが長くなってきたので一旦区切ります。
+次は [Homebrew](http://brew.sh/index_ja.html) を使って **tmux** やら **git** やら **subversion** やらをインストールする方法を説明しますが長くなってきたので一旦区切ります。
 無念。
