@@ -3,7 +3,7 @@ layout: post
 title: "自分用のOS X設定 その１"
 date: 2013-08-12 20:30
 comments: true
-categories: OS_X
+categories: Mac
 author: jiska
 ---
 
