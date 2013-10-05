@@ -86,7 +86,7 @@ Projectタブ内のprefabをDrag&amp;Dropでステージに配置します。
 
 [Unity WEBプレイヤー - Prefabテスト](/resources/posts/2013-10-05-unity-study-10-prefab/build.web/build.web.html)
 
-やはり全ての新スタンスに同じ物理法則が割り当てられたようだ。イイデスネ！
+やはり全てのインスタンスに同じ物理法則が割り当てられたようだ。イイデスネ！
 
 
 ## その他の用途
