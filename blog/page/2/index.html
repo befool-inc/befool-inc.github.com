@@ -9,8 +9,8 @@
   <meta name="author" content="8823-scholar">
 
   
-  <meta name="description" content="森です。他メンバーはUnityのことばっかり書いていますがマイペースで書きます。 昔 windowsでwebサービスの開発をしているひとにUbuntuをオススメしたい３つの理由 を書いたわけですが
-今となっては古い情報になりつつあるので改めて。 はじめに 大多数のwebサービスは Linux系OS &hellip;">
+  <meta name="description" content="森です。 前回の記事 で仮想環境を作成したわけですが
+作成しただけでは何も始まりません。さっそく開発環境を構築していきましょう。 今回は伝統的な Apache , PHP , MySQL 構成を構築します。 あいかわらずスクリーンショット多め内容薄めです。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/11/build-php-environment-with-synaptic/">SynapticでPHP開発環境を構築しよう</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-11T08:00:00+09:00" pubdate data-updated="true">Jun 11<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/11/build-php-environment-with-synaptic/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>森です。 <a href="/blog/2013/06/08/start-desktop-linux-on-virtualbox/">前回の記事</a> で仮想環境を作成したわけですが
+作成しただけでは何も始まりません。さっそく開発環境を構築していきましょう。</p>
+
+<p>今回は伝統的な <em>Apache</em> , <em>PHP</em> , <em>MySQL</em> 構成を構築します。</p>
+
+<p>あいかわらずスクリーンショット多め内容薄めです。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/06/11/build-php-environment-with-synaptic/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1478,251 +1526,6 @@ Inspector上で、画像の参照を、先ほどAssetsに追加されたミン�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/01/how-to-make-post-environment/">Octopressへの投稿環境の作り方</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-01T03:02:00+09:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/01/how-to-make-post-environment/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>前置き</h2>
-
-<p>このエントリーは、Octopressのセットアップに関する記事ではありません。<br/>
-Octopressを共同編集するにあたっての、個人環境構築に関する記事になります。</p>
-
-<h2>準備作業</h2>
-
-<h3>ruby 1.9.3以上のインストール</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>ruby --version
-</span><span class='line'>ruby 1.9.3p374 <span class="o">(</span>2013-01-15 revision 38858<span class="o">)</span> <span class="o">[</span>x86_64-darwin12.2.1<span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>もしバージョンが低かったり「no such command」とか言われちゃう場合は、この際なのでrbenvを導入しちゃいましょう。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># まずはrbenvのインストール</span>
-</span><span class='line'><span class="nv">$ </span>brew install rbenv ruby-build
-</span><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;&#39;</span> &gt;&gt; ~/.bashrc
-</span><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;eval &quot;$(rbenv init -)&quot;&#39;</span> &gt;&gt; ~/.bashrc
-</span><span class='line'><span class="nv">$ </span><span class="nb">source</span> ~/.bashrc
-</span><span class='line'>
-</span><span class='line'><span class="c"># 1.9.3p374をインストール</span>
-</span><span class='line'><span class="nv">$ </span>rbenv install 1.9.3-p374
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>windowsの人は</h3>
-
-<p>cygwinでもインストールしてみて！</p>
-
-<h2>Octopress環境を構築しよう</h2>
-
-<h3>「befool-inc/befool-inc.github.com.git」のclone</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd </span>path/to/workspace
-</span><span class='line'><span class="nv">$ </span>git clone git@github.com:befool-inc/befool-inc.github.com.git
-</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>befool-inc.github.com
-</span><span class='line'><span class="nv">$ </span>git checkout -b <span class="nb">source </span>origin/source
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>依存ライブラリの取得</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>gem install bundler
-</span><span class='line'><span class="nv">$ </span>bundle install
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>rakeタスクの確認</h3>
-
-<p>Octopressのrakeタスクが一覧されるか試してみましょう。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake -T
-</span><span class='line'>rake clean                     <span class="c"># Clean out caches: .pygments-cache, .gist-cache, .sass-cache</span>
-</span><span class='line'>rake copydot<span class="o">[</span><span class="nb">source</span>,dest<span class="o">]</span>      <span class="c"># copy dot files for deployment</span>
-</span><span class='line'>rake deploy                    <span class="c"># Default deploy task</span>
-</span><span class='line'>rake gen_deploy                <span class="c"># Generate website and deploy</span>
-</span><span class='line'>rake generate                  <span class="c"># Generate jekyll site</span>
-</span><span class='line'>rake install<span class="o">[</span>theme<span class="o">]</span>            <span class="c"># Initial setup for Octopress: copies the default theme into the path of Jekyll&#39;s generator.</span>
-</span><span class='line'>rake integrate                 <span class="c"># Move all stashed posts back into the posts directory, ready for site generation.</span>
-</span><span class='line'>rake isolate<span class="o">[</span>filename<span class="o">]</span>         <span class="c"># Move all other posts than the one currently being worked on to a temporary stash location (stash) so regenerating the site happens much more quickly.</span>
-</span><span class='line'>rake list                      <span class="c"># list tasks</span>
-</span><span class='line'>rake new_page<span class="o">[</span>filename<span class="o">]</span>        <span class="c"># Create a new page in source/(filename)/index.markdown</span>
-</span><span class='line'>rake new_post<span class="o">[</span>title<span class="o">]</span>           <span class="c"># Begin a new post in source/_posts</span>
-</span><span class='line'>rake preview                   <span class="c"># preview the site in a web browser</span>
-</span><span class='line'>rake push                      <span class="c"># deploy public directory to github pages</span>
-</span><span class='line'>rake rsync                     <span class="c"># Deploy website via rsync</span>
-</span><span class='line'>rake set_root_dir<span class="o">[</span>dir<span class="o">]</span>         <span class="c"># Update configurations to support publishing to root or sub directory</span>
-</span><span class='line'>rake setup_github_pages<span class="o">[</span>repo<span class="o">]</span>  <span class="c"># Set up _deploy folder and deploy branch for Github Pages deployment</span>
-</span><span class='line'>rake update_source<span class="o">[</span>theme<span class="o">]</span>      <span class="c"># Move source to source.old, install source theme updates, replace source/_includes/navigation.html with source.old&#39;s navigation</span>
-</span><span class='line'>rake update_style<span class="o">[</span>theme<span class="o">]</span>       <span class="c"># Move sass to sass.old, install sass theme updates, replace sass/custom with sass.old/custom</span>
-</span><span class='line'>rake watch                     <span class="c"># Watch the site and regenerate when it changes</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>こんな感じで表示されればOKだ。</p>
-
-<h2>記事を書いてみる</h2>
-
-<h3>箱形の作成</h3>
-
-<p>まずは記事を書くための箱形の作成を行います。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake new_post<span class="o">[</span><span class="s1">&#39;foo bar zoo&#39;</span><span class="o">]</span>
-</span><span class='line'>mkdir -p <span class="nb">source</span>/_posts
-</span><span class='line'>Creating new post: <span class="nb">source</span>/_posts/2013-05-01-foo-bar-zoo.markdown
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>markdownの編集</h3>
-
-<p>markdown形式で記事を書きます</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vi <span class="nb">source</span>/_posts/2013-05-01-foo-bar-zoo.markdown
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>プレビュー</h3>
-
-<p>Octopressではローカルで記事のプレビューが可能です。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 公開用ファイル群を生成</span>
-</span><span class='line'><span class="nv">$ </span>rake generate
-</span><span class='line'>
-</span><span class='line'><span class="c"># プレビュー</span>
-</span><span class='line'><span class="nv">$ </span>rake preview
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>WEBブラウザを開いて、「<a href="http://localhost:4000/">http://localhost:4000/</a>」へアクセスしてみてください。<br/>
-表示されましたか？</p>
-
-<h2>デプロイ</h2>
-
-<p>当たり前の話ではありますが、ローカルで記事を書いただけではWEB上に公開されません。<br/>
-Octopressはgithubへのコミットまで面倒を見てくれます。</p>
-
-<h3>始めてデプロイする場合</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 本来であれば</span>
-</span><span class='line'><span class="c"># rake setup_github_pages</span>
-</span><span class='line'><span class="c"># で_deployディレクトリを作成するべきだが、最初の記事の作成などもおこなってしまうためにcloneで対応</span>
-</span><span class='line'><span class="nv">$ </span>git clone git@github.com:befool-inc/befool-inc.github.com.git _deploy
-</span><span class='line'><span class="nv">$ </span>rake deploy
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>すでにデプロイに成功している場合</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake deploy
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>これで、記事がWEBに公開されました！おめでとう！</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>木内智史之介</h3>
-        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
-		<ul class="author-links">
-			
-			<li>
-			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
-			</li>
-			
-			
-			<li>
-            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
-			</li>
-			
-		</ul>
-	</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1740,7 +1543,15 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処</a>
+        <a href="/blog/2013/10/07/set-up-os-x-part-3/">自分用のOS X設定 その３</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/05/unity-study-10-prefab/">Unity勉強 第10回 「Prefabを試してみる」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">HomebrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処</a>
       </li>
     
       <li class="post">
@@ -1748,22 +1559,14 @@ Octopressはgithubへのコミットまで面倒を見てくれます。</p>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/09/03/set-up-os-x-part-3/">自分用のOS X設定 その３</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2013/08/31/set-up-os-x-part-2/">自分用のOS X設定 その２</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/12/set-up-os-x-part-1/">自分用のOS X設定 その１</a>
       </li>
     
   </ul>
 </section>
 <section>
     <h1>Top Categories</h1>
-    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (10)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/OS_X'>OS_X (3)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/study'>study (2)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/illustrator'>illustrator (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li></ul>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (11)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/Mac'>Mac (4)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/study'>study (3)</a></li><li><a href='/blog/categories/Homebrew'>Homebrew (2)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li></ul>
     <a href="/blog/categories">All Categories</a>
 </section>
 <section>

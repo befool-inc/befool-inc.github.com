@@ -4,7 +4,7 @@
   <title><![CDATA[BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-09-30T18:57:18+09:00</updated>
+  <updated>2013-10-07T01:51:23+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -14,13 +14,325 @@
 
   
   <entry>
-    <title type="html"><![CDATA[HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処]]></title>
+    <title type="html"><![CDATA[自分用のOS X設定 その３]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/10/07/set-up-os-x-part-3/"/>
+    <updated>2013-10-07T02:00:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/10/07/set-up-os-x-part-3</id>
+    <content type="html"><![CDATA[<p>森です。第１回にて<a href="http://befool-inc.github.io/blog/2013/08/12/set-up-os-x-part-1/">２つの記事に分けて記述します</a>といいましたが…まとめきれず３つ目の記事になってしまいました。</p>
+
+<p>今回は <strong>Homebrew</strong> を用いて <strong>git</strong> . <strong>subversion</strong> , <strong>rbenv</strong> などなど自分の開発環境セットアップ方法をまとめます。</p>
+
+<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
+そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
+
+<!-- more -->
+
+
+<h2>Homebrew</h2>
+
+<p><a href="http://brew.sh/index_ja.html">Homebrew</a> とはMacのパッケージ管理ツールです。
+最近は情報を探すときに Homebrew をやたら進められるので自分も乗っかっています。</p>
+
+<p>他にも有名なパッケージ管理ツールには <strong>MacPorts</strong> がありますが自分はMac歴が浅くて使ったことがないのです…。</p>
+
+<p>Homebrewのインストールは簡単です。ターミナルに下記コマンドを流すだけです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>ruby -e <span class="s2">&quot;$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>インストールは簡単にできましたが、使用するにはもう一手間必要で、 <em>Command Line Tools for Xcode</em> か <em>Xcode</em> をインストールする必要があります。
+自分はXcodeを使っていないのでCommand Line Tools for Xcodeを使用しています。</p>
+
+<p><a href="https://developer.apple.com/downloads/index.action">Apple Developer</a> で <em>Xcode</em> で検索してインストール用のdmgをダウンロードしてください。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-10-07-set-up-os-x-part-3/download-command-line-tools-for-xcode.png" alt="Download Command Line Tools for Xcode" /></p>
+
+<p>ダウンロードするにはApple IDが必要ですので別途登録しておきましょう。</p>
+
+<p>インストールの詳細は <a href="https://github.com/mxcl/homebrew/wiki/Installation">wiki</a> を参照してください。</p>
+
+<p>インストールが完了したら以降は下記コマンドでHomebrewのパッケージをインストールできます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install <span class="o">[</span>package<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>次はHomebrewを利用してインストールするツール群の説明です。</p>
+
+<h3>bash-completion</h3>
+
+<p>とりあえずターミナルの補完を有効にしたいので <em>bash-completion</em> をインストールします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install bash-completion
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>インストール後は <code>$HOME/.profile</code> に下記設定を追加して補完設定を読み込むようにします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="k">if</span> <span class="o">[</span> -f <span class="k">$(</span>brew --prefix<span class="k">)</span>/etc/bash_completion <span class="o">]</span>; <span class="k">then</span>
+</span><span class='line'>  . <span class="k">$(</span>brew --prefix<span class="k">)</span>/etc/bash_completion
+</span><span class='line'><span class="k">fi</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>source $HOME/.profile</code> するかターミナルを再起動して設定を反映しておきましょう。</p>
+
+<h3>Git</h3>
+
+<p>インストール必須ですね。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install git
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>gitで日本語ファイル名が数字で表示されてしまうので（そもそも日本語ファイル名を使うなというツッコミはありますが）gitconfigに下記設定を追加します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git config --global core.quotepath <span class="nb">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>あとはお好みでgitconfigを弄ればいいでしょう。
+自分のgitconfigはこんなかんじです。 <a href="https://github.com/jiska/dotfiles/blob/master/.gitconfig">jiskaのgitconfig</a></p>
+
+<p>さらにGitのブランチ名をターミナルに表示したいので
+<code>$HOME/.profile</code> に下記設定を追加してます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u:\w\$ $(__git_ps1 &quot;[%s] &quot;)&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Subversion</h3>
+
+<p><a href="http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">別の記事</a>でも触れているのですが
+自分は <em>unicode-path</em> オプションを利用したいので <strong>Subversion 1.7</strong> を使用しています。</p>
+
+<p>Homebrewの標準レポジトリではコマンド１発でSubersion 1.7系をインストールすることができません。
+そこで <strong>homebrew/versions</strong> をtapして <strong>subversion17</strong> をインストールします。
+unicode-pathオプションも忘れずに。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew tap homebrew/versions
+</span><span class='line'><span class="nv">$ </span>brew install subversion17 --unicode-path
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>rbenv</h3>
+
+<p>Rubyもちょっとしたワンライナー書いたり便利ツール作ったりするときに使ってます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install rbenv ruby-build
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>例によって下記設定を <code>$HOME/.profile</code> に追加します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="k">if </span>which rbenv &gt; /dev/null; <span class="k">then </span><span class="nb">eval</span> <span class="s2">&quot;$(rbenv init -)&quot;</span>; <span class="k">fi</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>PHP</h3>
+
+<p>今現在PHPを用いた開発のお仕事をしていますがMac上でPHPアプリケーションを動かすことがほとんどありません…
+開発する場合はVMに環境構築してます。</p>
+
+<p>それでもローカルでちょっと確認したいなって場合があるのでPHPをインストールしてます。</p>
+
+<p>HomebrewでPHPをインストールするために <a href="https://github.com/josegonzalez/homebrew-php">josegonzalez/homebrew-php</a> をtapしています。</p>
+
+<p>インストールオプションはお好みで。あとWebサーバーは <em>Nginx</em> 使ってますのでNginxもインストールしときます</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew tap homebrew/dupes
+</span><span class='line'><span class="nv">$ </span>brew tap josegonzalez/homebrew-php
+</span><span class='line'><span class="nv">$ </span>brew install php54 --without-apache --with-fpm
+</span><span class='line'><span class="nv">$ </span>brew install nginx
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>最後に</h2>
+
+<p>自分の開発環境のセットアップ手順のまとめみたいなものをツラツラと書き続けてきましたがようやくひとまとまりしました。
+正直、上記の手順がめんどくさいので自動でセットアップをしたいなあと思うこのごろ。</p>
+
+<p><a href="http://boxen.github.com/">Boxen</a> を使って今までの手順をレシピにして開発環境のセットアップ自動化してみようとおもいます。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6edaeca6d206ade350bc34b74ecc07e1" alt="森裕介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>森裕介</h3>
+        <p>無念<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/jiskanulo">@jiskanulo</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/jiskay/">jiskaのメモ書き</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第10回 「Prefabを試してみる」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/10/05/unity-study-10-prefab/"/>
+    <updated>2013-10-05T16:41:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/10/05/unity-study-10-prefab</id>
+    <content type="html"><![CDATA[<h2>前回のおさらい＆今回の目標</h2>
+
+<p>最近夜になるとめまいで立ってられない智史之介です。おはようございます。<br/>
+いい加減まずいな、と思い病院に行ったのですが、3分ほどの診療でMRIも撮らせてくれず、早々にあしらわれてしまいました…。<br/>
+ファ○ク!!<br/>
+他の病院探そう…。</p>
+
+<p>今日の課題は「prefab」です。<br/>
+Unityを触るにあたって避けては通れない要素のようですので、このあたりでまずは第一回挑戦をしておくべきかなと。<br/>
+「Prefabとは？」というそんな段階から迫ってみたいと思います。</p>
+
+<h2>Prefabとは？</h2>
+
+<p><a href="http://ws.cis.sojo-u.ac.jp/~izumi/Unity_Documentation_jp/Documentation/Manual/Prefabs.html">Unity - プレハブ</a></p>
+
+<blockquote><p>プレハブはAseetの種類の１つです。 再利用可能なゲームオブジェクトでプロジェクトビューに保存されます。プレハブは複数のシーンにも、また、１つのシーンに複数追加する事も出来ます。 プレハブをシーンに追加する時はインスタンス(instance)が生成されます。プレハブのインスタンスは、全てオリジナルのプレハブにリンクしているため、意味的にはクローンとなります。プロジェクトに存在するインスタンスの数に限らず、プレハブに変更を加えると、インスタンスにも反映されます。</p></blockquote>
+
+<p>うーん。これだけでは正直よく分からないっす。Flashで例えると、ムービークリップとそのインスタンスのようなものなのかな…？</p>
+
+<h2>漢なら、やってやれ、だ！</h2>
+
+<p>とりあえず、直感的に感じた方法で試してみる事にします。</p>
+
+<h3>prefabの作成</h3>
+
+<p>prefabの作成に関しては、</p>
+
+<ul>
+<li>最初にprefabを作成して、その中にobjectを配置する方法</li>
+<li>既存のobjectをprefab化する方法</li>
+</ul>
+
+
+<p>があるらしいです。
+今回は後者の方法で試してみます。</p>
+
+<h4>適当なobjectを配置する</h4>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-10-05-unity-study-10-prefab/create-cube.png" alt="cubeの作成" /></p>
+
+<p>えいっ。</p>
+
+<h4>ドラッグ&amp;ドロップでprefab化</h4>
+
+<p>HierarchyタブからProjectタブにDrag&amp;Dropで移動することでPrefab化できるようです。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-10-05-unity-study-10-prefab/create-prefab.png" alt="prefabの作成" /></p>
+
+<h4>prefabをステージ上に配置する</h4>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-10-05-unity-study-10-prefab/prefab-put-on-stage.png" alt="prefabの配置" /></p>
+
+<p>Projectタブ内のprefabをDrag&amp;Dropでステージに配置します。<br/>
+これは「prefabのインスタンス化」と呼びます。（たぶん）</p>
+
+<p>それにしてもUnityのこのカメラ周りの操作に未だになれません…。
+自分が持って行きたいアングルになかなか調整できないのです…orz</p>
+
+<h2>インスタンス同士はリンクしている？</h2>
+
+<blockquote><p>プレハブのインスタンスは、全てオリジナルのプレハブにリンクしている</p></blockquote>
+
+<p>という事なので、元のPrefabをいじった場合、全てのインスタンスにその影響があるはずです。
+青色を適用するMaterialを作成し、それを先ほどPrefab化したCubeにDrag&amp;Dropします。</p>
+
+<p><img src="http://befool-inc.github.io/images/posts/2013-10-05-unity-study-10-prefab/attach-material-to-prefab.png" alt="prefabに色を適用する" /></p>
+
+<p>おお！一斉に変わった！</p>
+
+<p>ここまでであれば、一番最初に受けた印象である「Flashで例えると、ムービークリップとそのインスタンスのようなもの」という認識が正しいように思えますね…！</p>
+
+<h2>せっかくなので</h2>
+
+<p>色々試して見ようということで、cube prefabに「Rigidbody」というコンポーネントを当ててみました。<br/>
+それがこれである。</p>
+
+<p><a href="http://befool-inc.github.io/resources/posts/2013-10-05-unity-study-10-prefab/build.web/build.web.html">Unity WEBプレイヤー - Prefabテスト</a></p>
+
+<p>やはり全てのインスタンスに同じ物理法則が割り当てられたようだ。イイデスネ！</p>
+
+<h2>その他の用途</h2>
+
+<p><a href="http://unity-study.net/archives/366">Resources.Loadでシーンをまたぐ変数 - Unity勉強記</a></p>
+
+<p>こちらのサイトで紹介されている手法は、どうもprefab本来の使い方とは違うように見える（もしかしたら変数名として使用しているだけかもしれない）。
+ただ、僕自身まだUnity初心者の域を出ないため、なんとも言えないところですが。。<br/>
+もうちょっと経験を積んだら見えてくるものがあるかしら！</p>
+
+<h2>次回に向けて</h2>
+
+<p>今回は「prefab」に関してさくっとだけ触ってみました。Flashに慣れ親しんでいたせいもあるかもしれませんが、Flashの要素に置き換えて理解できると非常に個人的に分かりが良くて楽ですね。
+ただし…！次回は「3Dモデルを操作する」事に挑戦してみようかなと思っています…！</p>
+
+<p>Flashはご存じの通り2D指向のオーサリングツールです。（3D的なものを扱う事も可能ですが、やはり主戦場は2Dです）
+Flashに置き換えて理解するのが難しい領域である3Dは、個人的にハードルの高い分野です。</p>
+
+<p>頑張ります。では！</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>木内智史之介</h3>
+        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HomebrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処]]></title>
     <link href="http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/"/>
     <updated>2013-09-30T15:49:00+09:00</updated>
     <id>http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch</id>
     <content type="html"><![CDATA[<p>森です。アクセルハンマー派生だけで村クエクリアするべく奮闘中です。</p>
 
-<p>仕事の都合上 <strong>subversion</strong> を使うことが多いのですが、 <strong>HomeBrew</strong> でインストールする際に
+<p>仕事の都合上 <strong>subversion</strong> を使うことが多いのですが、 <strong>Homebrew</strong> でインストールする際に
 <strong>&#8211;unicode-path</strong> オプション指定時にエラーが出てしまい困っていたので暫定対処をしたのでその経緯をまとめました。</p>
 
 <h2>お断り</h2>
@@ -34,7 +346,7 @@
 
 <h2>前提</h2>
 
-<p>HomeBrewでそのままsubversionをインストールすると <em>subversion 1.8</em> になります。
+<p>Homebrewでそのままsubversionをインストールすると <em>subversion 1.8</em> になります。
 subversion 1.8では後述の <code>--unicode-path</code> オプションが利用できないため <em>subversion 1.7</em> を使用します。
 簡単にインストールしたいので <em>homebrew/versions</em> をtapして subversion 1.7用のパッケージ <em>subversion17</em> をインストールしています。</p>
 
@@ -427,134 +739,6 @@ subversion 1.8では後述の <code>--unicode-path</code> オプションが利�
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[自分用のOS X設定 その３]]></title>
-    <link href="http://befool-inc.github.io/blog/2013/09/03/set-up-os-x-part-3/"/>
-    <updated>2013-09-03T22:00:00+09:00</updated>
-    <id>http://befool-inc.github.io/blog/2013/09/03/set-up-os-x-part-3</id>
-    <content type="html"><![CDATA[<p>森です。前々回にて<a href="http://befool-inc.github.io/blog/2013/08/12/set-up-os-x-part-1/">２つの記事に分けて記述します</a>といいましたが…スマンありゃウソだった。</p>
-
-<p>オールスターバトルの回復待ち時間を利用しつつ３つ目の記事を書いていきます…。</p>
-
-<p>今回は <strong>HomeBrew</strong> を用いて <strong>git</strong> . <strong>subversion</strong> , <strong>rbenv</strong> などなど自分の開発環境整備に</p>
-
-<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
-そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
-
-<p><img src="http://befool-inc.github.io/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
-
-<!-- more -->
-
-
-<h2>ユーティリティ</h2>
-
-<h3>XtraFinder</h3>
-
-<p><img src="http://befool-inc.github.io/images/posts/2013-08-31-set-up-os-x-part-2/XtraFinder.png" alt="XtraFinder" />
-<a href="http://www.trankynam.com/xtrafinder/">ダウンロード</a></p>
-
-<p>mac標準のファイラーのFinderを拡張するソフトウェアです。Finderの操作が自分にはどうにも使いづらいので必須です。</p>
-
-<p>Finderでは ファイル（ディレクトリ）選択時に <em>command + ↓</em> で選択項目を開きます、<em>return</em> だと選択項目のリネームです。
-これが自分には全く馴染めません…。</p>
-
-<p><strong>Return で選択項目を開く</strong> にチェックを入れます。
-代わりにリネームを有効にするため <strong>名前変更</strong> に好きなキーボードショートカットを割り当てましょう。
-自分は <em>command + return</em> にしています。</p>
-
-<p><img src="http://befool-inc.github.io/images/posts/2013-08-31-set-up-os-x-part-2/XtraFinder-setting.png" alt="XtraFinderの設定" /></p>
-
-<h3>iTerm 2</h3>
-
-<p><img src="http://befool-inc.github.io/images/posts/2013-08-31-set-up-os-x-part-2/iTerm-2.png" alt="iTerm 2" />
-<a href="http://www.iterm2.com/">ダウンロード</a></p>
-
-<p>標準のターミナルよりも多機能で色々設定ができます。</p>
-
-<p>全角文字の表示崩れを防ぐために <strong>Treat ambiguous-width characters as double width</strong> にチェックをいれます。</p>
-
-<p><img src="http://befool-inc.github.io/images/posts/2013-08-31-set-up-os-x-part-2/iTerm-2-setting.png" alt="iTerm 2の設定" /></p>
-
-<h3>AppCleaner</h3>
-
-<p><img src="http://befool-inc.github.io/images/posts/2013-08-31-set-up-os-x-part-2/AppCleaner.png" alt="AppCleaner" />
-<a href="http://www.freemacsoft.net/appcleaner/">ダウンロード</a></p>
-
-<p>macで色々ソフトウェアをインストールして試し、
-使わなくなったソフトウェアをアンインストール（といっても <em>/Applications</em> から削除するだけですが）しても
-不要ファイルが残ってしまいます。</p>
-
-<p>AppCleanerを使えば不要ファイルも一緒にアンインストールしてくれるので楽です。</p>
-
-<h3>The Unarchiver</h3>
-
-<p><img src="http://befool-inc.github.io/images/posts/2013-08-31-set-up-os-x-part-2/The-Unarchiver.png" alt="The Unarchiver" />
-<a href="https://itunes.apple.com/en/app/the-unarchiver/id425424353">ダウンロード</a></p>
-
-<p>mac標準の解凍ツールではwindowsで作成されたzipファイルを解答できない場合があります。</p>
-
-<p>The Unarchiverなら問題なく解答できます。</p>
-
-<h3>FileZilla</h3>
-
-<p><img src="http://befool-inc.github.io/images/posts/2013-08-31-set-up-os-x-part-2/FileZilla.png" alt="FileZilla" />
-<a href="https://filezilla-project.org/">ダウンロード</a></p>
-
-<p>FTP, SFTPクライアントです。最近は使う機会が減りましたがたまにSFTPでファイルを複数やりとりするときに使います。</p>
-
-<h2>テキストエディタ</h2>
-
-<h3>mi</h3>
-
-<p><img src="http://befool-inc.github.io/images/posts/2013-08-31-set-up-os-x-part-2/mi.png" alt="mi" />
-<a href="http://www.mimikaki.net/">ダウンロード</a></p>
-
-<p>標準のテキストエディタはいろいろ心もとないのです…。
-自分はβ版の <strong>mi テキストエディタ バージョン 3.0.0b3</strong> を使用しています。</p>
-
-<h2>IDE</h2>
-
-<h3>PhpStorm</h3>
-
-<p><img src="http://befool-inc.github.io/images/posts/2013-08-31-set-up-os-x-part-2/PhpStorm.png" alt="PhpStorm" />
-<a href="http://www.jetbrains.com/phpstorm/">ダウンロード</a></p>
-
-<p>PHPのIDEとして自分には必須です。もはやPhpStormがないと複数ファイルを扱うプロジェクトの開発ができない体になってしまいました。
-初年 <strong>$99</strong> 、翌年から <strong>$49</strong> かかりますがそれ以上の価値は間違いなくあります。</p>
-
-<p>日本の公認代理店の <a href="http://samuraism.com/products/jetbrains/phpstorm">サムライズムさん</a> で日本円で購入することもできるみたいです。</p>
-
-<h2>だいたいこんなところ</h2>
-
-<p>他には <em>Google Chrome</em> や <em>Google 日本語入力</em> 、 <em>RubyMine</em> を使ってますが紹介は割愛します。</p>
-
-<p>次は <strong>HomeBrew</strong> を使って <strong>tmux</strong> やら <strong>git</strong> やら <strong>subversion</strong> やらをインストールする方法を説明しますが長くなってきたので一旦区切ります。
-無念。</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/6edaeca6d206ade350bc34b74ecc07e1" alt="森裕介" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>森裕介</h3>
-        <p>無念<br /></p>
-		<ul class="author-links">
-			
-			<li>
-			<a href="http://twitter.com/jiskanulo">@jiskanulo</a>
-			</li>
-			
-			
-			<li>
-            <a href="http://d.hatena.ne.jp/jiskay/">jiskaのメモ書き</a>
-			</li>
-			
-		</ul>
-	</div>
-</div>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[自分用のOS X設定 その２]]></title>
     <link href="http://befool-inc.github.io/blog/2013/08/31/set-up-os-x-part-2/"/>
     <updated>2013-08-31T10:00:00+09:00</updated>
@@ -651,7 +835,7 @@ subversion 1.8では後述の <code>--unicode-path</code> オプションが利�
 
 <p>他には <em>Google Chrome</em> や <em>Google 日本語入力</em> 、 <em>RubyMine</em> を使ってますが紹介は割愛します。</p>
 
-<p>次は <strong>HomeBrew</strong> を使って <strong>tmux</strong> やら <strong>git</strong> やら <strong>subversion</strong> やらをインストールする方法を説明しますが長くなってきたので一旦区切ります。
+<p>次は <strong>Homebrew</strong> を使って <strong>tmux</strong> やら <strong>git</strong> やら <strong>subversion</strong> やらをインストールする方法を説明しますが長くなってきたので一旦区切ります。
 無念。</p>
 <div class='octopress-authorbox'>
 	<div class="author-pic" style="float:left;">
@@ -3104,222 +3288,6 @@ Inspector上で、画像の参照を、先ほどAssetsに追加されたミン�
 <h2>ミンカが結婚を前提にお付き合いしてくれないかな</h2>
 
 <p>ミンカさん、僕と結婚してください！|ω・`）ﾁﾗｯ</p>
-<div class='octopress-authorbox'>
-	<div class="author-pic" style="float:left;">
-		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
-	</div>
-	
-	<div class="author-about" style="float:left;">
-		<h3>木内智史之介</h3>
-        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
-		<ul class="author-links">
-			
-			<li>
-			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
-			</li>
-			
-			
-			<li>
-            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
-			</li>
-			
-		</ul>
-	</div>
-</div>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopressへの投稿環境の作り方]]></title>
-    <link href="http://befool-inc.github.io/blog/2013/05/01/how-to-make-post-environment/"/>
-    <updated>2013-05-01T03:02:00+09:00</updated>
-    <id>http://befool-inc.github.io/blog/2013/05/01/how-to-make-post-environment</id>
-    <content type="html"><![CDATA[<h2>前置き</h2>
-
-<p>このエントリーは、Octopressのセットアップに関する記事ではありません。<br/>
-Octopressを共同編集するにあたっての、個人環境構築に関する記事になります。</p>
-
-<h2>準備作業</h2>
-
-<h3>ruby 1.9.3以上のインストール</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>ruby --version
-</span><span class='line'>ruby 1.9.3p374 <span class="o">(</span>2013-01-15 revision 38858<span class="o">)</span> <span class="o">[</span>x86_64-darwin12.2.1<span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>もしバージョンが低かったり「no such command」とか言われちゃう場合は、この際なのでrbenvを導入しちゃいましょう。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># まずはrbenvのインストール</span>
-</span><span class='line'><span class="nv">$ </span>brew install rbenv ruby-build
-</span><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;&#39;</span> &gt;&gt; ~/.bashrc
-</span><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;eval &quot;$(rbenv init -)&quot;&#39;</span> &gt;&gt; ~/.bashrc
-</span><span class='line'><span class="nv">$ </span><span class="nb">source</span> ~/.bashrc
-</span><span class='line'>
-</span><span class='line'><span class="c"># 1.9.3p374をインストール</span>
-</span><span class='line'><span class="nv">$ </span>rbenv install 1.9.3-p374
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>windowsの人は</h3>
-
-<p>cygwinでもインストールしてみて！</p>
-
-<h2>Octopress環境を構築しよう</h2>
-
-<h3>「befool-inc/befool-inc.github.com.git」のclone</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd </span>path/to/workspace
-</span><span class='line'><span class="nv">$ </span>git clone git@github.com:befool-inc/befool-inc.github.com.git
-</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>befool-inc.github.com
-</span><span class='line'><span class="nv">$ </span>git checkout -b <span class="nb">source </span>origin/source
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>依存ライブラリの取得</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>gem install bundler
-</span><span class='line'><span class="nv">$ </span>bundle install
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>rakeタスクの確認</h3>
-
-<p>Octopressのrakeタスクが一覧されるか試してみましょう。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake -T
-</span><span class='line'>rake clean                     <span class="c"># Clean out caches: .pygments-cache, .gist-cache, .sass-cache</span>
-</span><span class='line'>rake copydot<span class="o">[</span><span class="nb">source</span>,dest<span class="o">]</span>      <span class="c"># copy dot files for deployment</span>
-</span><span class='line'>rake deploy                    <span class="c"># Default deploy task</span>
-</span><span class='line'>rake gen_deploy                <span class="c"># Generate website and deploy</span>
-</span><span class='line'>rake generate                  <span class="c"># Generate jekyll site</span>
-</span><span class='line'>rake install<span class="o">[</span>theme<span class="o">]</span>            <span class="c"># Initial setup for Octopress: copies the default theme into the path of Jekyll&#39;s generator.</span>
-</span><span class='line'>rake integrate                 <span class="c"># Move all stashed posts back into the posts directory, ready for site generation.</span>
-</span><span class='line'>rake isolate<span class="o">[</span>filename<span class="o">]</span>         <span class="c"># Move all other posts than the one currently being worked on to a temporary stash location (stash) so regenerating the site happens much more quickly.</span>
-</span><span class='line'>rake list                      <span class="c"># list tasks</span>
-</span><span class='line'>rake new_page<span class="o">[</span>filename<span class="o">]</span>        <span class="c"># Create a new page in source/(filename)/index.markdown</span>
-</span><span class='line'>rake new_post<span class="o">[</span>title<span class="o">]</span>           <span class="c"># Begin a new post in source/_posts</span>
-</span><span class='line'>rake preview                   <span class="c"># preview the site in a web browser</span>
-</span><span class='line'>rake push                      <span class="c"># deploy public directory to github pages</span>
-</span><span class='line'>rake rsync                     <span class="c"># Deploy website via rsync</span>
-</span><span class='line'>rake set_root_dir<span class="o">[</span>dir<span class="o">]</span>         <span class="c"># Update configurations to support publishing to root or sub directory</span>
-</span><span class='line'>rake setup_github_pages<span class="o">[</span>repo<span class="o">]</span>  <span class="c"># Set up _deploy folder and deploy branch for Github Pages deployment</span>
-</span><span class='line'>rake update_source<span class="o">[</span>theme<span class="o">]</span>      <span class="c"># Move source to source.old, install source theme updates, replace source/_includes/navigation.html with source.old&#39;s navigation</span>
-</span><span class='line'>rake update_style<span class="o">[</span>theme<span class="o">]</span>       <span class="c"># Move sass to sass.old, install sass theme updates, replace sass/custom with sass.old/custom</span>
-</span><span class='line'>rake watch                     <span class="c"># Watch the site and regenerate when it changes</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>こんな感じで表示されればOKだ。</p>
-
-<h2>記事を書いてみる</h2>
-
-<h3>箱形の作成</h3>
-
-<p>まずは記事を書くための箱形の作成を行います。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake new_post<span class="o">[</span><span class="s1">&#39;foo bar zoo&#39;</span><span class="o">]</span>
-</span><span class='line'>mkdir -p <span class="nb">source</span>/_posts
-</span><span class='line'>Creating new post: <span class="nb">source</span>/_posts/2013-05-01-foo-bar-zoo.markdown
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>markdownの編集</h3>
-
-<p>markdown形式で記事を書きます</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vi <span class="nb">source</span>/_posts/2013-05-01-foo-bar-zoo.markdown
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>プレビュー</h3>
-
-<p>Octopressではローカルで記事のプレビューが可能です。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 公開用ファイル群を生成</span>
-</span><span class='line'><span class="nv">$ </span>rake generate
-</span><span class='line'>
-</span><span class='line'><span class="c"># プレビュー</span>
-</span><span class='line'><span class="nv">$ </span>rake preview
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>WEBブラウザを開いて、「<a href="http://localhost:4000/">http://localhost:4000/</a>」へアクセスしてみてください。<br/>
-表示されましたか？</p>
-
-<h2>デプロイ</h2>
-
-<p>当たり前の話ではありますが、ローカルで記事を書いただけではWEB上に公開されません。<br/>
-Octopressはgithubへのコミットまで面倒を見てくれます。</p>
-
-<h3>始めてデプロイする場合</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 本来であれば</span>
-</span><span class='line'><span class="c"># rake setup_github_pages</span>
-</span><span class='line'><span class="c"># で_deployディレクトリを作成するべきだが、最初の記事の作成などもおこなってしまうためにcloneで対応</span>
-</span><span class='line'><span class="nv">$ </span>git clone git@github.com:befool-inc/befool-inc.github.com.git _deploy
-</span><span class='line'><span class="nv">$ </span>rake deploy
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>すでにデプロイに成功している場合</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake deploy
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>これで、記事がWEBに公開されました！おめでとう！</p>
 <div class='octopress-authorbox'>
 	<div class="author-pic" style="float:left;">
 		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />

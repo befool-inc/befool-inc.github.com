@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 勉強会 | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/勉強会/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-09-30T18:58:02+09:00</updated>
+  <updated>2013-10-07T01:51:39+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -12,6 +12,147 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第3回 「サウンドを流してみる」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/16/unity-study-03-use-sound/"/>
+    <updated>2013-05-16T20:43:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/16/unity-study-03-use-sound</id>
+    <content type="html"><![CDATA[<h2>前回までのおさらい</h2>
+
+<p>おさらう程積み重ねがあるわけではありませんが、一応。<br/>
+Hello World、画像を置いてみる、など本当にさわりだけを進めている感じで、今回はよし音楽でもおいちゃうぞーといった、そういう感じです。<br/>
+アジカンとかのmp3をさくっとおいて、iPhoneから流しちゃって、かわいい女の子からきゃーきゃー言われたいです。
+間違っても、初音ミクの「ストロボナイツ」とか、鏡音リンの「メランコリック」とか置いちゃだめですよ！女の子からどん引きされてしまいます！</p>
+
+<h2>まずは音楽の調達</h2>
+
+<p>さーて、大好きなこの曲を、youtubeあたりから落としてきます。</p>
+
+<iframe width="420" height="315" src="http://www.youtube.com/embed/qWWlFdiT8b4" frameborder="0" allowfullscreen></iframe>
+
+
+<p>くっ…違うんだ、僕よ、違うぞ…アジカンを選ぶんだ！<br/>
+アジカンを選んで、もて路線を進むんだ！<br/>
+サカナクションでも大丈夫だよ…。</p>
+
+<p>うう…だめだ…、僕はミクさんを裏切れない(´；ω；`)ﾌﾞﾜｯ</p>
+
+<h2>懲りずにドラッグ&amp;ドロップしてみる</h2>
+
+<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/drag_and_drop_sound.png" alt="ドラッグ&amp;ドロップ" /></p>
+
+<p>ステージに直接、というのは無理で、やはりassetsに投げ込む、という形になりました。</p>
+
+<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/inspector_sound.png" alt="インスペクター" />
+インスペクターをなんとなく確認してみた。
+今のところさっぱりですね！</p>
+
+<h2>これを再生させたい</h2>
+
+<p>というわけで、いつも通り「GameObject > Create Other」の中を確認してみる。<br/>
+が、ない。それっぽいメニューがない。<br/>
+「Audio Reverb Zone」というのがあるけど、僕の直感が「こいつは違う…」と言っている。</p>
+
+<p>さて、どうするかな。</p>
+
+<p>もうよく分からないので「GameObject > Create Empty」で空のオブジェクトを追加してやりました。</p>
+
+<p>inspectorタブの中に「add component」というのがあり、それをクリックすると、「audio > audio source」というメニューがあるじゃないか！</p>
+
+<p>「これだな…」</p>
+
+<p>と僕のゴーストがささやいた。</p>
+
+<p>秒速でそれを選択し、同じくinspector内に追加された「audio clip」の項目をクリック。先ほど追加した初音ミクサウンドを選択！</p>
+
+<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/add_sound_component.png" alt="サウンド追加" /></p>
+
+<p>おお！<br/>
+それっぽい画面になっているじゃないですかー。</p>
+
+<p>プレビュー再生ボタンを押して確認してみる。</p>
+
+<p><img src="/images/posts/2013-05-16-unity-study-03-use-sound/preview.png" alt="プレビュー" /></p>
+
+<p>再生されている…！！！（画像じゃわからないけど）</p>
+
+<h2>次回の課題</h2>
+
+<p>画像も置いた、サウンドも再生できた、あれ、これもうゲーム作れるんじゃない？と調子に乗っております。<br/>
+次回は、ちょこーっとだけプログラム的なことができたらと思っています。<br/>
+そうだ、じゃあ、こんなのはどうでしょう？</p>
+
+<p>「画像をクリックしたら、音楽が再生される」</p>
+
+<p>これだ！
+次回へつづく。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第2回 「画像を使ってみる」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/01/unity-study-02-use-image/"/>
+    <updated>2013-05-01T23:55:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/01/unity-study-02-use-image</id>
+    <content type="html"><![CDATA[<h2>なにはともあれプロジェクトの作成</h2>
+
+<p>File > New Project<br/>
+を選択して、プロジェクトの作成。<br/>
+常に、まずはここからです。<br/>
+<strong>Import the following the packages</strong> に関しては今のところ空のままでいいでしょう。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/NewProject.png" alt="New Project" /></p>
+
+<h2>漢は黙ってドラッグ＆ドロップ</h2>
+
+<p>まだ第二回ということで、右も左も分からない赤子同然。
+画像の挿入に関しても「ドラッグ＆ドロップでいけるでしょ？」と完全に相手ををなめきっている模様。</p>
+
+<p>「<strong>おれのミンカフォルダが火を噴くぜ！</strong>」</p>
+
+<p>と言わんばかりに光の速度でFinderを開き、お気に入りの画像をドラッグ＆ドロップ！</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/DragAndDropToStage.png" alt="Drag &amp; Drop" /></p>
+
+<p>(´・ω・｀)<br/>
+「Scene」へ直接はダメだったけど、なんか「Assets」には入った。</p>
+
+<p>分かった。AssetsからはSceneに投げ込めるんだな！天才か。自分は。自分で自分が怖くなるぜ…。誰か俺を止めてくれ。<br/>
+など、ブツブツ意味不明な供述をしながらAssetsからドラッグして、Sceneへドロップ！</p>
+
+<p>だめでした(´・ω・｀)</p>
+
+<p>もしかしたらUnityにはドラッグ＆ドロップという概念がないのかもしれないですね！（そんなばかな）</p>
+
+<h2>GUI Textureなにするものぞ</h2>
+
+<p>Google先生に聞いてみると、「GUI Texture」なるものがあるらしい。<br/>
+見るからに2D画像を扱いそうな名前をしている！これに違いない。</p>
+
+<p>GameObject > Create Other > GUI Texture</p>
+
+<p>を選択してオブジェクトを追加。<br/>
+すると、「UnityWatermark-small」なるものがHierarchyに追加された。クリックすると、ステージ上でカメラとは別のオブジェクトが選択されたように見える。
+これは、もしかして…？と思い「Game」タブをクリックしてみると…。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/AddImageUnity.png" alt="Unity画像" /></p>
+
+<p>表示されてる！だけど漂う「キミジャナイ」感。<br/>
+そう、私はミンカの画像を表示させたいのである。<br/>
+Inspector上で、画像の参照を、先ほどAssetsに追加されたミンカ画像を選択、っと。<br/>
+同じくInspector上で、サイズ、配置などをチョコチョコッと修正、っと。</p>
+
+<p><img src="/images/posts/2013-05-01-unity-study-02-use-image/AddImageMinka.png" alt="ミンカ画像" /></p>
+
+<p>できた！というわけで今日はここまで。<br/>
+次回は、サウンドの挿入をやってみたいと思います。</p>
+
+<h2>ミンカが結婚を前提にお付き合いしてくれないかな</h2>
+
+<p>ミンカさん、僕と結婚してください！|ω・`）ﾁﾗｯ</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Unity勉強 第1回 「Hello World」]]></title>

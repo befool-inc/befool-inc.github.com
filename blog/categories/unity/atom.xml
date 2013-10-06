@@ -4,7 +4,7 @@
   <title><![CDATA[Category: unity | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/unity/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-09-30T18:58:02+09:00</updated>
+  <updated>2013-10-07T01:51:39+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -14,57 +14,545 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Unity勉強 第1回 「Hello World」]]></title>
-    <link href="http://befool-inc.github.io/blog/2013/04/30/unity-study-01-hello-world/"/>
-    <updated>2013-04-30T13:21:00+09:00</updated>
-    <id>http://befool-inc.github.io/blog/2013/04/30/unity-study-01-hello-world</id>
-    <content type="html"><![CDATA[<h2>Unityとは？</h2>
+    <title type="html"><![CDATA[Unity勉強 第10回 「Prefabを試してみる」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/10/05/unity-study-10-prefab/"/>
+    <updated>2013-10-05T16:41:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/10/05/unity-study-10-prefab</id>
+    <content type="html"><![CDATA[<h2>前回のおさらい＆今回の目標</h2>
 
-<p>iPhoneアプリの開発とか、Androidアプリの開発だとかで、
-やれObjective-Cだとか、やれJAVAだとか、そういった言語の習得が必須なわけですね。<br/>
-エンジニアとしては、できればそれぞれそのネイティブな言語でアプリを開発したい気持ちが強いのですが、そうも言ってられない事情もありまして…。</p>
+<p>最近夜になるとめまいで立ってられない智史之介です。おはようございます。<br/>
+いい加減まずいな、と思い病院に行ったのですが、3分ほどの診療でMRIも撮らせてくれず、早々にあしらわれてしまいました…。<br/>
+ファ○ク!!<br/>
+他の病院探そう…。</p>
 
-<p>開発環境の構築、言語の習得、ノウハウの蓄積など、様々なコストがあり、
-「iPhoneでもAndroidでもアプリを出すんだい！」というプロジェクトの場合、
-それらのコストが「2倍になります」という状況は、非常にツライものがあります。<br/>
-特別めんどくさがり屋さんでなくとも、一つ作れば、それがiPhoneでも動くし、Androidでも動く、というのが理想なわけです。</p>
+<p>今日の課題は「prefab」です。<br/>
+Unityを触るにあたって避けては通れない要素のようですので、このあたりでまずは第一回挑戦をしておくべきかなと。<br/>
+「Prefabとは？」というそんな段階から迫ってみたいと思います。</p>
 
-<p>それを実現してくれるのが「Unity」なのです。</p>
+<h2>Prefabとは？</h2>
 
-<h2>プロジェクトを作成する</h2>
+<p><a href="http://ws.cis.sojo-u.ac.jp/~izumi/Unity_Documentation_jp/Documentation/Manual/Prefabs.html">Unity - プレハブ</a></p>
 
-<p>さあさあとりあえずいじってみよう、というわけで、みんな大好き「Hello World」行ってみようと思います。</p>
+<blockquote><p>プレハブはAseetの種類の１つです。 再利用可能なゲームオブジェクトでプロジェクトビューに保存されます。プレハブは複数のシーンにも、また、１つのシーンに複数追加する事も出来ます。 プレハブをシーンに追加する時はインスタンス(instance)が生成されます。プレハブのインスタンスは、全てオリジナルのプレハブにリンクしているため、意味的にはクローンとなります。プロジェクトに存在するインスタンスの数に限らず、プレハブに変更を加えると、インスタンスにも反映されます。</p></blockquote>
 
-<p>File > New Project<br/>
-を選択して、プロジェクトの作成。<br/>
-<strong>Import the following the packages</strong> は今のところよく分からないので空で。</p>
+<p>うーん。これだけでは正直よく分からないっす。Flashで例えると、ムービークリップとそのインスタンスのようなものなのかな…？</p>
 
-<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/NewProject.png" alt="New Project" /></p>
+<h2>漢なら、やってやれ、だ！</h2>
 
-<h2>「Hello World」を表示する</h2>
+<p>とりあえず、直感的に感じた方法で試してみる事にします。</p>
 
-<p>ググってみると、みなさん、<strong>debug.log('hello world.')</strong>のように、コンソール上に出力しているようですが、
-やはりユーザー目線で何かしらの表示させたいのが正直なところでしょう。</p>
+<h3>prefabの作成</h3>
 
-<p>何かないかなーとメニューを漁っていると、「<strong>3D Text</strong>」なるものを発見！これか？！</p>
+<p>prefabの作成に関しては、</p>
 
-<p>GameObject > CreateOther > 3D Text</p>
+<ul>
+<li>最初にprefabを作成して、その中にobjectを配置する方法</li>
+<li>既存のobjectをprefab化する方法</li>
+</ul>
 
-<p>選択してみると…、おっ。なんか画面上に配置された。しかも、既に「Hello World」ってなってる！</p>
 
-<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/CreateObject.png" alt="New Project" /></p>
+<p>があるらしいです。
+今回は後者の方法で試してみます。</p>
 
-<p>憎い…この気の利かせ方が憎いでござる…！</p>
+<h4>適当なobjectを配置する</h4>
 
-<p>なんかこれで「できました」っていうのも癪なので、めくらめっぽにあっちいじったり、こっちいじったりしながら作成したのがこちらのHelloWorldです。</p>
+<p><img src="/images/posts/2013-10-05-unity-study-10-prefab/create-cube.png" alt="cubeの作成" /></p>
 
-<p><img src="/images/posts/2013-04-30-unity-study-01-hello-world/HelloWorld.png" alt="New Project" /></p>
+<p>えいっ。</p>
 
-<p>よし。「枠に収まらない漢」というアピールができました！</p>
+<h4>ドラッグ&amp;ドロップでprefab化</h4>
 
-<h2>次回の予定</h2>
+<p>HierarchyタブからProjectタブにDrag&amp;Dropで移動することでPrefab化できるようです。</p>
 
-<p>次回は画像の表示を行いたいと思います。</p>
+<p><img src="/images/posts/2013-10-05-unity-study-10-prefab/create-prefab.png" alt="prefabの作成" /></p>
+
+<h4>prefabをステージ上に配置する</h4>
+
+<p><img src="/images/posts/2013-10-05-unity-study-10-prefab/prefab-put-on-stage.png" alt="prefabの配置" /></p>
+
+<p>Projectタブ内のprefabをDrag&amp;Dropでステージに配置します。<br/>
+これは「prefabのインスタンス化」と呼びます。（たぶん）</p>
+
+<p>それにしてもUnityのこのカメラ周りの操作に未だになれません…。
+自分が持って行きたいアングルになかなか調整できないのです…orz</p>
+
+<h2>インスタンス同士はリンクしている？</h2>
+
+<blockquote><p>プレハブのインスタンスは、全てオリジナルのプレハブにリンクしている</p></blockquote>
+
+<p>という事なので、元のPrefabをいじった場合、全てのインスタンスにその影響があるはずです。
+青色を適用するMaterialを作成し、それを先ほどPrefab化したCubeにDrag&amp;Dropします。</p>
+
+<p><img src="/images/posts/2013-10-05-unity-study-10-prefab/attach-material-to-prefab.png" alt="prefabに色を適用する" /></p>
+
+<p>おお！一斉に変わった！</p>
+
+<p>ここまでであれば、一番最初に受けた印象である「Flashで例えると、ムービークリップとそのインスタンスのようなもの」という認識が正しいように思えますね…！</p>
+
+<h2>せっかくなので</h2>
+
+<p>色々試して見ようということで、cube prefabに「Rigidbody」というコンポーネントを当ててみました。<br/>
+それがこれである。</p>
+
+<p><a href="/resources/posts/2013-10-05-unity-study-10-prefab/build.web/build.web.html">Unity WEBプレイヤー - Prefabテスト</a></p>
+
+<p>やはり全てのインスタンスに同じ物理法則が割り当てられたようだ。イイデスネ！</p>
+
+<h2>その他の用途</h2>
+
+<p><a href="http://unity-study.net/archives/366">Resources.Loadでシーンをまたぐ変数 - Unity勉強記</a></p>
+
+<p>こちらのサイトで紹介されている手法は、どうもprefab本来の使い方とは違うように見える（もしかしたら変数名として使用しているだけかもしれない）。
+ただ、僕自身まだUnity初心者の域を出ないため、なんとも言えないところですが。。<br/>
+もうちょっと経験を積んだら見えてくるものがあるかしら！</p>
+
+<h2>次回に向けて</h2>
+
+<p>今回は「prefab」に関してさくっとだけ触ってみました。Flashに慣れ親しんでいたせいもあるかもしれませんが、Flashの要素に置き換えて理解できると非常に個人的に分かりが良くて楽ですね。
+ただし…！次回は「3Dモデルを操作する」事に挑戦してみようかなと思っています…！</p>
+
+<p>Flashはご存じの通り2D指向のオーサリングツールです。（3D的なものを扱う事も可能ですが、やはり主戦場は2Dです）
+Flashに置き換えて理解するのが難しい領域である3Dは、個人的にハードルの高い分野です。</p>
+
+<p>頑張ります。では！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/"/>
+    <updated>2013-09-08T16:56:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/09/08/unity-study-09-save-variables-to-local-strage</id>
+    <content type="html"><![CDATA[<h2>前回のおさらい＆今回の目標</h2>
+
+<p>最近FXを始めました。智史之介です。<br/>
+前回から結構時間が開いてしまいましたね…。反省です。できれば週一と言わないまでも、隔週くらいでは勉強する時間を確保していきたいものです。</p>
+
+<p>さて、前回のUnityの勉強ですが「<a href="/blog/2013/06/15/unity-study-08-scene-change/">シーンの切り替え</a>」というような内容でした。
+その関係で「シーンを跨いだ変数の保持」というような内容を試してみたくはあるのですが、ちょっと後回しにして…、今日は「永続データストレージ」に挑戦です。</p>
+
+<h3>永続データストレージとは？</h3>
+
+<p>ここで言うところの「永続データストレージ」とは、つまり、「 <strong>ゲームを落としても次回起動後に保存したデータを参照可能な領域</strong> 」というような意味合いです。
+（なにっ、わかりづらいですと！すみません。）</p>
+
+<h2>まずは箱形を用意</h2>
+
+<p><img src="/images/posts/2013-09-08-unity-study-09-save-variables-to-local-strage/create_project.png" alt="箱形" /></p>
+
+<p>本当に簡単な内容になりますが、GUI Textオブジェクトをさくっと画面上に配置してみました。
+ここに、ゲームを起ち上げてからの秒数を記録してみることにします。</p>
+
+<p>```javascript</p>
+
+<h1>pragma strict</h1>
+
+<p>var timer : int = 0;</p>
+
+<p>function Start () {</p>
+
+<pre><code>guiText.text = timer.ToString();
+</code></pre>
+
+<p>}</p>
+
+<p>function Update () {</p>
+
+<pre><code>var time : int = timer + Time.time;
+guiText.text = time.ToString();
+</code></pre>
+
+<p>}
+<code>`` &lt;!--</code> --></p>
+
+<p>スクリプトとしてはこんな感じ。これをGUI Textにドラッグ＆ドロップでアタッチすることで、ゲームを起ち上げてからの秒数が画面上に表示されます。</p>
+
+<p>ただし！これはゲームを一度落とすと再度「0」から始まってしまいます。
+これを、前回の秒数を記録しておき、次回起ち上げ時には前回落とす前の数字から始まるように調整してみることにします。</p>
+
+<h2>ローカルストレージにデータを保存する</h2>
+
+<p>PlayerPrefsなるものを使用するようです。</p>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/nakamura001/20110712/1310441315">強火で進め: ゲームのスコア情報などを簡単に保存出来るPlayerPrefsクラス</a></li>
+<li><a href="http://docs.unity3d.com/Documentation/ScriptReference/PlayerPrefs.html">Unity Script Reference: PlayerPrefs</a></li>
+</ul>
+
+
+<p>上記のサイトを参考にしつつ、スクリプトをこんな感じに改修。</p>
+
+<p>```javascript
+function Update() {</p>
+
+<pre><code>var time : int = timer + Time.time;
+
+// Save to PlayerPrefs
+PlayerPrefs.SetInt('timer', time); 
+
+guiText.text = time.ToString();
+</code></pre>
+
+<p>}
+<code>`` &lt;!--</code> --></p>
+
+<p>どうやら、<code>PlayerPrefs.SetString</code>とか<code>PlayerPrefs.SetFloat</code>とか、型を指定して保存するらしい。<br/>
+これはめんどくさいかもしれぬ…。</p>
+
+<h2>ローカルストレージからデータを読み込んでみる</h2>
+
+<p>上の修正だけではただデータを保存しているだけなので、起動時にPlayerPrefsから秒数を読み込む改修も加えてみることにします。</p>
+
+<p>```javascript
+function Start () {</p>
+
+<pre><code>// Has in PlayerPrefs ?
+if (PlayerPrefs.HasKey('timer')) {
+    timer = PlayerPrefs.GetInt('timer');
+}
+
+guiText.text = timer.ToString();
+</code></pre>
+
+<p>}
+<code>`` &lt;!--</code> --></p>
+
+<p>これで、ゲームを落としても次回起動時は秒数が途中からカウントされるようになりました！ｳﾎﾎｰｲ。</p>
+
+<p><img src="/images/posts/2013-09-08-unity-study-09-save-variables-to-local-strage/countup_timer.png" alt="カウントアップ成功" /></p>
+
+<h2>PlayerPrefsの注意点</h2>
+
+<p>PlayerPrefsは、そのデータをローカルの端末自身に保存されます（Windowsに至ってはどうもレジストリに書き込まれる模様？！）。
+データ改ざんが容易である可能性が高いので、重要なデータなどはやはりネットワークを通じた外部に保存するのがよいのではないかなと思われます。。</p>
+
+<p>ただ、プレイヤーの設定情報など、簡単なデータに関しては十分活用の余地はあると思いますので、適材適所で使って行けたらと思います。</p>
+
+<h2>次回に向けて</h2>
+
+<p>次回は、ついにというかなんというか、今まで見て見ぬ振りをしてきた「Prefab」なるものに手を出してみようかなと…。</p>
+
+<p>Unityの事を調べる度にその名前が登場するほど、Unityでは当たり前の存在らしい、「Prefab」とは一体なにものなのか？！<br/>
+まずはそこから調べてみようかと思います。</p>
+
+<p>ではでは！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第8回 「シーンの切り替え」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/06/15/unity-study-08-scene-change/"/>
+    <updated>2013-06-15T23:21:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/06/15/unity-study-08-scene-change</id>
+    <content type="html"><![CDATA[<h2>前回のおさらい＆今回の目標</h2>
+
+<p>おはようございます。深キョンが好きなのか、はたまたミンカが好きなのか…どちらかを決めきれない罪な漢(おとこ)、智史之介です。<br/>
+今日も元気にUnityに関する勉強を行おうと思います。</p>
+
+<p>前回は「<a href="/blog/2013/05/29/unity-study-07-build-for-android/">Android向けのビルド</a>」を試してみました。
+迂闊なAndroidSDKのバージョンアップで痛い目を見たのはいい思い出です。<br/>
+（どうやらUnityの<a href="http://japan.unity3d.com/unity/whats-new/unity-4.1.4">アップデート(ver4.1.4)</a>が入り、この問題は解消されたみたいですね！）</p>
+
+<p>今日は「シーンの切り替え」に関してちょっと試してみようかななんて思っています。</p>
+
+<h2>シーンの切り替えとは？</h2>
+
+<p>例えば、そうですね、ドラクエで言えば「街から出てフィールドに入る」とか「フィールドで敵に遭遇する」とかでしょうか？<br/>
+画面が、バーッってまったく別の描画系統で表示されるやつです。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/dq_field-to-battle.png" alt="フィールドから戦闘画面へ" /></p>
+
+<p>そうそう。こんな感じの切り替えに関してです。
+こういったシーンの切り替えに関して、そもそもの必須要件がいくつかあるかと思います。</p>
+
+<ul>
+<li>独立した描画スペース</li>
+<li>独立した変数領域</li>
+<li>独立したプログラム領域</li>
+</ul>
+
+
+<p>などがシーン使い分けの必須条件ではないかなと思われます。<br/>
+Flashで言うところのムービークリップにあたるものでしょうか？</p>
+
+<p>Unityにおいて、それに該当するものがないか探したいと思います。</p>
+
+<h2>ずばり、それって「Scene」でしょ？</h2>
+
+<p>そんな決めつけで作業開始です。</p>
+
+<p>さくっと「scene1」と「scene2」を用意します。
+sceneの作成は「Cmd+n」で可能です。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/make-scene.png" alt="scene作成" /></p>
+
+<p>あと、以前から不思議だったのですが<strong>「cmd+s」でsceneの保存</strong>になります。</p>
+
+<p>あれ？けど、これってつまり<strong>「Unityではsceneこそもっとも重要で、最も保存を行う対象」</strong>ということですよね？</p>
+
+<p>不思議だったんですよ、これ。<br/>
+自分にとってFlashとの対比としては、</p>
+
+<ul>
+<li>scene = ムービークリップ</li>
+<li>プロジェクト = flaファイル</li>
+</ul>
+
+
+<p>というとらえ方をしていました。<br/>
+これが間違っている可能性があるということなんですよね。。<br/>
+どうしよう。不安になってきてしまいました。</p>
+
+<p>「プロジェクトさえ保存しておけばsceneも保存されるんでしょ？」というぬるい考えでいたことを反省しなくてはならないかもしれません。</p>
+
+<p>なにはともあれ、作成した二つのsceneに異なる別々の画像を貼り付けておきます。<br/>
+わかりやすく背景の色でも変えておくとよいかもしれません。<br/>
+(背景の色は、hierarchy配下のmain cameraのインスペクターから変更可能です。)</p>
+
+<p>この二つのシーンを利用して、</p>
+
+<p><strong>「scene1の画像をタップすると、scene2に切り替わる」</strong></p>
+
+<p>という動作を試してみることにします。</p>
+
+<h2>プログラムをさくっと書いてみる</h2>
+
+<p>さて、シーンの切り替えのためのスクリプトを記述する必要があります。<br/>
+「SceneSwicher.js」というファイルを用意して、scene1の画像にアタッチします。</p>
+
+<p>```javascript
+function OnMouseUpAsButton() {</p>
+
+<pre><code>Debug.Log('Now scene is ' + Application.loadedLevelName);
+Application.LoadLevel('scene2'); 
+</code></pre>
+
+<p>}
+```</p>
+
+<p>これでいけるんじゃないか？なんていう甘い考えで実行してみると…</p>
+
+<blockquote><p>Level 'scene2' (-1) couldn't be loaded because it has not been added to the build settings.
+To add a level to the build settings use the menu File->Build Settings...</p></blockquote>
+
+<p>というお叱りをいただきました。ハイ。<br/>
+言われた通りに、build settingsにシーンを追加します。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/add-build-setting.png" alt="build settingsに追加" /></p>
+
+<p>これで、正常にシーンの切り替えができるようになりました。</p>
+
+<p><img src="/images/posts/2013-06-10-unity-study-08-scene-change/scene-change1.gif" alt="build settingsに追加" /></p>
+
+<p>けれども、、、、うーん。これではなんだかスイッチを切り替えるように切り替わってしまうので、イマイチ想像と違うのは否めないですね…。<br/>
+本当は、もっと、こう、例えば、<strong>「上から次のシーンが落ちてくる」</strong>、というような感じの切り替えをやりたいのです。</p>
+
+<h2>はたしてそんな事が可能なのか？</h2>
+
+<p>ずいぶん長い間ググってみたのですが、どうにも難しそうですね…。<br/>
+シーンをまたいだ変数の保持すら、ちょっとしたトリッキーな手法が必要そうなので、シーンの上にシーンをかぶせる（二つのシーンを同時に描画する）なんてもってのほか、という感じですかね…。<br/>
+致し方無しです！今回はそれは諦めることにします。</p>
+
+<p>自分がもし、こういった制限(1シーンの描画しかできない)内で、今思い描いている手法を実現するなら、うーん、そうですね…。<br/>
+たとえば、こんな感じではできないでしょうか？</p>
+
+<p>「<strong>スクリーンショット的なものを撮り内部領域に保存する。次のシーンは内部領域に保存されたスクリーンショットをまず最初に描画し、その上にシーンの突入演出を表示する</strong>」</p>
+
+<p>難しいかな…？</p>
+
+<h2>次回に向けて</h2>
+
+<p>今回は、シーンの切り替えに関して試してみました。Unityはどうもこの「シーン」というものにすごく苦労しそうな印象ですね…。<br/>
+エンジニアとしては多少苦労する方が楽しくていいんですけどね！</p>
+
+<p>次回は、「永続データストレージ領域に保存/読み込み」というものを試して見たいと思います。<br/>
+（そういう機能があるかどうかも分からないんですが…！）</p>
+
+<p>シーンをまたいだ変数とかではなく、たとえばゲームを落とすなどしても次回起ち上げ時に読み出し可能なデータ、とかそういうものですね。<br/>
+次回も楽しみですね〜。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【Unity 入門】DrawCallが多かった原因]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall/"/>
+    <updated>2013-05-31T21:36:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/31/unity-raharu-drawcall</id>
+    <content type="html"><![CDATA[<p>初めまして、技術部raharuです。<br/>
+今回は前にUnityを勉強していた際に気づいた事を一つ。</p>
+
+<p>とりあえず動くものを作る事を目標に今までつくってみましたが<br/>
+他の方の記事をみていたらDrawCallなる物がFPSおよび負荷に多大な影響を与えているとのこと。<br/>
+自分のつくった物を見てみたらなんと最大値160！これはちょっと多すぎる。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/1.png" alt="New Project" /></p>
+
+<p>基準としてはスマホも対応させるなら40が程度に押さえるのが良いそうです。<br/>
+で、なにかこんなにDrawCallを増やしているのかしらべてみました。<br/>
+色々調べた結果遂に原因がわかりました。原因は<strong>ライト</strong>です。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/2.png" alt="New Project" /></p>
+
+<p>今回プレイヤーの周りだけを明るくする為に追尾カメラにPointLightを入れていたのですが、<br/>
+このライトが壁のプレハブを照らすのが良くない様です。<br/>
+ライトが照らす壁やオブジェクトが多いとDrawCallが多くなってしまうのでしょうか。<br/>
+これは予想ですが、照らされている場所と暗い場所は別にCallしてるのかもしれません（どなたかわかる方教えてください。）<br/>
+兎にも角にもこのライトが原因だったのでこのpointLightをやめて全体を照らすDirectional Lightにしてみました。</p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/3.png" alt="New Project" /></p>
+
+<p><strong>その結果最大値９！</strong></p>
+
+<p><img src="/images/posts/2013-05-30-unity-raharu-drawcall/4.png" alt="New Project" /></p>
+
+<p>そんなに違うんですか！そうですか！<br/>
+もしかしたらUnityユーザーの方達の間では当たり前の事なのかもしれませんが、<br/>
+劇的に値が違ったので備忘録として残しておきます。<br/>
+DrawCallライトには気をつけろ。<br/>
+肝に命じておく事にします。</p>
+
+<p>本家は<a href="http://d.hatena.ne.jp/raharu0425/20130131#1359645274">とあるプログラマの備忘録</a>こっち</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity勉強 第7回 「Android向けのビルドも試してみる」]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/05/29/unity-study-07-build-for-android/"/>
+    <updated>2013-05-29T21:24:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/05/29/unity-study-07-build-for-android</id>
+    <content type="html"><![CDATA[<h2>前回のおさらい＆今日の目標</h2>
+
+<p>おはようございます。深田恭子ともっとも結婚したい漢(おとこ)、智史之介です。<br/>
+今日も今日とて、unity勉強をおこないたいと思います。</p>
+
+<p>さて、前回は<a href="/blog/2013/05/23/unity-study-06-build-for-ios/">無償化されたiOS向けのビルド</a>を試しました。<br/>
+今日はその流れで「Android向けのビルド」も試してみたいと思います。</p>
+
+<h2>前回のプロジェクトをコピー</h2>
+
+<p>今回もさくっと前回のプロジェクトをコピーしてしまいましょう。</p>
+
+<h2>Build Settingsはとにかくデフォ</h2>
+
+<p>前回にならって「File > Build Settings」で項目をざらっと眺めてみたのですが、どうもどれもこれもデフォでいけそうな雰囲気です(甘い期待)。<br/>
+ものは試しということで、とくにどの設定も気にかけないでいこうと思います</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/settings.png" alt="デフォ！" /></p>
+
+<h2>Android SDKのインストール＆設定</h2>
+
+<p>iOSは、パブリッシュに関してXcode＋SDKのインストール＆設定が必須でした。<br/>
+Androidには似たようなものはないの？ということですが、それが「Android SDK」になります。</p>
+
+<p><a href="http://developer.android.com/sdk/index.html">Android SDK</a></p>
+
+<p>ダウンロードしてインスコします。<br/>
+インストールにあたって、Unityのドキュメントを軽く眺めておくとよいかもしれないですね。</p>
+
+<p><a href="http://docs-jp.unity3d.com/Documentation/Manual/android-sdksetup.html">Unity Manual - Android SDK セットアップ</a></p>
+
+<p><code>bash
+$ /path/to/android-sdk/tools/android
+</code></p>
+
+<p>とコマンドを打つと、android sdkに関するツールが立ち上がるので、</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/android-sdk.png" alt="こんなかんじ" /></p>
+
+<p>こんな感じで入れておけばいいんじゃないでしょうか？（適当）</p>
+
+<h3>Unity Preferencesも忘れずに</h3>
+
+<p>Unity > Preferences（Cmd+,）で設定画面を開き、「External Tools」を選択すると、中にAndroid SDKのパスに関する項目があります。<br/>
+めんどくさいですが設定しましょう。</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/preferences.png" alt="こんなかんじ" /></p>
+
+<h2>さあ、ビルドぜよ！</h2>
+
+<p>Build Settings > build</p>
+
+<p>でビルドを開始してください。ビルドが無事完了すると、Finderが開く…あれ、開かない。<br/>
+iOSでは開いたのに！もしかして、ビルド失敗したかな？と思って、保存先を確認してみると…、ない！
+やっぱりビルドに失敗しているようだ。</p>
+
+<p>Consoleにエラーがでている。なになに。</p>
+
+<blockquote><p>Error building Player: Exception: android (invokation failed)
+ERROR: unknown error
+cmd:android list target -c
+stdout: Error: occurred during initialization of VM Could not reserve enough space for object heap
+stderr: Error: Could not create the Java Virtual Machine. Error: A fatal exception has occurred. Program will exit.</p></blockquote>
+
+<p>脊髄反射でググってみる。</p>
+
+<p><a href="http://answers.unity3d.com/questions/399121/error-building-player-exception-android-invokation.html">Error building Player: Exception: android (invokation failed) ERROR: unknown error</a></p>
+
+<blockquote><p>Also you can downgrade the tools version to r21 by installing:</p></blockquote>
+
+<p>ダウングレードしてみたら、と言っている。ふむ。そういえば、さっきアップグレードしちゃった…。<br/>
+というわけでダウングレードします。</p>
+
+<p><a href="http://dl.google.com/android/android-sdk_r21-macosx.zip">Android SDK rev21</a></p>
+
+<p>DL＆解凍したら、toolsを上書きしちゃってください。そして再度「platform-tools」もインストールし直してください。
+これでダウングレード完了です。</p>
+
+<h2>改めて、ビルドぜよ！</h2>
+
+<p>さあ、もうこれでいけるでしょう。</p>
+
+<p>Build Settings > build</p>
+
+<p>さあ、どうなるかな！</p>
+
+<p>(ビルド中…)<br/>
+(mac機がものすごい勢いでファンを回しているぜ…)</p>
+
+<p>終わった！Finderでビルド先のディレクトリが開いた。<br/>
+ファイル名は「android.apk」。<br/>
+ひねりのない命名で申し訳ない気持ちでいっぱいです。</p>
+
+<p>このapkファイルを下記のコマンドで端末に転送します。</p>
+
+<p>```bash
+$ /path/to/android-sdk/platform-tools/adb start-server</p>
+
+<h1>ここでandroid端末をUSBで接続</h1>
+
+<p>$ /path/to/android-sdk/platform-tools/adb devices
+List of devices attached
+015d8ecf9927f410    device
+$ /path/to/android-sdk/platform-tools/adb install -r 07.Build4Android/android.apk
+1280 KB/s (8335911 bytes in 6.355s)</p>
+
+<pre><code>pkg: /data/local/tmp/android.apk
+</code></pre>
+
+<p>Success
+```</p>
+
+<p><img src="/images/posts/2013-05-29-unity-study-07-build-for-android/android.installed.png" alt="インストール成功" /></p>
+
+<p>入ってる！
+起動も問題なさそうです。</p>
+
+<p>よし、いいでしょう！</p>
+
+<h2>今回の反省</h2>
+
+<ul>
+<li>迂闊に、android-sdkのアップデートはしない</li>
+</ul>
+
+
+<p>ちょっとはまりました…。</p>
+
+<h2>次回に向けて</h2>
+
+<p>iOSとAndroid向けのビルドも成功しました。一歩一歩確実に進んでいけているような気がして、非常に嬉しいです。<br/>
+次の課題は「シーンとシーンの切り替え」を試してみようと思います！<br/>
+それではまた。シーユー！</p>
 ]]></content>
   </entry>
   

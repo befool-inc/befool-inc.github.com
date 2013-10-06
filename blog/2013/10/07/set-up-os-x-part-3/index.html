@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>自分用のOS X設定 その３ - BEFOOL blog</title>
+  <meta name="author" content="8823-scholar">
+
+  
+  <meta name="description" content="森です。第１回にて２つの記事に分けて記述しますといいましたが…まとめきれず３つ目の記事になってしまいました。 今回は Homebrew を用いて git . subversion , rbenv などなど自分の開発環境セットアップ方法をまとめます。 このまとめを書いている自分のMacは &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/10/07/set-up-os-x-part-3">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/atom.xml" rel="alternate" title="BEFOOL blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40545969-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEFOOL blog</a></h1>
+  
+    <h2>今日もいい天気</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:befool-inc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives/">Archives</a></li>
+  <li><a href="/blog/categories/">Categories</a></li>
+  <li><a href="/blog/authors/">Authors</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">自分用のOS X設定 その３</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-07T02:00:00+09:00" pubdate data-updated="true">Oct 7<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>森です。第１回にて<a href="/blog/2013/08/12/set-up-os-x-part-1/">２つの記事に分けて記述します</a>といいましたが…まとめきれず３つ目の記事になってしまいました。</p>
+
+<p>今回は <strong>Homebrew</strong> を用いて <strong>git</strong> . <strong>subversion</strong> , <strong>rbenv</strong> などなど自分の開発環境セットアップ方法をまとめます。</p>
+
+<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
+そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
+
+<!-- more -->
+
+
+<h2>Homebrew</h2>
+
+<p><a href="http://brew.sh/index_ja.html">Homebrew</a> とはMacのパッケージ管理ツールです。
+最近は情報を探すときに Homebrew をやたら進められるので自分も乗っかっています。</p>
+
+<p>他にも有名なパッケージ管理ツールには <strong>MacPorts</strong> がありますが自分はMac歴が浅くて使ったことがないのです…。</p>
+
+<p>Homebrewのインストールは簡単です。ターミナルに下記コマンドを流すだけです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>ruby -e <span class="s2">&quot;$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>インストールは簡単にできましたが、使用するにはもう一手間必要で、 <em>Command Line Tools for Xcode</em> か <em>Xcode</em> をインストールする必要があります。
+自分はXcodeを使っていないのでCommand Line Tools for Xcodeを使用しています。</p>
+
+<p><a href="https://developer.apple.com/downloads/index.action">Apple Developer</a> で <em>Xcode</em> で検索してインストール用のdmgをダウンロードしてください。</p>
+
+<p><img src="/images/posts/2013-10-07-set-up-os-x-part-3/download-command-line-tools-for-xcode.png" alt="Download Command Line Tools for Xcode" /></p>
+
+<p>ダウンロードするにはApple IDが必要ですので別途登録しておきましょう。</p>
+
+<p>インストールの詳細は <a href="https://github.com/mxcl/homebrew/wiki/Installation">wiki</a> を参照してください。</p>
+
+<p>インストールが完了したら以降は下記コマンドでHomebrewのパッケージをインストールできます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install <span class="o">[</span>package<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>次はHomebrewを利用してインストールするツール群の説明です。</p>
+
+<h3>bash-completion</h3>
+
+<p>とりあえずターミナルの補完を有効にしたいので <em>bash-completion</em> をインストールします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install bash-completion
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>インストール後は <code>$HOME/.profile</code> に下記設定を追加して補完設定を読み込むようにします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="k">if</span> <span class="o">[</span> -f <span class="k">$(</span>brew --prefix<span class="k">)</span>/etc/bash_completion <span class="o">]</span>; <span class="k">then</span>
+</span><span class='line'>  . <span class="k">$(</span>brew --prefix<span class="k">)</span>/etc/bash_completion
+</span><span class='line'><span class="k">fi</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>source $HOME/.profile</code> するかターミナルを再起動して設定を反映しておきましょう。</p>
+
+<h3>Git</h3>
+
+<p>インストール必須ですね。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install git
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>gitで日本語ファイル名が数字で表示されてしまうので（そもそも日本語ファイル名を使うなというツッコミはありますが）gitconfigに下記設定を追加します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git config --global core.quotepath <span class="nb">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>あとはお好みでgitconfigを弄ればいいでしょう。
+自分のgitconfigはこんなかんじです。 <a href="https://github.com/jiska/dotfiles/blob/master/.gitconfig">jiskaのgitconfig</a></p>
+
+<p>さらにGitのブランチ名をターミナルに表示したいので
+<code>$HOME/.profile</code> に下記設定を追加してます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u:\w\$ $(__git_ps1 &quot;[%s] &quot;)&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Subversion</h3>
+
+<p><a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">別の記事</a>でも触れているのですが
+自分は <em>unicode-path</em> オプションを利用したいので <strong>Subversion 1.7</strong> を使用しています。</p>
+
+<p>Homebrewの標準レポジトリではコマンド１発でSubersion 1.7系をインストールすることができません。
+そこで <strong>homebrew/versions</strong> をtapして <strong>subversion17</strong> をインストールします。
+unicode-pathオプションも忘れずに。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew tap homebrew/versions
+</span><span class='line'><span class="nv">$ </span>brew install subversion17 --unicode-path
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>rbenv</h3>
+
+<p>Rubyもちょっとしたワンライナー書いたり便利ツール作ったりするときに使ってます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install rbenv ruby-build
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>例によって下記設定を <code>$HOME/.profile</code> に追加します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="k">if </span>which rbenv &gt; /dev/null; <span class="k">then </span><span class="nb">eval</span> <span class="s2">&quot;$(rbenv init -)&quot;</span>; <span class="k">fi</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>PHP</h3>
+
+<p>今現在PHPを用いた開発のお仕事をしていますがMac上でPHPアプリケーションを動かすことがほとんどありません…
+開発する場合はVMに環境構築してます。</p>
+
+<p>それでもローカルでちょっと確認したいなって場合があるのでPHPをインストールしてます。</p>
+
+<p>HomebrewでPHPをインストールするために <a href="https://github.com/josegonzalez/homebrew-php">josegonzalez/homebrew-php</a> をtapしています。</p>
+
+<p>インストールオプションはお好みで。あとWebサーバーは <em>Nginx</em> 使ってますのでNginxもインストールしときます</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew tap homebrew/dupes
+</span><span class='line'><span class="nv">$ </span>brew tap josegonzalez/homebrew-php
+</span><span class='line'><span class="nv">$ </span>brew install php54 --without-apache --with-fpm
+</span><span class='line'><span class="nv">$ </span>brew install nginx
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>最後に</h2>
+
+<p>自分の開発環境のセットアップ手順のまとめみたいなものをツラツラと書き続けてきましたがようやくひとまとまりしました。
+正直、上記の手順がめんどくさいので自動でセットアップをしたいなあと思うこのごろ。</p>
+
+<p><a href="http://boxen.github.com/">Boxen</a> を使って今までの手順をレシピにして開発環境のセットアップ自動化してみようとおもいます。</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/6edaeca6d206ade350bc34b74ecc07e1" alt="森裕介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>森裕介</h3>
+        <p>無念<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/jiskanulo">@jiskanulo</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/jiskay/">jiskaのメモ書き</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">jiska</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-07T02:00:00+09:00" pubdate data-updated="true">Oct 7<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/Homebrew/'>Homebrew</a>, <a class='category' href='/blog/categories/Mac/'>Mac</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/10/07/set-up-os-x-part-3/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/10/07/set-up-os-x-part-3/" >Tweet</a>
+  
+
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+  
+
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+  
+    <div class="fb-comments" data-href="http://befool-inc.github.io" data-num-posts="2" data-width="689"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/10/05/unity-study-10-prefab/" title="Previous Post: Unity勉強 第10回 「Prefabを試してみる」">&laquo; Unity勉強 第10回 「Prefabを試してみる」</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/10/07/set-up-os-x-part-3/">自分用のOS X設定 その３</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/05/unity-study-10-prefab/">Unity勉強 第10回 「Prefabを試してみる」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">HomebrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/">Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/31/set-up-os-x-part-2/">自分用のOS X設定 その２</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (11)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/Mac'>Mac (4)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/study'>study (3)</a></li><li><a href='/blog/categories/Homebrew'>Homebrew (2)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li></ul>
+    <a href="/blog/categories">All Categories</a>
+</section>
+<section>
+    <h1>Authors</h1>
+    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (11)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (7)</a></li><li><a href='/blog/authors/aizawa/'>はらだ (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li></ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - 8823-scholar -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'befoolblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/10/07/set-up-os-x-part-3/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/10/07/set-up-os-x-part-3/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

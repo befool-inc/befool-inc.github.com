@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac | BEFOOL blog]]></title>
   <link href="http://befool-inc.github.io/blog/categories/Mac/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-09-30T18:57:40+09:00</updated>
+  <updated>2013-10-07T01:51:39+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -14,13 +14,159 @@
 
   
   <entry>
-    <title type="html"><![CDATA[HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処]]></title>
+    <title type="html"><![CDATA[自分用のOS X設定 その３]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/10/07/set-up-os-x-part-3/"/>
+    <updated>2013-10-07T02:00:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/10/07/set-up-os-x-part-3</id>
+    <content type="html"><![CDATA[<p>森です。第１回にて<a href="/blog/2013/08/12/set-up-os-x-part-1/">２つの記事に分けて記述します</a>といいましたが…まとめきれず３つ目の記事になってしまいました。</p>
+
+<p>今回は <strong>Homebrew</strong> を用いて <strong>git</strong> . <strong>subversion</strong> , <strong>rbenv</strong> などなど自分の開発環境セットアップ方法をまとめます。</p>
+
+<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
+そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
+
+<!-- more -->
+
+
+<h2>Homebrew</h2>
+
+<p><a href="http://brew.sh/index_ja.html">Homebrew</a> とはMacのパッケージ管理ツールです。
+最近は情報を探すときに Homebrew をやたら進められるので自分も乗っかっています。</p>
+
+<p>他にも有名なパッケージ管理ツールには <strong>MacPorts</strong> がありますが自分はMac歴が浅くて使ったことがないのです…。</p>
+
+<p>Homebrewのインストールは簡単です。ターミナルに下記コマンドを流すだけです。</p>
+
+<p><code>bash
+$ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+</code></p>
+
+<p>インストールは簡単にできましたが、使用するにはもう一手間必要で、 <em>Command Line Tools for Xcode</em> か <em>Xcode</em> をインストールする必要があります。
+自分はXcodeを使っていないのでCommand Line Tools for Xcodeを使用しています。</p>
+
+<p><a href="https://developer.apple.com/downloads/index.action">Apple Developer</a> で <em>Xcode</em> で検索してインストール用のdmgをダウンロードしてください。</p>
+
+<p><img src="/images/posts/2013-10-07-set-up-os-x-part-3/download-command-line-tools-for-xcode.png" alt="Download Command Line Tools for Xcode" /></p>
+
+<p>ダウンロードするにはApple IDが必要ですので別途登録しておきましょう。</p>
+
+<p>インストールの詳細は <a href="https://github.com/mxcl/homebrew/wiki/Installation">wiki</a> を参照してください。</p>
+
+<p>インストールが完了したら以降は下記コマンドでHomebrewのパッケージをインストールできます。</p>
+
+<p><code>bash
+$ brew install [package]
+</code></p>
+
+<p>次はHomebrewを利用してインストールするツール群の説明です。</p>
+
+<h3>bash-completion</h3>
+
+<p>とりあえずターミナルの補完を有効にしたいので <em>bash-completion</em> をインストールします。</p>
+
+<p><code>bash
+$ brew install bash-completion
+</code></p>
+
+<p>インストール後は <code>$HOME/.profile</code> に下記設定を追加して補完設定を読み込むようにします。</p>
+
+<p><code>bash
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+</code></p>
+
+<p><code>source $HOME/.profile</code> するかターミナルを再起動して設定を反映しておきましょう。</p>
+
+<h3>Git</h3>
+
+<p>インストール必須ですね。</p>
+
+<p><code>bash
+$ brew install git
+</code></p>
+
+<p>gitで日本語ファイル名が数字で表示されてしまうので（そもそも日本語ファイル名を使うなというツッコミはありますが）gitconfigに下記設定を追加します。</p>
+
+<p><code>bash
+$ git config --global core.quotepath false
+</code></p>
+
+<p>あとはお好みでgitconfigを弄ればいいでしょう。
+自分のgitconfigはこんなかんじです。 <a href="https://github.com/jiska/dotfiles/blob/master/.gitconfig">jiskaのgitconfig</a></p>
+
+<p>さらにGitのブランチ名をターミナルに表示したいので
+<code>$HOME/.profile</code> に下記設定を追加してます。</p>
+
+<p><code>bash
+PS1='\u:\w\$ $(__git_ps1 "[%s] ")'
+</code></p>
+
+<h3>Subversion</h3>
+
+<p><a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">別の記事</a>でも触れているのですが
+自分は <em>unicode-path</em> オプションを利用したいので <strong>Subversion 1.7</strong> を使用しています。</p>
+
+<p>Homebrewの標準レポジトリではコマンド１発でSubersion 1.7系をインストールすることができません。
+そこで <strong>homebrew/versions</strong> をtapして <strong>subversion17</strong> をインストールします。
+unicode-pathオプションも忘れずに。</p>
+
+<p><code>bash
+$ brew tap homebrew/versions
+$ brew install subversion17 --unicode-path
+</code></p>
+
+<h3>rbenv</h3>
+
+<p>Rubyもちょっとしたワンライナー書いたり便利ツール作ったりするときに使ってます。</p>
+
+<p><code>bash
+$ brew install rbenv ruby-build
+</code></p>
+
+<p>例によって下記設定を <code>$HOME/.profile</code> に追加します。</p>
+
+<p><code>bash
+if which rbenv &gt; /dev/null; then eval "$(rbenv init -)"; fi
+</code></p>
+
+<h3>PHP</h3>
+
+<p>今現在PHPを用いた開発のお仕事をしていますがMac上でPHPアプリケーションを動かすことがほとんどありません…
+開発する場合はVMに環境構築してます。</p>
+
+<p>それでもローカルでちょっと確認したいなって場合があるのでPHPをインストールしてます。</p>
+
+<p>HomebrewでPHPをインストールするために <a href="https://github.com/josegonzalez/homebrew-php">josegonzalez/homebrew-php</a> をtapしています。</p>
+
+<p>インストールオプションはお好みで。あとWebサーバーは <em>Nginx</em> 使ってますのでNginxもインストールしときます</p>
+
+<p><code>bash
+$ brew tap homebrew/dupes
+$ brew tap josegonzalez/homebrew-php
+$ brew install php54 --without-apache --with-fpm
+$ brew install nginx
+</code></p>
+
+<h2>最後に</h2>
+
+<p>自分の開発環境のセットアップ手順のまとめみたいなものをツラツラと書き続けてきましたがようやくひとまとまりしました。
+正直、上記の手順がめんどくさいので自動でセットアップをしたいなあと思うこのごろ。</p>
+
+<p><a href="http://boxen.github.com/">Boxen</a> を使って今までの手順をレシピにして開発環境のセットアップ自動化してみようとおもいます。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HomebrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処]]></title>
     <link href="http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/"/>
     <updated>2013-09-30T15:49:00+09:00</updated>
     <id>http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch</id>
     <content type="html"><![CDATA[<p>森です。アクセルハンマー派生だけで村クエクリアするべく奮闘中です。</p>
 
-<p>仕事の都合上 <strong>subversion</strong> を使うことが多いのですが、 <strong>HomeBrew</strong> でインストールする際に
+<p>仕事の都合上 <strong>subversion</strong> を使うことが多いのですが、 <strong>Homebrew</strong> でインストールする際に
 <strong>--unicode-path</strong> オプション指定時にエラーが出てしまい困っていたので暫定対処をしたのでその経緯をまとめました。</p>
 
 <h2>お断り</h2>
@@ -34,7 +180,7 @@
 
 <h2>前提</h2>
 
-<p>HomeBrewでそのままsubversionをインストールすると <em>subversion 1.8</em> になります。
+<p>Homebrewでそのままsubversionをインストールすると <em>subversion 1.8</em> になります。
 subversion 1.8では後述の <code>--unicode-path</code> オプションが利用できないため <em>subversion 1.7</em> を使用します。
 簡単にインストールしたいので <em>homebrew/versions</em> をtapして subversion 1.7用のパッケージ <em>subversion17</em> をインストールしています。</p>
 
@@ -190,6 +336,204 @@ svn, version 1.7.11 (r1503888)
 無事通るといいな。</p>
 
 <p><em>18:53 09-30-2013 追記 → 無事にコミットされました</em> 。 <a href="https://github.com/Homebrew/homebrew-versions/commit/173b764c6b051144b23e01eb662896659f092eff">173b764c6b051144b23e01eb662896659f092eff</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[自分用のOS X設定 その２]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/08/31/set-up-os-x-part-2/"/>
+    <updated>2013-08-31T10:00:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/08/31/set-up-os-x-part-2</id>
+    <content type="html"><![CDATA[<p>森です。前回にmacの設定をまとめましたが今回は自分が使っているソフトウェアを紹介します。</p>
+
+<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
+そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
+
+<!-- more -->
+
+
+<h2>ユーティリティ</h2>
+
+<h3>XtraFinder</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/XtraFinder.png" alt="XtraFinder" />
+<a href="http://www.trankynam.com/xtrafinder/">ダウンロード</a></p>
+
+<p>mac標準のファイラーのFinderを拡張するソフトウェアです。Finderの操作が自分にはどうにも使いづらいので必須です。</p>
+
+<p>Finderでは ファイル（ディレクトリ）選択時に <em>command + ↓</em> で選択項目を開きます、<em>return</em> だと選択項目のリネームです。
+これが自分には全く馴染めません…。</p>
+
+<p><strong>Return で選択項目を開く</strong> にチェックを入れます。
+代わりにリネームを有効にするため <strong>名前変更</strong> に好きなキーボードショートカットを割り当てましょう。
+自分は <em>command + return</em> にしています。</p>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/XtraFinder-setting.png" alt="XtraFinderの設定" /></p>
+
+<h3>iTerm 2</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/iTerm-2.png" alt="iTerm 2" />
+<a href="http://www.iterm2.com/">ダウンロード</a></p>
+
+<p>標準のターミナルよりも多機能で色々設定ができます。</p>
+
+<p>全角文字の表示崩れを防ぐために <strong>Treat ambiguous-width characters as double width</strong> にチェックをいれます。</p>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/iTerm-2-setting.png" alt="iTerm 2の設定" /></p>
+
+<h3>AppCleaner</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/AppCleaner.png" alt="AppCleaner" />
+<a href="http://www.freemacsoft.net/appcleaner/">ダウンロード</a></p>
+
+<p>macで色々ソフトウェアをインストールして試し、
+使わなくなったソフトウェアをアンインストール（といっても <em>/Applications</em> から削除するだけですが）しても
+不要ファイルが残ってしまいます。</p>
+
+<p>AppCleanerを使えば不要ファイルも一緒にアンインストールしてくれるので楽です。</p>
+
+<h3>The Unarchiver</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/The-Unarchiver.png" alt="The Unarchiver" />
+<a href="https://itunes.apple.com/en/app/the-unarchiver/id425424353">ダウンロード</a></p>
+
+<p>mac標準の解凍ツールではwindowsで作成されたzipファイルを解答できない場合があります。</p>
+
+<p>The Unarchiverなら問題なく解答できます。</p>
+
+<h3>FileZilla</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/FileZilla.png" alt="FileZilla" />
+<a href="https://filezilla-project.org/">ダウンロード</a></p>
+
+<p>FTP, SFTPクライアントです。最近は使う機会が減りましたがたまにSFTPでファイルを複数やりとりするときに使います。</p>
+
+<h2>テキストエディタ</h2>
+
+<h3>mi</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/mi.png" alt="mi" />
+<a href="http://www.mimikaki.net/">ダウンロード</a></p>
+
+<p>標準のテキストエディタはいろいろ心もとないのです…。
+自分はβ版の <strong>mi テキストエディタ バージョン 3.0.0b3</strong> を使用しています。</p>
+
+<h2>IDE</h2>
+
+<h3>PhpStorm</h3>
+
+<p><img src="/images/posts/2013-08-31-set-up-os-x-part-2/PhpStorm.png" alt="PhpStorm" />
+<a href="http://www.jetbrains.com/phpstorm/">ダウンロード</a></p>
+
+<p>PHPのIDEとして自分には必須です。もはやPhpStormがないと複数ファイルを扱うプロジェクトの開発ができない体になってしまいました。
+初年 <strong>$99</strong> 、翌年から <strong>$49</strong> かかりますがそれ以上の価値は間違いなくあります。</p>
+
+<p>日本の公認代理店の <a href="http://samuraism.com/products/jetbrains/phpstorm">サムライズムさん</a> で日本円で購入することもできるみたいです。</p>
+
+<h2>だいたいこんなところ</h2>
+
+<p>他には <em>Google Chrome</em> や <em>Google 日本語入力</em> 、 <em>RubyMine</em> を使ってますが紹介は割愛します。</p>
+
+<p>次は <strong>Homebrew</strong> を使って <strong>tmux</strong> やら <strong>git</strong> やら <strong>subversion</strong> やらをインストールする方法を説明しますが長くなってきたので一旦区切ります。
+無念。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[自分用のOS X設定 その１]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/08/12/set-up-os-x-part-1/"/>
+    <updated>2013-08-12T20:30:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/08/12/set-up-os-x-part-1</id>
+    <content type="html"><![CDATA[<p>森です。さいきん気がつくと社内でmac使ってる人が増えてきたので、共有のためと
+自分用の備忘、２つを兼ねてOS Xの設定とインストールしているソフトウェアを２つの記事に分けて記述します。</p>
+
+<p>自分が想定している主な使い方は <strong>PHPを用いたWEBアプリケーションの開発</strong> に使うための設定です。</p>
+
+<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
+そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
+
+<!-- more -->
+
+
+<h2>システム環境設定</h2>
+
+<p>まずは <strong>システム環境設定</strong> の設定内容です。
+画面左上の <strong>Appleのロゴをクリックしてシステム環境設定</strong> で表示できます。</p>
+
+<p>この画面ですね。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/system_preferences.png" alt="システム環境設定" /></p>
+
+<h3>言語とテキスト</h3>
+
+<p>自分は本体を <strong>英語</strong> に設定してます。
+英語の勉強するためにいいかな、などと思ってますが <em>あまり勉強になってない感じが強い</em> です…無念(´人｀)</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/system_preferences_en.png" alt="system preferences" /></p>
+
+<p><strong>言語とテキスト</strong> で <em>English</em> をリスト上部にドラッグすると本体設定が英語になります。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/language_and_text.png" alt="言語とテキスト" /></p>
+
+<p>他の言語に変えたい、または日本語に戻したいなと思ったら自由に入れ替えることができるので一度試してみてもいいかもしれません。
+今回の記事ではスクリーンショットは今回日本語で撮っています、
+後で言語を切り替えてどのように表記が変わるのか見比べてみると楽しいかもしれません。</p>
+
+<h3>キーボード</h3>
+
+<p>自分はファンクションキーを押すことが多いので <strong>キーボード</strong> の設定で
+<strong>F1、F2 などのすべてのキーを標準のファンクションキーとして使用</strong> にチェックをいれます。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/keyboard.png" alt="キーボード" /></p>
+
+<p>キーボードショートカットでは <strong>フルキーボードアクセス</strong> を <strong>すべてのコントロール</strong> に設定しています。
+<em>テキストボックスとリストのみ</em> を設定しているとダイアログが表示されたときにタブを連打してOKやキャンセルを選択するといった操作ができないからです。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/keyboard_shortcut.png" alt="キーボードショートカット" /></p>
+
+<h3>トラックパッド</h3>
+
+<p>MacBook Airにしてよかったなと思うのがトラックパッドの設定です。とても快適です。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/trackpad.png" alt="トラックパッド" /></p>
+
+<p>ウィンドウを3本指で選択してドラッグしたり、
+4本指で左右にスワイプしてワークスペースを切り替えたり、
+<del>仕事がつらくなって現実逃避したくなったり</del>
+なにか思いついたら右端から左にスワイプしてTwitterにつぶやいたり…</p>
+
+<p>いろいろな項目がありますが自分はとりあえず <strong>全部ON</strong> にしてます。お好みでどうぞ。</p>
+
+<p>次はターミナルを使って行う設定です。</p>
+
+<!-- more -->
+
+
+<h3>スクリーンショットの保存先を変更する</h3>
+
+<p><strong>~/Pictures/Screen_Shots</strong> に保存してほしいので以下のコマンドをターミナルで実行します。</p>
+
+<p><code>bash
+$ defaults write com.apple.screencapture location ~/Pictures/Screen_Shots
+$ killall SystemUIServer
+</code></p>
+
+<p>設定がうまくいったか確認するには以下のコマンドです。</p>
+
+<p><code>bash
+$ defaults read com.apple.screencapture location
+/Users/jiska/Pictures/Screen_Shots
+</code></p>
+
+<h2>まとめ</h2>
+
+<p>他にもいろいろあった気がしますがとりあえず思いつく範囲で設定している項目はこんなところです。</p>
+
+<p>次の記事は今回に引き続きインストールしているソフトウェアをまとめます。</p>
 ]]></content>
   </entry>
   

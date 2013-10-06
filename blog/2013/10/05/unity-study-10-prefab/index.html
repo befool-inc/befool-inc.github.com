@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Unity勉強 第10回 「Prefabを試してみる」 - BEFOOL blog</title>
+  <meta name="author" content="8823-scholar">
+
+  
+  <meta name="description" content="前回のおさらい＆今回の目標 最近夜になるとめまいで立ってられない智史之介です。おはようございます。
+いい加減まずいな、と思い病院に行ったのですが、3分ほどの診療でMRIも撮らせてくれず、早々にあしらわれてしまいました…。
+ファ○ク!!
+他の病院探そう…。 今日の課題は「prefab」です。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://befool-inc.github.io/blog/2013/10/05/unity-study-10-prefab">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/atom.xml" rel="alternate" title="BEFOOL blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40545969-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEFOOL blog</a></h1>
+  
+    <h2>今日もいい天気</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:befool-inc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives/">Archives</a></li>
+  <li><a href="/blog/categories/">Categories</a></li>
+  <li><a href="/blog/authors/">Authors</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Unity勉強 第10回 「Prefabを試してみる」</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-05T16:41:00+09:00" pubdate data-updated="true">Oct 5<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>前回のおさらい＆今回の目標</h2>
+
+<p>最近夜になるとめまいで立ってられない智史之介です。おはようございます。<br/>
+いい加減まずいな、と思い病院に行ったのですが、3分ほどの診療でMRIも撮らせてくれず、早々にあしらわれてしまいました…。<br/>
+ファ○ク!!<br/>
+他の病院探そう…。</p>
+
+<p>今日の課題は「prefab」です。<br/>
+Unityを触るにあたって避けては通れない要素のようですので、このあたりでまずは第一回挑戦をしておくべきかなと。<br/>
+「Prefabとは？」というそんな段階から迫ってみたいと思います。</p>
+
+<h2>Prefabとは？</h2>
+
+<p><a href="http://ws.cis.sojo-u.ac.jp/~izumi/Unity_Documentation_jp/Documentation/Manual/Prefabs.html">Unity - プレハブ</a></p>
+
+<blockquote><p>プレハブはAseetの種類の１つです。 再利用可能なゲームオブジェクトでプロジェクトビューに保存されます。プレハブは複数のシーンにも、また、１つのシーンに複数追加する事も出来ます。 プレハブをシーンに追加する時はインスタンス(instance)が生成されます。プレハブのインスタンスは、全てオリジナルのプレハブにリンクしているため、意味的にはクローンとなります。プロジェクトに存在するインスタンスの数に限らず、プレハブに変更を加えると、インスタンスにも反映されます。</p></blockquote>
+
+<p>うーん。これだけでは正直よく分からないっす。Flashで例えると、ムービークリップとそのインスタンスのようなものなのかな…？</p>
+
+<h2>漢なら、やってやれ、だ！</h2>
+
+<p>とりあえず、直感的に感じた方法で試してみる事にします。</p>
+
+<h3>prefabの作成</h3>
+
+<p>prefabの作成に関しては、</p>
+
+<ul>
+<li>最初にprefabを作成して、その中にobjectを配置する方法</li>
+<li>既存のobjectをprefab化する方法</li>
+</ul>
+
+
+<p>があるらしいです。
+今回は後者の方法で試してみます。</p>
+
+<h4>適当なobjectを配置する</h4>
+
+<p><img src="/images/posts/2013-10-05-unity-study-10-prefab/create-cube.png" alt="cubeの作成" /></p>
+
+<p>えいっ。</p>
+
+<h4>ドラッグ&amp;ドロップでprefab化</h4>
+
+<p>HierarchyタブからProjectタブにDrag&amp;Dropで移動することでPrefab化できるようです。</p>
+
+<p><img src="/images/posts/2013-10-05-unity-study-10-prefab/create-prefab.png" alt="prefabの作成" /></p>
+
+<h4>prefabをステージ上に配置する</h4>
+
+<p><img src="/images/posts/2013-10-05-unity-study-10-prefab/prefab-put-on-stage.png" alt="prefabの配置" /></p>
+
+<p>Projectタブ内のprefabをDrag&amp;Dropでステージに配置します。<br/>
+これは「prefabのインスタンス化」と呼びます。（たぶん）</p>
+
+<p>それにしてもUnityのこのカメラ周りの操作に未だになれません…。
+自分が持って行きたいアングルになかなか調整できないのです…orz</p>
+
+<h2>インスタンス同士はリンクしている？</h2>
+
+<blockquote><p>プレハブのインスタンスは、全てオリジナルのプレハブにリンクしている</p></blockquote>
+
+<p>という事なので、元のPrefabをいじった場合、全てのインスタンスにその影響があるはずです。
+青色を適用するMaterialを作成し、それを先ほどPrefab化したCubeにDrag&amp;Dropします。</p>
+
+<p><img src="/images/posts/2013-10-05-unity-study-10-prefab/attach-material-to-prefab.png" alt="prefabに色を適用する" /></p>
+
+<p>おお！一斉に変わった！</p>
+
+<p>ここまでであれば、一番最初に受けた印象である「Flashで例えると、ムービークリップとそのインスタンスのようなもの」という認識が正しいように思えますね…！</p>
+
+<h2>せっかくなので</h2>
+
+<p>色々試して見ようということで、cube prefabに「Rigidbody」というコンポーネントを当ててみました。<br/>
+それがこれである。</p>
+
+<p><a href="/resources/posts/2013-10-05-unity-study-10-prefab/build.web/build.web.html">Unity WEBプレイヤー - Prefabテスト</a></p>
+
+<p>やはり全てのインスタンスに同じ物理法則が割り当てられたようだ。イイデスネ！</p>
+
+<h2>その他の用途</h2>
+
+<p><a href="http://unity-study.net/archives/366">Resources.Loadでシーンをまたぐ変数 - Unity勉強記</a></p>
+
+<p>こちらのサイトで紹介されている手法は、どうもprefab本来の使い方とは違うように見える（もしかしたら変数名として使用しているだけかもしれない）。
+ただ、僕自身まだUnity初心者の域を出ないため、なんとも言えないところですが。。<br/>
+もうちょっと経験を積んだら見えてくるものがあるかしら！</p>
+
+<h2>次回に向けて</h2>
+
+<p>今回は「prefab」に関してさくっとだけ触ってみました。Flashに慣れ親しんでいたせいもあるかもしれませんが、Flashの要素に置き換えて理解できると非常に個人的に分かりが良くて楽ですね。
+ただし…！次回は「3Dモデルを操作する」事に挑戦してみようかなと思っています…！</p>
+
+<p>Flashはご存じの通り2D指向のオーサリングツールです。（3D的なものを扱う事も可能ですが、やはり主戦場は2Dです）
+Flashに置き換えて理解するのが難しい領域である3Dは、個人的にハードルの高い分野です。</p>
+
+<p>頑張ります。では！</p>
+<div class='octopress-authorbox'>
+	<div class="author-pic" style="float:left;">
+		<img src="http://www.gravatar.com/avatar/c158f3ca39ffcd3e3f1a56e5d14ccc0c" alt="木内智史之介" />
+	</div>
+	
+	<div class="author-about" style="float:left;">
+		<h3>木内智史之介</h3>
+        <p>ｼｬｯﾁｮｰ。<br />ミンカさんけっこんしてくださいおねがいします(ｽﾞｻﾞｰ<br />SEGAさん、DIVAの筐体ください(ｽﾞｻﾞｰ<br /></p>
+		<ul class="author-links">
+			
+			<li>
+			<a href="http://twitter.com/grateful_dead">@grateful_dead</a>
+			</li>
+			
+			
+			<li>
+            <a href="http://d.hatena.ne.jp/grateful_dead/">生まれる時代をまちがえた</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">8823-scholar</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-05T16:41:00+09:00" pubdate data-updated="true">Oct 5<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/study/'>study</a>, <a class='category' href='/blog/categories/unity/'>unity</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://befool-inc.github.io/blog/2013/10/05/unity-study-10-prefab/" data-via="" data-counturl="http://befool-inc.github.io/blog/2013/10/05/unity-study-10-prefab/" >Tweet</a>
+  
+
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+  
+
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+  
+    <div class="fb-comments" data-href="http://befool-inc.github.io" data-num-posts="2" data-width="689"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/" title="Previous Post: HomebrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処">&laquo; HomebrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/10/07/set-up-os-x-part-3/" title="Next Post: 自分用のOS X設定 その３">自分用のOS X設定 その３ &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/10/07/set-up-os-x-part-3/">自分用のOS X設定 その３</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/05/unity-study-10-prefab/">Unity勉強 第10回 「Prefabを試してみる」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">HomebrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/08/unity-study-09-save-variables-to-local-strage/">Unity勉強 第9回 「永続データストレージを試してみる（ローカル編）」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/31/set-up-os-x-part-2/">自分用のOS X設定 その２</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/unity'>unity (11)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7'>勉強 (5)</a></li><li><a href='/blog/categories/Mac'>Mac (4)</a></li><li><a href='/blog/categories/%E5%8B%89%E5%BC%B7%E4%BC%9A'>勉強会 (3)</a></li><li><a href='/blog/categories/study'>study (3)</a></li><li><a href='/blog/categories/Homebrew'>Homebrew (2)</a></li><li><a href='/blog/categories/octopress'>octopress (2)</a></li><li><a href='/blog/categories/AdobeEdgeAnimate'>AdobeEdgeAnimate (2)</a></li><li><a href='/blog/categories/%E5%85%A5%E9%96%80'>入門 (1)</a></li><li><a href='/blog/categories/virtualbox'>virtualbox (1)</a></li><li><a href='/blog/categories/flash'>flash (1)</a></li><li><a href='/blog/categories/debian'>debian (1)</a></li><li><a href='/blog/categories/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88'>イラスト (1)</a></li><li><a href='/blog/categories/gh-pages'>gh-pages (1)</a></li><li><a href='/blog/categories/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3'>デザイン (1)</a></li></ul>
+    <a href="/blog/categories">All Categories</a>
+</section>
+<section>
+    <h1>Authors</h1>
+    <ul id="author-list"><li><a href='/blog/authors/8823-scholar/'>木内智史之介 (11)</a></li><li><a href='/blog/authors/jiska/'>森裕介 (7)</a></li><li><a href='/blog/authors/aizawa/'>はらだ (1)</a></li><li><a href='/blog/authors/jun-nakada/'>中田潤 (1)</a></li><li><a href='/blog/authors/raharu/'>raharu(仮名) (1)</a></li><li><a href='/blog/authors/kametama/'>小亀珠美 (1)</a></li></ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - 8823-scholar -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'befoolblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://befool-inc.github.io/blog/2013/10/05/unity-study-10-prefab/';
+        var disqus_url = 'http://befool-inc.github.io/blog/2013/10/05/unity-study-10-prefab/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

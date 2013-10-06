@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: HomeBrew | BEFOOL blog]]></title>
-  <link href="http://befool-inc.github.io/blog/categories/HomeBrew/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Homebrew | BEFOOL blog]]></title>
+  <link href="http://befool-inc.github.io/blog/categories/Homebrew/atom.xml" rel="self"/>
   <link href="http://befool-inc.github.io/"/>
-  <updated>2013-09-30T18:57:40+09:00</updated>
+  <updated>2013-10-07T01:51:39+09:00</updated>
   <id>http://befool-inc.github.io/</id>
   <author>
     <name><![CDATA[8823-scholar]]></name>
@@ -14,13 +14,159 @@
 
   
   <entry>
-    <title type="html"><![CDATA[HomeBrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処]]></title>
+    <title type="html"><![CDATA[自分用のOS X設定 その３]]></title>
+    <link href="http://befool-inc.github.io/blog/2013/10/07/set-up-os-x-part-3/"/>
+    <updated>2013-10-07T02:00:00+09:00</updated>
+    <id>http://befool-inc.github.io/blog/2013/10/07/set-up-os-x-part-3</id>
+    <content type="html"><![CDATA[<p>森です。第１回にて<a href="/blog/2013/08/12/set-up-os-x-part-1/">２つの記事に分けて記述します</a>といいましたが…まとめきれず３つ目の記事になってしまいました。</p>
+
+<p>今回は <strong>Homebrew</strong> を用いて <strong>git</strong> . <strong>subversion</strong> , <strong>rbenv</strong> などなど自分の開発環境セットアップ方法をまとめます。</p>
+
+<p>このまとめを書いている自分のMacは <strong>MacBook Air 11-inch Mid 2011</strong> 、 <strong>OS X 10.8.4</strong> です。
+そのため他の機種、OSのバージョンではこのとおりの設定はできないかもしれませんのでご了承ください。</p>
+
+<p><img src="/images/posts/2013-08-12-set-up-os-x-part-1/my_os_x.png" alt="my OS X" /></p>
+
+<!-- more -->
+
+
+<h2>Homebrew</h2>
+
+<p><a href="http://brew.sh/index_ja.html">Homebrew</a> とはMacのパッケージ管理ツールです。
+最近は情報を探すときに Homebrew をやたら進められるので自分も乗っかっています。</p>
+
+<p>他にも有名なパッケージ管理ツールには <strong>MacPorts</strong> がありますが自分はMac歴が浅くて使ったことがないのです…。</p>
+
+<p>Homebrewのインストールは簡単です。ターミナルに下記コマンドを流すだけです。</p>
+
+<p><code>bash
+$ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+</code></p>
+
+<p>インストールは簡単にできましたが、使用するにはもう一手間必要で、 <em>Command Line Tools for Xcode</em> か <em>Xcode</em> をインストールする必要があります。
+自分はXcodeを使っていないのでCommand Line Tools for Xcodeを使用しています。</p>
+
+<p><a href="https://developer.apple.com/downloads/index.action">Apple Developer</a> で <em>Xcode</em> で検索してインストール用のdmgをダウンロードしてください。</p>
+
+<p><img src="/images/posts/2013-10-07-set-up-os-x-part-3/download-command-line-tools-for-xcode.png" alt="Download Command Line Tools for Xcode" /></p>
+
+<p>ダウンロードするにはApple IDが必要ですので別途登録しておきましょう。</p>
+
+<p>インストールの詳細は <a href="https://github.com/mxcl/homebrew/wiki/Installation">wiki</a> を参照してください。</p>
+
+<p>インストールが完了したら以降は下記コマンドでHomebrewのパッケージをインストールできます。</p>
+
+<p><code>bash
+$ brew install [package]
+</code></p>
+
+<p>次はHomebrewを利用してインストールするツール群の説明です。</p>
+
+<h3>bash-completion</h3>
+
+<p>とりあえずターミナルの補完を有効にしたいので <em>bash-completion</em> をインストールします。</p>
+
+<p><code>bash
+$ brew install bash-completion
+</code></p>
+
+<p>インストール後は <code>$HOME/.profile</code> に下記設定を追加して補完設定を読み込むようにします。</p>
+
+<p><code>bash
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+</code></p>
+
+<p><code>source $HOME/.profile</code> するかターミナルを再起動して設定を反映しておきましょう。</p>
+
+<h3>Git</h3>
+
+<p>インストール必須ですね。</p>
+
+<p><code>bash
+$ brew install git
+</code></p>
+
+<p>gitで日本語ファイル名が数字で表示されてしまうので（そもそも日本語ファイル名を使うなというツッコミはありますが）gitconfigに下記設定を追加します。</p>
+
+<p><code>bash
+$ git config --global core.quotepath false
+</code></p>
+
+<p>あとはお好みでgitconfigを弄ればいいでしょう。
+自分のgitconfigはこんなかんじです。 <a href="https://github.com/jiska/dotfiles/blob/master/.gitconfig">jiskaのgitconfig</a></p>
+
+<p>さらにGitのブランチ名をターミナルに表示したいので
+<code>$HOME/.profile</code> に下記設定を追加してます。</p>
+
+<p><code>bash
+PS1='\u:\w\$ $(__git_ps1 "[%s] ")'
+</code></p>
+
+<h3>Subversion</h3>
+
+<p><a href="/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/">別の記事</a>でも触れているのですが
+自分は <em>unicode-path</em> オプションを利用したいので <strong>Subversion 1.7</strong> を使用しています。</p>
+
+<p>Homebrewの標準レポジトリではコマンド１発でSubersion 1.7系をインストールすることができません。
+そこで <strong>homebrew/versions</strong> をtapして <strong>subversion17</strong> をインストールします。
+unicode-pathオプションも忘れずに。</p>
+
+<p><code>bash
+$ brew tap homebrew/versions
+$ brew install subversion17 --unicode-path
+</code></p>
+
+<h3>rbenv</h3>
+
+<p>Rubyもちょっとしたワンライナー書いたり便利ツール作ったりするときに使ってます。</p>
+
+<p><code>bash
+$ brew install rbenv ruby-build
+</code></p>
+
+<p>例によって下記設定を <code>$HOME/.profile</code> に追加します。</p>
+
+<p><code>bash
+if which rbenv &gt; /dev/null; then eval "$(rbenv init -)"; fi
+</code></p>
+
+<h3>PHP</h3>
+
+<p>今現在PHPを用いた開発のお仕事をしていますがMac上でPHPアプリケーションを動かすことがほとんどありません…
+開発する場合はVMに環境構築してます。</p>
+
+<p>それでもローカルでちょっと確認したいなって場合があるのでPHPをインストールしてます。</p>
+
+<p>HomebrewでPHPをインストールするために <a href="https://github.com/josegonzalez/homebrew-php">josegonzalez/homebrew-php</a> をtapしています。</p>
+
+<p>インストールオプションはお好みで。あとWebサーバーは <em>Nginx</em> 使ってますのでNginxもインストールしときます</p>
+
+<p><code>bash
+$ brew tap homebrew/dupes
+$ brew tap josegonzalez/homebrew-php
+$ brew install php54 --without-apache --with-fpm
+$ brew install nginx
+</code></p>
+
+<h2>最後に</h2>
+
+<p>自分の開発環境のセットアップ手順のまとめみたいなものをツラツラと書き続けてきましたがようやくひとまとまりしました。
+正直、上記の手順がめんどくさいので自動でセットアップをしたいなあと思うこのごろ。</p>
+
+<p><a href="http://boxen.github.com/">Boxen</a> を使って今までの手順をレシピにして開発環境のセットアップ自動化してみようとおもいます。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HomebrewでSubversion17をインストールする際のunicode-pathオプションでのエラー対処]]></title>
     <link href="http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch/"/>
     <updated>2013-09-30T15:49:00+09:00</updated>
     <id>http://befool-inc.github.io/blog/2013/09/30/fix-homebrew-subversion17-unicode-patch</id>
     <content type="html"><![CDATA[<p>森です。アクセルハンマー派生だけで村クエクリアするべく奮闘中です。</p>
 
-<p>仕事の都合上 <strong>subversion</strong> を使うことが多いのですが、 <strong>HomeBrew</strong> でインストールする際に
+<p>仕事の都合上 <strong>subversion</strong> を使うことが多いのですが、 <strong>Homebrew</strong> でインストールする際に
 <strong>--unicode-path</strong> オプション指定時にエラーが出てしまい困っていたので暫定対処をしたのでその経緯をまとめました。</p>
 
 <h2>お断り</h2>
@@ -34,7 +180,7 @@
 
 <h2>前提</h2>
 
-<p>HomeBrewでそのままsubversionをインストールすると <em>subversion 1.8</em> になります。
+<p>Homebrewでそのままsubversionをインストールすると <em>subversion 1.8</em> になります。
 subversion 1.8では後述の <code>--unicode-path</code> オプションが利用できないため <em>subversion 1.7</em> を使用します。
 簡単にインストールしたいので <em>homebrew/versions</em> をtapして subversion 1.7用のパッケージ <em>subversion17</em> をインストールしています。</p>
 
